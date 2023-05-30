@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author HP
  */
 public class DBContext {
-    protected Connection connection;
+    //protected Connection connection;
 
     /*USE BELOW METHOD FOR YOUR DATABASE CONNECTION FOR BOTH SINGLE AND MULTILPE SQL SERVER INSTANCE(s)*/
  /*DO NOT EDIT THE BELOW METHOD, YOU MUST USE ONLY THIS ONE FOR YOUR DATABASE CONNECTION*/
@@ -26,8 +26,8 @@ public class DBContext {
             url = "jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName;
         }
         Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection(url, userID, password);
-        return connection;
+       // connection = DriverManager.getConnection(url, userID, password);
+        return DriverManager.getConnection(url, userID, password);
     }
     /*Insert your other code right after this comment*/
  /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
@@ -49,5 +49,11 @@ public class DBContext {
             Logger.getLogger(DBContext.class.getName()).log(Level.SEVERE, null, e);
         }
         return rs;
+    }
+     public static void main(String[] args) {
+        try {
+            System.out.println(new DBContext().getConnection());
+        } catch (Exception e) {
+        }
     }
 }

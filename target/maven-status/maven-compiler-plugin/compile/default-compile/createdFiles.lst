@@ -1,0 +1,9 @@
+Context\DBContext.class
+Entity\Account.class
+Entity\Quiz.class
+Entity\Module.class
+Entity\User.class
+Entity\Week.class
+Entity\Assignment.class
+Entity\Lesson.class
+Entity\Course.class
