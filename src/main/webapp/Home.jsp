@@ -15,7 +15,19 @@
     </head>
     <body> 
        
-    </div
+     <div class="grid-container">
+        <c:forEach var="course" items="${listCToView}">
+            <div class="grid-item">
+                <!-- Display course details here -->
+                <h2>${course.courseName}</h2>
+                <p>${course.courseDescription}</p>
+                <!-- Add more fields as needed -->
+
+                <!-- Example: Display course image -->
+                <img src="${course.imageUrl}" alt="${course.courseName}" width="200" height="150">
+            </div>
+        </c:forEach>
+    </div>
         
         
 
