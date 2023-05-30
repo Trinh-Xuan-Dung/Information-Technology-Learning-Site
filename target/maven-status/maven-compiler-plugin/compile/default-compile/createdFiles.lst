@@ -1,0 +1,12 @@
+Context\DBContext.class
+Entity\Account.class
+Entity\Quiz.class
+Entity\Module.class
+DAO\CourseDAOImplement.class
+Controller\HomeController.class
+Entity\User.class
+Entity\Week.class
+Entity\Assignment.class
+Entity\Lesson.class
+DAO\CourseDAO.class
+Entity\Course.class
