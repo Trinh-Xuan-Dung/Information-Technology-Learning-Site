@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package controller;
+package Controller;
 
 import DAO.CourseDAO;
 import DAO.CourseDAOImplement;
@@ -32,13 +32,14 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        CourseDAO dao = new CourseDAOImplement();
+       CourseDAO dao = new CourseDAOImplement();
         List<Course> list = new ArrayList<>();
         if(dao.getAllCourse()!=null){
             list=dao.getAllCourse();
         }
         req.setAttribute("listCToView", list);
          req.getRequestDispatcher("Home.jsp").forward(req, resp);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
