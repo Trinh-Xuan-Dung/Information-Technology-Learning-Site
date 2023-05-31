@@ -13,4 +13,5 @@ import java.util.List;
  */
 public interface CourseDAO {
     public List<Course> getAllCourse();
+    public int addNewCourse(Course course);
 }
