@@ -5,41 +5,39 @@
 package Controller;
 
 import DAO.CourseDAO;
-import DAO.CourseDAOImplement;
+import DAO.CourseDAOimplement;
 import Entity.Course;
 import java.io.IOException;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author HP
- */
+
 public class HomeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
-     * @param req servlet request
-     * @param resp servlet response
+     * @param request servlet request
+     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest req, HttpServletResponse resp)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       CourseDAO dao = new CourseDAOImplement();
+        CourseDAO dao = new CourseDAOimplement();
         List<Course> list = new ArrayList<>();
         if(dao.getAllCourse()!=null){
             list=dao.getAllCourse();
+          
         }
-        req.setAttribute("listCToView", list);
-         req.getRequestDispatcher("Home.jsp").forward(req, resp);
-        
+       
+        request.setAttribute("listCToView", list);
+         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

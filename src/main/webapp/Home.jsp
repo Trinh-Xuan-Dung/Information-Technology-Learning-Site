@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Home.jsp
-    Created on : May 30, 2023, 6:30:42 PM
+    Document   : Home
+    Created on : May 31, 2023, 2:59:00 AM
     Author     : HP
 --%>
 
@@ -10,26 +10,22 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-   
-        <title>Home Page</title>
+        <title>JSP Page</title>
     </head>
-    <body> 
-       
-     <div class="grid-container">
+    <body>
+        <h1>Home Page</h1>
+        <br>
+         <div class="grid-container">
         <c:forEach var="course" items="${listCToView}">
             <div class="grid-item">
                 <!-- Display course details here -->
                 <h2>${course.courseName}</h2>
                 <p>${course.courseDescription}</p>
                 <!-- Add more fields as needed -->
-
-                <!-- Example: Display course image -->
-                <img src="${course.imageUrl}" alt="${course.courseName}" width="200" height="150">
+                  
+                <img src="${course.imageUrlString}" alt="${course.courseName}" width="200" height="150">
             </div>
         </c:forEach>
     </div>
-        
-        
-
     </body>
 </html>

@@ -13,27 +13,22 @@ import java.time.LocalDate;
 public class Course {
     private int courseId;
     private String courseName;
-    private String courseDescription;
-    private String ImageUrl;
+    private String imageUrlString;
+    private String courseDescription;  
     private LocalDate dateCreate;
 
     public Course() {
     }
 
-    public Course(int courseId, String courseName, String courseDescription, LocalDate dateCreate) {
+    public Course(int courseId, String courseName, String imageUrlString, String courseDescription, LocalDate dateCreate) {
         this.courseId = courseId;
         this.courseName = courseName;
+        this.imageUrlString = imageUrlString;
         this.courseDescription = courseDescription;
         this.dateCreate = dateCreate;
     }
 
-    public Course(int courseId, String courseName, String courseDescription, String ImageUrl, LocalDate dateCreate) {
-        this.courseId = courseId;
-        this.courseName = courseName;
-        this.courseDescription = courseDescription;
-        this.ImageUrl = ImageUrl;
-        this.dateCreate = dateCreate;
-    }
+    
 
     public int getCourseId() {
         return courseId;
@@ -51,6 +46,16 @@ public class Course {
         this.courseName = courseName;
     }
 
+    public String getImageUrlString() {
+        return imageUrlString;
+    }
+
+    public void setImageUrlString(String imageUrlString) {
+        this.imageUrlString = imageUrlString;
+    }
+
+
+
     public String getCourseDescription() {
         return courseDescription;
     }
@@ -67,19 +72,13 @@ public class Course {
         this.dateCreate = dateCreate;
     }
 
-    public String getImageUrl() {
-        return ImageUrl;
-    }
-
-    public void setImageUrl(String ImageUrl) {
-        this.ImageUrl = ImageUrl;
-    }
-
     @Override
     public String toString() {
-        return "Course{" + "courseId=" + courseId + ", courseName=" + courseName + ", courseDescription=" + courseDescription + ", ImageUrl=" + ImageUrl + ", dateCreate=" + dateCreate + '}';
+        return "Course{" + "courseId=" + courseId + ", courseName=" + courseName + ", imageUrlString=" + imageUrlString + ", courseDescription=" + courseDescription + ", dateCreate=" + dateCreate + '}';
     }
 
     
-
+   
+    
+    
 }
