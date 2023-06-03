@@ -24,8 +24,10 @@
                 <!-- Add more fields as needed -->
                   
                 <img src="${course.imageUrlString}" alt="${course.courseName}" width="200" height="150">
+                <a href="CourseDetail?id=${course.courseId}">Detail</a>
             </div>
         </c:forEach>
+          
     </div>
     </body>
 </html>
