@@ -4,12 +4,16 @@
  */
 package Controller;
 
+import DAO.ModuleDAO;
+import DAO.ModuleDAOimplement;
+import Validation.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import  Entity.Module;
 
 /**
  *
@@ -34,7 +38,7 @@ public class AddModuleController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddModuleController</title>");            
+            out.println("<title>Servlet AddModuleController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AddModuleController at " + request.getContextPath() + "</h1>");
@@ -55,7 +59,13 @@ public class AddModuleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String stringId = request.getParameter("cid");
+        Validator validator = new Validator();
+        if (validator.checkIdIsValid(stringId) == true) {
+            request.setAttribute("courseid", stringId);
+            request.getRequestDispatcher("AddModule.jsp").forward(request, response);
+        }
+
     }
 
     /**
@@ -69,7 +79,25 @@ public class AddModuleController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String stringId = request.getParameter("courseId");
+        String name=request.getParameter("moduleName");
+        String des=request.getParameter("modulecourdescription");
+        int id = 0;
+        Validator validator = new Validator();
+        if (validator.checkIdIsValid(stringId) == true) {
+            id = Integer.parseInt(stringId);
+            ModuleDAO dao= new ModuleDAOimplement();
+            Module module= new Module(0, id, name, des);
+            
+            int  newId=0;
+                  newId=  dao.addNewModule(id, module);
+            if(newId>0){
+                
+            response.sendRedirect(request.getContextPath()+"/CourseDetail?id="+stringId);
+            }
+
+        }
+        
     }
 
     /**

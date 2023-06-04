@@ -11,17 +11,17 @@ package Entity;
 public class Module {
     private int moduleId;
     private int courseId;
-    private String ModuleName;
-    private String ModuleDescription;
+    private String moduleName;
+    private String moduleDescription;
 
     public Module() {
     }
 
-    public Module(int moduleId, int courseId, String ModuleName, String ModuleDescription) {
+    public Module(int moduleId, int courseId, String moduleName, String moduleDescription) {
         this.moduleId = moduleId;
         this.courseId = courseId;
-        this.ModuleName = ModuleName;
-        this.ModuleDescription = ModuleDescription;
+        this.moduleName = moduleName;
+        this.moduleDescription = moduleDescription;
     }
 
     public int getModuleId() {
@@ -41,25 +41,29 @@ public class Module {
     }
 
     public String getModuleName() {
-        return ModuleName;
+        return moduleName;
     }
 
-    public void setModuleName(String ModuleName) {
-        this.ModuleName = ModuleName;
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 
     public String getModuleDescription() {
-        return ModuleDescription;
+        return moduleDescription;
     }
 
-    public void setModuleDescription(String ModuleDescription) {
-        this.ModuleDescription = ModuleDescription;
+    public void setModuleDescription(String moduleDescription) {
+        this.moduleDescription = moduleDescription;
     }
 
     @Override
     public String toString() {
-        return "Module{" + "moduleId=" + moduleId + ", courseId=" + courseId + ", ModuleName=" + ModuleName + ", ModuleDescription=" + ModuleDescription + '}';
+        return "Module{" + "moduleId=" + moduleId + ", courseId=" + courseId + ", moduleName=" + moduleName + ", moduleDescription=" + moduleDescription + '}';
     }
+
+   
+
+    
     
     
     
