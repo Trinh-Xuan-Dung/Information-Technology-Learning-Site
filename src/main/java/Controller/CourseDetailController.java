@@ -4,8 +4,15 @@
  */
 package Controller;
 
+import DAO.CourseDAO;
+import DAO.CourseDAOimplement;
+import DAO.ModuleDAO;
+import DAO.ModuleDAOimplement;
+import Entity.Course;
+import Entity.Module;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +63,26 @@ public class CourseDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.sendRedirect(request.getContextPath()+"/CourseDetail.jsp");
+      String stringId=  request.getParameter("id");
+      if (stringId != null) {
+            try {
+                
+                int courseId = Integer.parseInt(stringId);
+                CourseDAO dao= new CourseDAOimplement();
+                Course course= dao.getCourseById(courseId);
+                ModuleDAO mdao= new ModuleDAOimplement();
+                List<Module> listm = mdao.getAllModuleOfCourseByCoureid(courseId);
+                request.setAttribute("ListmoduleByCourse",listm );
+                request.setAttribute("DetailOfcourse", course);
+                request.getRequestDispatcher("CourseDetail.jsp").forward(request, response);
+                
+                
+            } catch (NumberFormatException e) {
+           // return error page
+            }
+        } else {
+           //return error page
+        }
                 
     }
 

@@ -25,6 +25,8 @@
                   
                 <img src="${course.imageUrlString}" alt="${course.courseName}" width="200" height="150">
                 <a href="CourseDetail?id=${course.courseId}">Detail</a>
+                <a href="CourseUpdate?id=${course.courseId}">Update</a>
+                <a href="CourseDelete?id=${course.courseId}">Delete</a>
             </div>
         </c:forEach>
           
