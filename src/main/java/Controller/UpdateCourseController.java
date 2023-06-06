@@ -85,7 +85,7 @@ public class UpdateCourseController extends HttpServlet {
         if(daosc.getAllSubjectCorseByCourseId(id)!=null){
             listSc =daosc.getAllSubjectCorseByCourseId(id);
         }
-                Course course = daoc.getCourseById(1);
+                Course course = daoc.getCourseById(id);
         request.setAttribute("listSubjectToView", listS);
         request.setAttribute("courseId", id);
         request.setAttribute("listScSelected", listSc);
