@@ -38,9 +38,9 @@
                     <c:forEach var="week" items="${listWeekCoursebyModuleId}">
                         <div>
 
-                            <p>Module Name: ${week.weekNumber}</p>
-                            <p>Module Description: ${week.weekTilte}</p>
-                            <p>Module Description: ${week.weekDes}</p>
+                            <p>week number ${week.weekNumber}</p>
+                            <p>week Title ${week.weekTilte}</p>
+                            <p>week Description: ${week.weekDes}</p>
                             <a href="WeekDetails?mid=${week.weekId}">See all </a>
                             <a href="Add?mid=${week.weekId}">Add Quiz</a>
                             <a href="Add?mid=${week.weekId}">Add Lesson</a>

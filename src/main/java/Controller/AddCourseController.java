@@ -12,6 +12,7 @@ import DAO.SubjectDAO;
 import DAO.SubjectDAOimplement;
 import Entity.Course;
 import Entity.Subject;
+import Entity.SubjectCourse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
@@ -33,12 +34,12 @@ public class AddCourseController extends HttpServlet {
      * methods.
      *
      * @param request servlet request
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
+     *
+     *
+     *
+     *
+     *
+     *
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -93,7 +94,7 @@ public class AddCourseController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String courseName = request.getParameter("coursename");
-        String courseSubject = request.getParameter("selectSubject");
+        String[] courseSubject = request.getParameterValues("selectedSubjects");
         String couresDescription = request.getParameter("courdescription");
         String courseImgae = request.getParameter("courseimage");
 
@@ -101,30 +102,36 @@ public class AddCourseController extends HttpServlet {
         CourseDAO cdao = new CourseDAOimplement();
         SubjectDAO sdao = new SubjectDAOimplement();
         int addCourse = cdao.addNewCourse(coureToAdd);
+
         if (addCourse != 0 && courseSubject != null) {
-            int subjectid = Integer.parseInt(courseSubject);
 
-            if (subjectid > 0) {
+            List<SubjectCourse> listsc = new ArrayList<>();
+            for (String subjectId : courseSubject) {
+                int sjId = Integer.parseInt(subjectId);
+                SubjectCourse sc = new SubjectCourse(0, sjId, addCourse);
+                listsc.add(sc);
+            }
+
+            if (listsc != null) {
                 SubjectCourseDAO scdao = new SubjectCourseDAOimplement();
+                boolean finalResult = true;
+                for (SubjectCourse subjectCourse : listsc) {
+                    boolean result = scdao.AddToSubjectCourse(subjectCourse);
+                    if (!result) {
+                        finalResult = false;
+                        break; // Break the loop if any insertion fails
+                    }
+                }
 
-                boolean finalresul = scdao.AddToSubjectCourse(subjectid, addCourse);
-                if (finalresul == true) {
-//                    List<Course> list = new ArrayList<>();
-//                    if (cdao.getAllCourse() != null) {
-//                        list = cdao.getAllCourse();
-//
-//                    }
-//
-//                    request.setAttribute("listCToView", list);
-//                    request.getRequestDispatcher("Home.jsp").forward(request, response);
-                    response.sendRedirect(request.getContextPath()+"/HomeController");
-                }else{
-                    response.sendRedirect(request.getContextPath()+"/AddCourse");
+                if (finalResult == true) {
+                    response.sendRedirect(request.getContextPath() + "/HomeController");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/AddCourse");
                 }
             }
 
-        }else{
-            response.sendRedirect(request.getContextPath()+"/AddCourse.jsp");
+        } else {
+            response.sendRedirect(request.getContextPath() + "/AddCourse.jsp");
         }
 
     }

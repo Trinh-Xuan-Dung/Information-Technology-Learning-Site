@@ -7,12 +7,12 @@ Validation\Validator.class
 Entity\Module.class
 DAO\SubjectDAOimplement.class
 Controller\HomeController.class
+DAO\CourseDAO.class
+Context\DBContext.class
+Controller\CourseDetailController.class
 Controller\AddModuleController.class
 DAO\ModuleDAO.class
-DAO\CourseDAO.class
 Entity\Course.class
-Context\DBContext.class
 Entity\SubjectCourse.class
-Controller\CourseDetailController.class
 Entity\Subject.class
 DAO\SubjectDAO.class
