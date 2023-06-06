@@ -50,7 +50,7 @@ public class ModuleDAOimplement implements ModuleDAO {
         }
         return keygenarateInsert;
     }
-
+   
     @Override
     public List<Module> getAllModuleOfCourseByCoureid(int i) {
         List<Module> listModule = new ArrayList<>();
@@ -80,5 +80,34 @@ public class ModuleDAOimplement implements ModuleDAO {
         for (Module module : d) {
             System.err.println(module);
         }
+    }
+
+    @Override
+    public Module getModuleOfCourseByCoureid(int i) {
+        Module module = new Module();
+        try {
+            
+            
+            con = context.getConnection();
+            String sql = "SELECT ModuleId, CourseId, ModuleName, ModuleDescription FROM learning_site.module WHERE ModuleId =?";
+            // ResultSet rs =  context.getDataByRawSQL(sql);
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, i);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                
+                 module.setModuleId(rs.getInt(1));
+                 module.setCourseId(rs.getInt(2));
+                 module.setModuleName(rs.getString(3));
+                 module.setModuleDescription(rs.getString(4));
+                 
+               
+            }
+            
+        } catch (Exception ex) {
+            Logger.getLogger(ModuleDAOimplement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return module;
     }
 }
