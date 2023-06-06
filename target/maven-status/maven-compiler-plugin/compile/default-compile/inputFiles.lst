@@ -4,9 +4,12 @@ D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\ModuleDAO.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\Controller\AddCourseController.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\Context\DBContext.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\Validation\Validator.java
+D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\WeekDAO.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\CourseDAO.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\SubjectDAOimplement.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\Controller\HomeController.java
+D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\WeekDAOimplement.java
+D:\netbean\NetbeanProject\Learning_Site\src\main\java\Controller\ModuleDetailController.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\CourseDAOimplement.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\Entity\Subject.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\Controller\AddModuleController.java
@@ -14,5 +17,7 @@ D:\netbean\NetbeanProject\Learning_Site\src\main\java\Entity\SubjectCourse.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\Entity\Module.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\SubjectCourseDAOimplement.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\SubjectDAO.java
+D:\netbean\NetbeanProject\Learning_Site\src\main\java\Controller\AddWeekController.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\DAO\ModuleDAOimplement.java
 D:\netbean\NetbeanProject\Learning_Site\src\main\java\Entity\Course.java
+D:\netbean\NetbeanProject\Learning_Site\src\main\java\Entity\WeekCourse.java

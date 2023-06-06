@@ -10,7 +10,16 @@ package Validation;
  */
 public class Validator {
 
-    public boolean checkIdIsValid(String id) {
+    public static int parseStringToInt(String str) {
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            
+            return 0; 
+        }
+    }
+
+    public static boolean checkIdIsValid(String id) {
         if (id != null) {
             id = id.trim();
 
