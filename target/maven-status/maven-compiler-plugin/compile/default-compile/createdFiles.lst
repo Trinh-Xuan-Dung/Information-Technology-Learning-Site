@@ -1,5 +1,7 @@
 Controller\AddCourseController.class
+Entity\WeekCourse.class
 DAO\SubjectCourseDAO.class
+Controller\ModuleDetailController.class
 DAO\ModuleDAOimplement.class
 DAO\SubjectCourseDAOimplement.class
 DAO\CourseDAOimplement.class
@@ -7,12 +9,16 @@ Validation\Validator.class
 Entity\Module.class
 DAO\SubjectDAOimplement.class
 Controller\HomeController.class
-DAO\CourseDAO.class
-Context\DBContext.class
-Controller\CourseDetailController.class
 Controller\AddModuleController.class
 DAO\ModuleDAO.class
+DAO\CourseDAO.class
+DAO\WeekDAOimplement.class
 Entity\Course.class
+Context\DBContext.class
+Controller\UpdateCourseController.class
 Entity\SubjectCourse.class
+Controller\CourseDetailController.class
 Entity\Subject.class
+Controller\AddWeekController.class
+DAO\WeekDAO.class
 DAO\SubjectDAO.class
