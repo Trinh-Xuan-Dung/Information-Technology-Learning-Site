@@ -4,18 +4,22 @@
  */
 package Controller;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOimplement;
-import Entity.Course;
+import DAO.ModuleDAO;
+import DAO.ModuleDAOimplement;
+import Validation.Validator;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import  Entity.Module;
 
-public class HomeController extends HttpServlet {
+/**
+ *
+ * @author HP
+ */
+public class AddModuleController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,15 +32,19 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CourseDAO dao = new CourseDAOimplement();
-        List<Course> list = new ArrayList<>();
-        if(dao.getAllCourse()!=null){
-            list=dao.getAllCourse();
-          
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet AddModuleController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet AddModuleController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-       
-        request.setAttribute("listCToView", list);
-         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,7 +59,13 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String stringId = request.getParameter("cid");
+        Validator validator = new Validator();
+        if (validator.checkIdIsValid(stringId) == true) {
+            request.setAttribute("courseid", stringId);
+            request.getRequestDispatcher("AddModule.jsp").forward(request, response);
+        }
+
     }
 
     /**
@@ -65,7 +79,25 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String stringId = request.getParameter("courseId");
+        String name=request.getParameter("moduleName");
+        String des=request.getParameter("modulecourdescription");
+        int id = 0;
+        Validator validator = new Validator();
+        if (validator.checkIdIsValid(stringId) == true) {
+            id = Integer.parseInt(stringId);
+            ModuleDAO dao= new ModuleDAOimplement();
+            Module module= new Module(0, id, name, des);
+            
+            int  newId=0;
+                  newId=  dao.addNewModule(id, module);
+            if(newId>0){
+                
+            response.sendRedirect(request.getContextPath()+"/CourseDetail?id="+stringId);
+            }
+
+        }
+        
     }
 
     /**

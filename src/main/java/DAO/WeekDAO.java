@@ -4,14 +4,15 @@
  */
 package DAO;
 
-import Entity.SubjectCourse;
+import Entity.WeekCourse;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-public interface SubjectCourseDAO {
-    public boolean  AddToSubjectCourse(SubjectCourse sjc);
-    public List<SubjectCourse> getAllSubjectCorseByCourseId(int courseId);
+public interface WeekDAO {
+    public int AddNewWeekCOurse(int moduleId,WeekCourse week);
+    public List<WeekCourse> getAllWeekByModule(int moduleId);
+    
 }

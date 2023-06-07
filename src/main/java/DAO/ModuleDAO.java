@@ -3,15 +3,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
-
-import Entity.SubjectCourse;
+import Entity.Module;
 import java.util.List;
-
 /**
  *
  * @author HP
  */
-public interface SubjectCourseDAO {
-    public boolean  AddToSubjectCourse(SubjectCourse sjc);
-    public List<SubjectCourse> getAllSubjectCorseByCourseId(int courseId);
+public interface ModuleDAO {
+    public int addNewModule(int courseid,Module module);
+    public List<Module> getAllModuleOfCourseByCoureid(int courseId);
+     public Module getModuleOfCourseByCoureid(int moduleId);
+    
+    
 }

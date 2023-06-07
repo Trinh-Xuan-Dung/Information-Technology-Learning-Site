@@ -8,6 +8,26 @@
         <servlet-name>AddCourse</servlet-name>
         <servlet-class>Controller.AddCourseController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CourseDetailController</servlet-name>
+        <servlet-class>Controller.CourseDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddModuleController</servlet-name>
+        <servlet-class>Controller.AddModuleController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddWeekController</servlet-name>
+        <servlet-class>Controller.AddWeekController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModuleDetailController</servlet-name>
+        <servlet-class>Controller.ModuleDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCourseController</servlet-name>
+        <servlet-class>Controller.UpdateCourseController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/HomeController</url-pattern>
@@ -15,6 +35,26 @@
     <servlet-mapping>
         <servlet-name>AddCourse</servlet-name>
         <url-pattern>/AddCourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CourseDetailController</servlet-name>
+        <url-pattern>/CourseDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddModuleController</servlet-name>
+        <url-pattern>/AddModule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddWeekController</servlet-name>
+        <url-pattern>/AddWeek</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModuleDetailController</servlet-name>
+        <url-pattern>/ModuleDetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCourseController</servlet-name>
+        <url-pattern>/UpdateCourse</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

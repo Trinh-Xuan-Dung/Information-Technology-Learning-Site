@@ -27,19 +27,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author HP
  */
-public class AddCourseController extends HttpServlet {
+public class UpdateCourseController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
-     *
-     *
-     *
-     *
-     *
-     *
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -52,10 +46,10 @@ public class AddCourseController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCourse</title>");
+            out.println("<title>Servlet UpdateCourseController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCourse at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateCourseController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -74,64 +68,59 @@ public class AddCourseController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SubjectDAO dao = new SubjectDAOimplement();
+        CourseDAO daoc = new CourseDAOimplement();
+        SubjectCourseDAO daosc=new SubjectCourseDAOimplement();
+        String stringId = request.getParameter("id");
+
         List<Subject> listS = new ArrayList<>();
+        List<SubjectCourse> listSc = new ArrayList<>();
+       
         if (dao.getAllSubject() != null) {
             listS = dao.getAllSubject();
         }
+        int id = 0;
+        if (Validation.Validator.checkIdIsValid(stringId)) {
+            id = Integer.parseInt(stringId);
+        }
+        if(daosc.getAllSubjectCorseByCourseId(id)!=null){
+            listSc =daosc.getAllSubjectCorseByCourseId(id);
+        }
+                Course course = daoc.getCourseById(id);
         request.setAttribute("listSubjectToView", listS);
-        request.getRequestDispatcher("AddCourse.jsp").forward(request, response);
+        request.setAttribute("courseId", id);
+        request.setAttribute("listScSelected", listSc);
+        request.setAttribute("oldCourse", course);
+        request.getRequestDispatcher("UpdateCourse.jsp").forward(request, response);
     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
+     * @param req servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse response)
             throws ServletException, IOException {
-        String courseName = request.getParameter("coursename");
-        String[] courseSubject = request.getParameterValues("selectedSubjects");
-        String couresDescription = request.getParameter("courdescription");
-        String courseImgae = request.getParameter("courseimage");
+        String stringId = req.getParameter("courseidupdate");
+        String name = req.getParameter("coursenameupdate");
+        String imageUrl = req.getParameter("courseimageupdate");
+        String subject = req.getParameter("selectSubjectupdate");
+        String description = req.getParameter("courdescriptionupdate");
+        int id = 0;
+        if (Validation.Validator.checkIdIsValid(stringId)) {
+            id = Integer.parseInt(stringId);
+        }
+        CourseDAO dao = new CourseDAOimplement();
+        Course course = new Course(id, name, imageUrl, description, null);
+        boolean f = dao.UpdateCourseById(course);
+        if (f) {
 
-        Course coureToAdd = new Course(0, courseName, courseImgae, couresDescription, LocalDate.MAX);
-        CourseDAO cdao = new CourseDAOimplement();
-        SubjectDAO sdao = new SubjectDAOimplement();
-        int addCourse = cdao.addNewCourse(coureToAdd);
-
-        if (addCourse != 0 && courseSubject != null) {
-
-            List<SubjectCourse> listsc = new ArrayList<>();
-            for (String subjectId : courseSubject) {
-                int sjId = Integer.parseInt(subjectId);
-                SubjectCourse sc = new SubjectCourse(0, sjId, addCourse);
-                listsc.add(sc);
-            }
-
-            if (listsc != null) {
-                SubjectCourseDAO scdao = new SubjectCourseDAOimplement();
-                boolean finalResult = true;
-                for (SubjectCourse subjectCourse : listsc) {
-                    boolean result = scdao.AddToSubjectCourse(subjectCourse);
-                    if (!result) {
-                        finalResult = false;
-                        break; // Break the loop if any insertion fails
-                    }
-                }
-
-                if (finalResult == true) {
-                    response.sendRedirect(request.getContextPath() + "/HomeController");
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/AddCourse");
-                }
-            }
-
+            response.sendRedirect(req.getContextPath() + "/HomeController");
         } else {
-            response.sendRedirect(request.getContextPath() + "/AddCourse.jsp");
+            response.sendRedirect(req.getContextPath() + "/UpdateCourse");
         }
 
     }
