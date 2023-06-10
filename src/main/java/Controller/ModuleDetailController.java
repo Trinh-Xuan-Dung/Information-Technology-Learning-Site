@@ -4,19 +4,15 @@
  */
 package Controller;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOimplement;
-import DAO.SubjectCourseDAO;
-import DAO.SubjectCourseDAOimplement;
-import DAO.SubjectDAO;
-import DAO.SubjectDAOimplement;
-import Entity.Course;
-import Entity.Subject;
-import Entity.SubjectCourse;
+import DAO.ModuleDAO;
+import Entity.Module;
+import DAO.ModuleDAOimplement;
+import DAO.WeekDAO;
+import DAO.WeekDAOimplement;
+import Entity.WeekCourse;
+import Validation.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,19 +23,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author HP
  */
-public class AddCourseController extends HttpServlet {
+public class ModuleDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
      * @param request servlet request
-     *
-     *
-     *
-     *
-     *
-     *
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
@@ -52,10 +42,10 @@ public class AddCourseController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCourse</title>");
+            out.println("<title>Servlet ModuleDetailController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCourse at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ModuleDetailController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -73,13 +63,21 @@ public class AddCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SubjectDAO dao = new SubjectDAOimplement();
-        List<Subject> listS = new ArrayList<>();
-        if (dao.getAllSubject() != null) {
-            listS = dao.getAllSubject();
+        String stringId = request.getParameter("mid");
+        Validator val = new Validator();
+        if (val.checkIdIsValid(stringId)) {
+            ModuleDAO dao = new ModuleDAOimplement();
+            int id = Integer.parseInt(stringId);
+            Module module = dao.getModuleOfCourseByCoureid(id);
+            WeekDAO wdao= new WeekDAOimplement();
+            List<WeekCourse> listw= wdao.getAllWeekByModule(id);
+           
+                request.setAttribute("moduleDetail", module);
+                request.setAttribute("listWeekCoursebyModuleId", listw);
+                request.getRequestDispatcher("ModuleDetail.jsp").forward(request, response);
+
+            
         }
-        request.setAttribute("listSubjectToView", listS);
-        request.getRequestDispatcher("AddCourse.jsp").forward(request, response);
     }
 
     /**
@@ -93,47 +91,7 @@ public class AddCourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String courseName = request.getParameter("coursename");
-        String[] courseSubject = request.getParameterValues("selectedSubjects");
-        String couresDescription = request.getParameter("courdescription");
-        String courseImgae = request.getParameter("courseimage");
-
-        Course coureToAdd = new Course(0, courseName, courseImgae, couresDescription, LocalDate.MAX);
-        CourseDAO cdao = new CourseDAOimplement();
-        SubjectDAO sdao = new SubjectDAOimplement();
-        int addCourse = cdao.addNewCourse(coureToAdd);
-
-        if (addCourse != 0 && courseSubject != null) {
-
-            List<SubjectCourse> listsc = new ArrayList<>();
-            for (String subjectId : courseSubject) {
-                int sjId = Integer.parseInt(subjectId);
-                SubjectCourse sc = new SubjectCourse(0, sjId, addCourse);
-                listsc.add(sc);
-            }
-
-            if (listsc != null) {
-                SubjectCourseDAO scdao = new SubjectCourseDAOimplement();
-                boolean finalResult = true;
-                for (SubjectCourse subjectCourse : listsc) {
-                    boolean result = scdao.AddToSubjectCourse(subjectCourse);
-                    if (!result) {
-                        finalResult = false;
-                        break; // Break the loop if any insertion fails
-                    }
-                }
-
-                if (finalResult == true) {
-                    response.sendRedirect(request.getContextPath() + "/HomeController");
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/AddCourse");
-                }
-            }
-
-        } else {
-            response.sendRedirect(request.getContextPath() + "/AddCourse.jsp");
-        }
-
+        processRequest(request, response);
     }
 
     /**

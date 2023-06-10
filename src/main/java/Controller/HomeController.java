@@ -15,10 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author HP
- */
 public class HomeController extends HttpServlet {
 
     /**
@@ -34,8 +30,8 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         CourseDAO dao = new CourseDAOimplement();
         List<Course> list = new ArrayList<>();
-        if(dao.getAllCourse()!=null){
-            list=dao.getAllCourse();
+        if(dao.getAllCourseJoin()!=null){
+            list=dao.getAllCourseJoin();
           
         }
        

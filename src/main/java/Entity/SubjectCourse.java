@@ -12,6 +12,8 @@ public class SubjectCourse {
     private int subjectCourseId;
     private int subjectId;
     private int courseId;
+    private  Subject subject;
+    private  Course course;
 
     public SubjectCourse() {
     }
@@ -20,6 +22,20 @@ public class SubjectCourse {
         this.subjectCourseId = subjectCourseId;
         this.subjectId = subjectId;
         this.courseId = courseId;
+    }
+
+    public SubjectCourse(int subjectCourseId, Subject subject, Course course) {
+        this.subjectCourseId = subjectCourseId;
+        this.subject = subject;
+        this.course = course;
+    }
+
+    public SubjectCourse(int subjectCourseId, int subjectId, int courseId, Subject subject, Course course) {
+        this.subjectCourseId = subjectCourseId;
+        this.subjectId = subjectId;
+        this.courseId = courseId;
+        this.subject = subject;
+        this.course = course;
     }
 
     public int getSubjectCourseId() {
@@ -46,9 +62,27 @@ public class SubjectCourse {
         this.courseId = courseId;
     }
 
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     @Override
     public String toString() {
-        return "SubjectCourse{" + "subjectCourseId=" + subjectCourseId + ", subjectId=" + subjectId + ", courseId=" + courseId + '}';
+        return "SubjectCourse{" + "subjectCourseId=" + subjectCourseId + ", subjectId=" + subjectId + ", courseId=" + courseId + ", subject=" + subject + ", course=" + course + '}';
     }
+
+    
     
 }
