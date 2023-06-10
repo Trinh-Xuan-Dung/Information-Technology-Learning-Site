@@ -6,6 +6,8 @@ package DAO;
 
 import Context.DBContext;
 import Entity.Course;
+import Entity.Subject;
+import Entity.SubjectCourse;
 import com.mysql.cj.xdevapi.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,7 +15,9 @@ import java.sql.ResultSet;
 
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -31,7 +35,7 @@ public class CourseDAOimplement implements CourseDAO {
 
         try {
             Connection conn = context.getConnection();
-            String sql = "SELECT CourseId, CourseName, Image, CourseDescription, DateCreate FROM learning_site.course";
+            String sql = "SELECT CourseId, CourseName, Image, CourseDescription, DateCreate,CourseTitle FROM learning_site.course";
             // ResultSet rs =  context.getDataByRawSQL(sql);
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -106,8 +110,8 @@ public class CourseDAOimplement implements CourseDAO {
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
-                return true; 
-            }else{
+                return true;
+            } else {
                 return false;
             }
         } catch (Exception ex) {
@@ -118,18 +122,63 @@ public class CourseDAOimplement implements CourseDAO {
 
     @Override
     public List<Course> getAllCourseJoin() {
-        List<Course> listC = new ArrayList<>();
+        List<Course> courses = new ArrayList<>();
 
         try {
-            Connection conn = context.getConnection();
-            String sql = "SELECT c.CourseId, c.CourseName, c.CourseDescription, c.ImageUrlString, s.SubjectId, s.SubjectName, s.SubjectDescription "
-                    + "FROM Course c JOIN SubjectCourse sc ON c.CourseId = sc.CourseId JOIN Subject s ON sc.SubjectId = s.SubjectId";
-            // ResultSet rs =  context.getDataByRawSQL(sql);
-            
+            String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription,Course.DateCreate,Course.CourseTitle, "
+                    + "SubjectCourse.CourseSubjectId, SubjectCourse.SubjectId, "
+                    + "Subject.SubjectName, Subject.SubjectDescription "
+                    + "FROM Course "
+                    + "JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
+                    + "JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
 
+            Connection con = context.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            Map<Integer, Course> courseMap = new HashMap<>();
+
+            while (rs.next()) {
+                int courseId = rs.getInt("CourseId");
+
+                if (!courseMap.containsKey(courseId)) {
+                    Course course = new Course();
+                    course.setCourseId(courseId);
+                    course.setCourseName(rs.getString("CourseName"));
+                    course.setCourseTitle(rs.getString("CourseTitle"));
+                    course.setImageUrlString(rs.getString("Image"));
+                    course.setCourseDescription(rs.getString("CourseDescription"));
+                    course.setDateCreate(rs.getDate("DateCreate").toLocalDate());
+                    List<SubjectCourse> s = new ArrayList<>();
+                    course.setSubjects(s);
+                    courseMap.put(courseId, course);
+                }
+
+                SubjectCourse subjectCourse = new SubjectCourse();
+                subjectCourse.setSubjectCourseId(rs.getInt("CourseSubjectId"));
+                subjectCourse.setSubjectId(rs.getInt("SubjectId"));
+                subjectCourse.setSubject(new Subject(rs.getInt("SubjectId"), rs.getString("SubjectName"), rs.getString("SubjectDescription")));
+
+                Course course = courseMap.get(courseId);
+                course.getSubjects().add(subjectCourse);
+            }
+
+            courses.addAll(courseMap.values());
+
+            rs.close();
+            ps.close();
         } catch (Exception e) {
+            e.printStackTrace();
         }
-        return listC;
+
+        return courses;
     }
 
+    public static void main(String[] args) {
+        CourseDAO dao = new CourseDAOimplement();
+        List<Course> list = dao.getAllCourseJoin();
+        for (Course course : list) {
+            System.out.println("\n" + course);
+        }
+    }
 }

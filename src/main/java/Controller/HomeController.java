@@ -30,8 +30,8 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         CourseDAO dao = new CourseDAOimplement();
         List<Course> list = new ArrayList<>();
-        if(dao.getAllCourse()!=null){
-            list=dao.getAllCourse();
+        if(dao.getAllCourseJoin()!=null){
+            list=dao.getAllCourseJoin();
           
         }
        

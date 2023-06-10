@@ -16,6 +16,6 @@ public interface CourseDAO {
     public int addNewCourse(Course course);
     public Course getCourseById(int courseId);
     public boolean UpdateCourseById(Course course);
-      public List<Course> getAllCourseJoin();
+    public List<Course> getAllCourseJoin();
     
 }

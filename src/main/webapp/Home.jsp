@@ -69,16 +69,43 @@
                 <c:forEach var="course" items="${listCToView}">
                     <div class="col">
                         <div class="card shadow-sm">
-                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                            <!--                            <svg class="bd-placeholder-img card-img-top"   width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>-->
+                            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                            <title>${course.courseName}</title>
+                            <rect width="100%" height="100%" fill="#55595c"></rect>
+                            <image xlink:href="${course.imageUrlString}" width="100%" height="100%" preserveAspectRatio="xMidYMid slice"></image>
+                            <!--                            <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>-->
+                            </svg>
 
                             <div class="card-body">
-                                <p class="card-text">${course.courseDescription}</p>
+                                <h5 class="card-text">${course.courseName} </h5>
+                                    <p class="card-text">${course.courseTitle} </p>
+
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary" href="CourseDetail?id=${course.courseId}" >View</button>
                                         <button type="button" class="btn btn-sm btn-outline-secondary" href="CourseDelete?id=${course.courseId}">Edit</button>
                                     </div>
-                                    <small class="text-muted">9 mins</small>
+                                    <small class="text-muted"  >
+
+                                        <c:forEach var="subjects" items="${course.subjects}" >
+
+                                            <c:choose>
+                                                <c:when test="${subjects.subject.subjectName == 'Java'}">
+                                                    <span style="color: blueviolet;">${subjects.subject.subjectName}</span> &nbsp;
+                                                </c:when>
+                                                <c:when test="${subjects.subject.subjectName == 'Python'}">
+                                                    <span style="color: orange;">${subjects.subject.subjectName}</span> &nbsp;
+                                                </c:when>
+                                                <c:when test="${subjects.subject.subjectName == 'C#'}">
+                                                    <span style="color: green;">${subjects.subject.subjectName}</span> &nbsp;
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <span>${subjects.subject.subjectName}</span> &nbsp;
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:forEach>
+                                    </small>
                                 </div>
                             </div>
                         </div>
