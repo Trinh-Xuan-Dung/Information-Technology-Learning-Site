@@ -69,7 +69,7 @@ public class CourseDetailController extends HttpServlet {
                 
                 int courseId = Integer.parseInt(stringId);
                 CourseDAO dao= new CourseDAOimplement();
-                Course course= dao.getCourseById(courseId);
+                Course course= dao.getCourseJoin(courseId);
                 ModuleDAO mdao= new ModuleDAOimplement();
                 List<Module> listm = mdao.getAllModuleOfCourseByCoureid(courseId);
                 request.setAttribute("ListmoduleByCourse",listm );

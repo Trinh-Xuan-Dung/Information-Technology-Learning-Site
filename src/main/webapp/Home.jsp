@@ -83,8 +83,8 @@
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" href="CourseDetail?id=${course.courseId}" >View</button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" href="CourseDelete?id=${course.courseId}">Edit</button>
+                                        <a type="button" class="btn btn-sm btn-outline-secondary" href="CourseDetail?id=${course.courseId}" >View</a>
+                                        <a type="button" class="btn btn-sm btn-outline-secondary" href="UpdateCourse?id=${course.courseId}">Edit</a>
                                     </div>
                                     <small class="text-muted"  >
 

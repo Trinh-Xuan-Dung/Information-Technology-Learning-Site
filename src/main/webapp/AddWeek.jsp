@@ -20,7 +20,7 @@
                 <tbody>
                     <tr>
                         <td>Week number:</td>
-                        <td><input type="number" name="weeknum"></td>
+                        <td><input  type="number" name="weeknum"></td>
                     </tr>
 
                     <tr>

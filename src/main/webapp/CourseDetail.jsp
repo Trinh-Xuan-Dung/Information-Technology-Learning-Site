@@ -29,11 +29,32 @@
                     <!-- Add more fields as needed -->
 
                     <img src="${DetailOfcourse.imageUrlString}" alt="${DetailOfcourse.courseName}" width="200" height="150">
+                    <div>
+                        <small class="text-muted"  >
 
+                        <c:forEach var="subjects" items="${DetailOfcourse.subjects}" >
+
+                            <c:choose>
+                                <c:when test="${subjects.subject.subjectName == 'Java'}">
+                                    <span style="color: blueviolet;">${subjects.subject.subjectName}</span> &nbsp;
+                                </c:when>
+                                <c:when test="${subjects.subject.subjectName == 'Python'}">
+                                    <span style="color: orange;">${subjects.subject.subjectName}</span> &nbsp;
+                                </c:when>
+                                <c:when test="${subjects.subject.subjectName == 'C#'}">
+                                    <span style="color: green;">${subjects.subject.subjectName}</span> &nbsp;
+                                </c:when>
+                                <c:otherwise>
+                                    <span>${subjects.subject.subjectName}</span> &nbsp;
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                    </small>
+                    </div>
                 </div>
                 <a href="#">Enroll</a>
                 <a href="AddModule?cid=${DetailOfcourse.courseId}">Add Module</a>
-               
+
                 <hr><!-- comment -->
                 <h3>List of Module Here</h3>
 
@@ -44,7 +65,8 @@
                             <p>Module Name: ${module.moduleName}</p>
                             <p>Module Description: ${module.moduleDescription}</p>
                             <a href="ModuleDetail?mid=${module.moduleId}">Module Detail</a>
-                            
+
+
                         </div>
 
                     </c:forEach>
