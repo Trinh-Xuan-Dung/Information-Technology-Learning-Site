@@ -36,7 +36,7 @@
                         </span>
                     </div>
                 </form>
-                
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                         <li class="nav-item">
@@ -80,7 +80,7 @@
 
                             <div class="card-body">
                                 <h5 class="card-text">${course.courseName} </h5>
-                                    <p class="card-text">${course.courseTitle} </p>
+                                <p class="card-text">${course.courseTitle} </p>
 
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="btn-group">
@@ -88,7 +88,7 @@
                                         <a type="button" class="btn btn-sm btn-outline-secondary" href="UpdateCourse?id=${course.courseId}">Edit</a>
                                     </div>
                                     <small class="text-muted"  >
-                                        
+
                                         <c:forEach var="subjects" items="${course.subjects}" >
 
                                             <c:choose>
@@ -116,11 +116,14 @@
         </div>
 
 
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>  
         <br>
         <div class="grid-container">
 
 
         </div>
+        <a type="button" class="btn btn-sm btn-outline-secondary" href="AddCourse">Add New Course</a>
+
     </body>
 </html>
