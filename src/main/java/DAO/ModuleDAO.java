@@ -12,7 +12,8 @@ import java.util.List;
 public interface ModuleDAO {
     public int addNewModule(int courseid,Module module);
     public List<Module> getAllModuleOfCourseByCoureid(int courseId);
-     public Module getModuleOfCourseByCoureid(int moduleId);
+    public Module getModuleOfCourseByMid(int moduleId);
+    boolean updateModuleByModuleId(int Id,Module module );
     
     
 }

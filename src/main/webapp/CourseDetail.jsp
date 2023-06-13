@@ -65,6 +65,7 @@
                             <p>Module Name: ${module.moduleName}</p>
                             <p>Module Description: ${module.moduleDescription}</p>
                             <a href="ModuleDetail?mid=${module.moduleId}">Module Detail</a>
+                            <a href="UpdateModule?mid=${module.moduleId}&cid=${module.courseId}.">Edit Module</a>
 
 
                         </div>
