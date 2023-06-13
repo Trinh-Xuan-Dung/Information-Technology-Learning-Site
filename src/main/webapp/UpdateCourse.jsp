@@ -15,7 +15,7 @@
     </head>
     <body>
         <h1>Update Course</h1>
-        <form action="UpdateCourse" method="post">
+        <form action="UpdateCourse" method="post" id="myForm">
             <input name="courseidupdate" type="hidden" value="${courseId}"/>            
             <table border="1" style="border-collapse: collapse" >
 
@@ -30,22 +30,23 @@
                     </tr>
                     <tr>
                         <td>Course Subject</td>
-                        <td><c:forEach var="subject" items="${listSubjectToView}">
+                        <td><c:forEach var="subjectview" items="${listSubjectToView}">
                                 <label>
-                                    <input type="checkbox" name="selectedSubjects" value="${subject.subjectId}"
-                                          <c:forEach var="selectedSubject" items="${listScSelected}">
-                                               <c:if test="${selectedSubject.subjectId == subject.subjectId}">
+                                    <input  type="checkbox" name="selectedSubjects" value="${subjectview.subjectId}"
+                                           <c:forEach var="selectedSubject" items="${oldCourse.subjects}">
+                                               <c:if test="${selectedSubject.subject.subjectId == subjectview.subjectId}">
                                                    checked
                                                </c:if>
                                            </c:forEach>
                                            />
-                                    ${subject.subjectName}
+                                    ${subjectview.subjectName}
                                 </label>
                             </c:forEach></td>
                     </tr>
                     <tr>
                         <td>Course Description</td>
-                        <td><textarea id="id" name="courdescriptionupdate"   rows="5" cols="20"></textarea></td>
+                        <td><textarea id="id" name="courdescriptionupdate"   rows="5" cols="20">${oldCourse.courseDescription}</textarea></td>
+
                     </tr>
                     <tr>
                         <td></td>
@@ -55,5 +56,15 @@
                 </tbody>
             </table>
         </form>
+        <script>
+        document.querySelector('#myForm').addEventListener('submit', function(event) {
+            var checkboxes = document.querySelectorAll('input[name="selectedSubjects"]:checked');
+
+            if (checkboxes.length === 0) {
+                event.preventDefault(); // Prevent form submission
+                alert('Please select at least one option.');
+            }
+        });
+    </script>
     </body>
 </html>

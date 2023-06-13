@@ -108,7 +108,7 @@ public class AddCourseController extends HttpServlet {
             List<SubjectCourse> listsc = new ArrayList<>();
             for (String subjectId : courseSubject) {
                 int sjId = Integer.parseInt(subjectId);
-                SubjectCourse sc = new SubjectCourse(0, sjId, addCourse);
+                SubjectCourse sc = new SubjectCourse( sjId, addCourse);
                 listsc.add(sc);
             }
 

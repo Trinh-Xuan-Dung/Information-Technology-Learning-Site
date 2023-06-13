@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #9A616D;">
+        <nav class="navbar navbar-expand-lg navbar-light " style="background-color: #9A616D; height:200px">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Navbar</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,7 @@
                         </span>
                     </div>
                 </form>
+                
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
                         <li class="nav-item">
@@ -87,7 +88,7 @@
                                         <a type="button" class="btn btn-sm btn-outline-secondary" href="UpdateCourse?id=${course.courseId}">Edit</a>
                                     </div>
                                     <small class="text-muted"  >
-
+                                        
                                         <c:forEach var="subjects" items="${course.subjects}" >
 
                                             <c:choose>

@@ -4,6 +4,10 @@
  */
 package Validation;
 
+import Entity.Subject;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author HP
@@ -14,8 +18,8 @@ public class Validator {
         try {
             return Integer.parseInt(str);
         } catch (NumberFormatException e) {
-            
-            return 0; 
+
+            return 0;
         }
     }
 
@@ -30,4 +34,26 @@ public class Validator {
         }
         return false;
     }
+
+    public List<Subject> getListtoAddnew(List<Subject> oldList, List<Subject> newList) {
+        List<Subject> removedList = new ArrayList<>();
+        for (Subject subject : oldList) {
+            if (!newList.contains(subject)) {
+                removedList.add(subject);
+            }
+        }
+        return removedList;
+    }
+
+    public List<Subject> getListtoRemove(List<Subject> oldList, List<Subject> newList) {
+        List<Subject> addedList = new ArrayList<>();
+        for (Subject subject : newList) {
+            if (!oldList.contains(subject)) {
+                addedList.add(subject);
+            }
+        }
+        return addedList;
+        
+    }
+    
 }
