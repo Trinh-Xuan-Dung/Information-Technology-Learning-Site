@@ -10,34 +10,39 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%@include file="head.jsp" %>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AddModule.css">
     </head>
     <body>
-        <h1>Add week</h1>
-        <form action="AddWeek" method="POST">
-             <input type="hidden" name="moduleId" value="${moduleId}"/>
-             <table border="1" style="border-collapse: collapse"  >
+        <%@include file="header.jsp" %>
+        <h1 class="section-title">Add week</h1>
+        <div class="form-module">
+            <form action="AddWeek" method="POST">
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form5Example1">Week number</label>
+                    <input name="weeknum" type="number"  class="form-control" />
 
-                <tbody>
-                    <tr>
-                        <td>Week number:</td>
-                        <td><input  type="number" name="weeknum"></td>
-                    </tr>
+                </div>
 
-                    <tr>
-                        <td>Week Title</td>
-                        <td><input type="text" name="weektitle"></td>
-                    </tr>
-                    <tr>
-                        <td>Week Description</td>
-                        <td><textarea id="id" name="weekdescription" rows="5" cols="20"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Add"/></td>
-                    </tr>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form5Example1">Week Title</label>
+                    <input name="weektitle" type="text"  class="form-control" />
 
-                </tbody>
-            </table>
-        </form>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form6Example7">Week Description</label>
+                    <textarea id="id" name="weekdescription" class="form-control"  rows="5" cols="20"></textarea>
+                </div>
+
+
+
+                <input type="hidden" name="moduleId" value="${moduleId}"/>
+                <input class="btn btn-primary"  type="submit" value="Add"/>
+            </form>
+        </div>
+
+
+
     </body>
 </html>
