@@ -61,17 +61,16 @@ public class WeekDetailController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String stringwId=request.getParameter("wid");
-        
         int id =Validation.Validator.parseValidId(stringwId);
         if(id!=0){
             WeekDAO dao = new WeekDAOimplement();
             WeekCourse week=dao.getWeekByWId(id);
-            if(week!=null){
+//            if(week!=null){
                 request.setAttribute("weekToView", week);
                 request.getRequestDispatcher("WeekDetail.jsp").forward(request, response);
-            }else{
-                response.sendRedirect("WeekDetail?wid="+stringwId);
-            }
+//            }else{
+//                response.sendRedirect("WeekDetail?wid="+stringwId);
+//            }
             
         }
         

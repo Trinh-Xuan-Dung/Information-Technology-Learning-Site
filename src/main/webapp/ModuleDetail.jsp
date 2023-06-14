@@ -79,7 +79,7 @@
                                 <p class="name-module">${loop.index + 1} </p>
                             </div>
                             <div class="content-module">
-                                <p class="name-module"><a href="ModuleDetail?mid=${module.moduleId}">${week.weekTilte}</a> </p>
+                                <p class="name-module"><a href="WeekDetail?wid=${week.moduleId}">${week.weekTilte}</a> </p>
                                 <p>Description: ${week.weekDes}</p>
                             </div>
                         </div>
