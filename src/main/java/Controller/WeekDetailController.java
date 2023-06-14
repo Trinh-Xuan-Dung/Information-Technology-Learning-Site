@@ -65,12 +65,12 @@ public class WeekDetailController extends HttpServlet {
         if(id!=0){
             WeekDAO dao = new WeekDAOimplement();
             WeekCourse week=dao.getWeekByWId(id);
-//            if(week!=null){
+            if(week!=null){
                 request.setAttribute("weekToView", week);
                 request.getRequestDispatcher("WeekDetail.jsp").forward(request, response);
-//            }else{
-//                response.sendRedirect("WeekDetail?wid="+stringwId);
-//            }
+            }else{
+                response.sendRedirect("WeekDetail?wid="+stringwId);
+            }
             
         }
         

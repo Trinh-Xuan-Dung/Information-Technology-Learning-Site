@@ -14,18 +14,16 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Week Detail World!</h1>
+        
         <div class="d-flex flex-row">
             <div class="col-4">
                 <div>
                     <h4>${weekToView.weekTilte}</h4>
                 </div>
-                <div class="col">
-                    <div></div>
-                    <div>Lesson 1</div>
-                    <div>Quiz1</div>
-                    <div>Assignment 1</div>
-
+                <div class="col d-flex flex-row ">
+                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Lesson</a>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">Quiz1</button>
+                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Assignment</button>
                 </div>
 
             </div>

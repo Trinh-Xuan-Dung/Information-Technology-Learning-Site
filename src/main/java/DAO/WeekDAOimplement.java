@@ -110,5 +110,10 @@ public class WeekDAOimplement implements WeekDAO {
         return weekCourse;
 
     }
+    public static void main(String[] args) {
+        WeekDAO dao = new WeekDAOimplement();
+        WeekCourse week = dao.getWeekByWId(5);
+        System.out.println(week);
+    }
 
 }
