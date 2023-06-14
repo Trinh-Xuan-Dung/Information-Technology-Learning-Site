@@ -11,41 +11,48 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Add Course Page</title>
+
+        <%@include file="head.jsp" %>
     </head>
     <body>
+        <%@include file="header.jsp" %>
+
         <h1>Add Course</h1>
         <form action="AddCourse" method="post">
-            <table border="1" style="border-collapse: collapse" >
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form5Example1">Course Name</label>
+                <input type="text" class="form-control" name="coursename" />
 
-                <tbody>
-                    <tr>
-                        <td>Course Name:</td>
-                        <td><input type="type" name="coursename"></td>
-                    </tr>
-                    <tr>
-                        <td>Course Image</td>
-                        <td><input type="type" name="courseimage"></td>
-                    </tr>
-                    <tr>
-                        <td>Course Subject</td>
-                        <td><c:forEach var="subject" items="${listSubjectToView}">
-                                <label>
-                                    <input type="checkbox" name="selectedSubjects" value="${subject.subjectId}" />
-                                    ${subject.subjectName}
-                                </label>
-                            </c:forEach> </td>
-                    </tr>
-                    <tr>
-                        <td>Course Description</td>
-                        <td><textarea id="id" name="courdescription" rows="5" cols="20"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Add"/></td>
-                    </tr>
+            </div>
 
-                </tbody>
-            </table>
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form5Example1">Course Image</label>
+                <input type="text" class="form-control" name="courseimage" />
+
+            </div>
+
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form5Example1">Course Subject</label>
+                <c:forEach var="subject" items="${listSubjectToView}">
+                    <label>
+                        <input type="checkbox" name="selectedSubjects" value="${subject.subjectId}" />
+                        ${subject.subjectName}
+                    </label>
+                </c:forEach>
+            </div>
+
+            <div class="form-outline mb-4">
+                <label class="form-label" for="form6Example7">Course Description</label>
+                <textarea name="courdescription " class="form-control" id="form6Example7" rows="4"></textarea>
+                
+            </div>
+
+
+            <!-- Checkbox -->
+
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block mb-4">Add</button>
         </form>
     </body>
 </html>
