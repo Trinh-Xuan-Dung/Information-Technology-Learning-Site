@@ -9,6 +9,7 @@ import Entity.WeekCourse;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,14 +68,47 @@ public class WeekDAOimplement implements WeekDAO {
 
             while (rs.next()) {
                 WeekCourse week = new WeekCourse(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5));
-               listweek.add(week);
-            
+                listweek.add(week);
+
             }
 
         } catch (Exception ex) {
             Logger.getLogger(ModuleDAOimplement.class.getName()).log(Level.SEVERE, null, ex);
         }
         return listweek;
+    }
+
+    @Override
+    public WeekCourse getWeekByWId(int weekId) {
+        WeekCourse weekCourse = null;
+
+        try {
+            con = context.getConnection();
+            String query = "SELECT * FROM WeekCourse WHERE WeekId = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, weekId);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                weekCourse = new WeekCourse();
+                weekCourse.setWeekId(rs.getInt("WeekId"));
+                weekCourse.setModuleId(rs.getInt("ModuleId"));
+                weekCourse.setWeekNumber(rs.getInt("WeekNumber"));
+                weekCourse.setWeekTilte(rs.getString("WeekTitle"));
+                weekCourse.setWeekDes(rs.getString("WeekDescription"));
+            }
+
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(WeekDAOimplement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return weekCourse;
+
     }
 
 }

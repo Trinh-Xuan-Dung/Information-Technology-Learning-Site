@@ -41,10 +41,10 @@
                             <p>week number ${week.weekNumber}</p>
                             <p>week Title ${week.weekTilte}</p>
                             <p>week Description: ${week.weekDes}</p>
-                            <a href="WeekDetails?mid=${week.weekId}">See all </a>
-                            <a href="Add?mid=${week.weekId}">Add Quiz</a>
-                            <a href="Add?mid=${week.weekId}">Add Lesson</a>
-                            <a href="Add?mid=${week.weekId}">Add Assignment</a>
+                            <a href="WeekDetail?wid=${week.weekId}">View Detail</a> &nbsp;
+                            <a href="Add?wid=${week.weekId}">Add Quiz</a>&nbsp;
+                            <a href="Add?wid=${week.weekId}">Add Lesson</a>&nbsp;
+                            <a href="Add?wid=${week.weekId}">Add Assignment</a>
                             
                         </div>
 

@@ -23,6 +23,18 @@ public class Validator {
         }
     }
 
+    public static int parseValidId(String id) {
+        if (id != null) {
+            id = id.trim();
+
+            if (id.matches("\\d+")) {
+                int number = Integer.parseInt(id);
+                return number > 0 ? number : 0;
+            }
+        }
+        return 0;
+    }
+
     public static boolean checkIdIsValid(String id) {
         if (id != null) {
             id = id.trim();
@@ -53,7 +65,7 @@ public class Validator {
             }
         }
         return addedList;
-        
+
     }
-    
+
 }
