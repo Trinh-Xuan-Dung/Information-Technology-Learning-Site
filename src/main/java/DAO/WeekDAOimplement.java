@@ -60,7 +60,7 @@ public class WeekDAOimplement implements WeekDAO {
         try {
 
             con = context.getConnection();
-            String sql = "SELECT WeekId, ModuleId, WeekNumber, WeekTitle, WeekDescription FROM learning_site.weekcourse WHERE ModuleId =?";
+            String sql = "SELECT WeekId, ModuleId, WeekNumber, WeekTitle, WeekDescription FROM learning_site.weekcourse WHERE ModuleId =? ORDER BY WeekNumber ASC";
             // ResultSet rs =  context.getDataByRawSQL(sql);
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, i);
@@ -110,10 +110,28 @@ public class WeekDAOimplement implements WeekDAO {
         return weekCourse;
 
     }
+
     public static void main(String[] args) {
         WeekDAO dao = new WeekDAOimplement();
         WeekCourse week = dao.getWeekByWId(5);
         System.out.println(week);
+    }
+
+    @Override
+    public boolean updateWeekById(int i, WeekCourse wc) {
+        try {
+            con = context.getConnection();
+            String sql = "UPDATE learning_site.weekcourse set  WeekNumber=?, WeekTitle=?, WeekDescription=? WHERE WeekId=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, wc.getWeekNumber());
+            ps.setString(2, wc.getWeekTilte());
+            ps.setString(3, wc.getWeekDes());
+            ps.setInt(4, i);
+            return ps.executeUpdate()>0;
+
+        } catch (Exception e) {
+        }
+        return false;
     }
 
 }

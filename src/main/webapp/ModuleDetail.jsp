@@ -81,6 +81,7 @@
                             <div class="content-module">
                                 <p class="name-module"><a href="WeekDetail?wid=${week.weekId}">${week.weekTilte}</a> </p>
                                 <p>Description: ${week.weekDes}</p>
+                                <a type="button" class="btn btn-sm btn-outline-secondary" href="UpdateWeek?wid=${week.weekId}">Edit</a>        
                             </div>
                         </div>
                     </c:forEach>
