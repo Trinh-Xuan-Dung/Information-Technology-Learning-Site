@@ -83,7 +83,7 @@ public class ModuleDAOimplement implements ModuleDAO {
     }
 
     @Override
-    public Module getModuleOfCourseByCoureid(int i) {
+    public Module getModuleOfCourseByMid(int i) {
         Module module = new Module();
         try {
             
@@ -109,5 +109,26 @@ public class ModuleDAOimplement implements ModuleDAO {
             Logger.getLogger(ModuleDAOimplement.class.getName()).log(Level.SEVERE, null, ex);
         }
         return module;
+    }
+
+    @Override
+    public boolean updateModuleByModuleId(int i, Module module) {
+        
+        try {
+            String sql = "UPDATE Module SET ModuleName = ?, ModuleDescription = ? WHERE ModuleId = ?";
+            Connection con = context.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, module.getModuleName());
+            ps.setString(2, module.getModuleDescription());
+            ps.setInt(3, i);
+            
+            int rowsUpdated = ps.executeUpdate();
+            return rowsUpdated > 0;
+        } catch (Exception ex) {
+            Logger.getLogger(ModuleDAOimplement.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+     
+        
     }
 }

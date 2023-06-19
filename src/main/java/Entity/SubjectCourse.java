@@ -9,42 +9,32 @@ package Entity;
  * @author HP
  */
 public class SubjectCourse {
-    private int subjectCourseId;
+
     private int subjectId;
     private int courseId;
-    private  Subject subject;
-    private  Course course;
+    private Subject subject;
+    private Course course;
 
     public SubjectCourse() {
     }
 
-    public SubjectCourse(int subjectCourseId, int subjectId, int courseId) {
-        this.subjectCourseId = subjectCourseId;
-        this.subjectId = subjectId;
-        this.courseId = courseId;
-    }
-
-    public SubjectCourse(int subjectCourseId, Subject subject, Course course) {
-        this.subjectCourseId = subjectCourseId;
-        this.subject = subject;
-        this.course = course;
-    }
-
-    public SubjectCourse(int subjectCourseId, int subjectId, int courseId, Subject subject, Course course) {
-        this.subjectCourseId = subjectCourseId;
+    public SubjectCourse(int subjectId, int courseId, Subject subject, Course course) {
         this.subjectId = subjectId;
         this.courseId = courseId;
         this.subject = subject;
         this.course = course;
     }
 
-    public int getSubjectCourseId() {
-        return subjectCourseId;
+    public SubjectCourse(int subjectId, int courseId) {
+        this.subjectId = subjectId;
+        this.courseId = courseId;
     }
 
-    public void setSubjectCourseId(int subjectCourseId) {
-        this.subjectCourseId = subjectCourseId;
+    public SubjectCourse(Subject subject, Course course) {
+        this.subject = subject;
+        this.course = course;
     }
+    
 
     public int getSubjectId() {
         return subjectId;
@@ -80,9 +70,7 @@ public class SubjectCourse {
 
     @Override
     public String toString() {
-        return "SubjectCourse{" + "subjectCourseId=" + subjectCourseId + ", subjectId=" + subjectId + ", courseId=" + courseId + ", subject=" + subject + ", course=" + course + '}';
+        return "SubjectCourse{" + "subjectId=" + subjectId + ", courseId=" + courseId + ", subject=" + subject + ", course=" + course + '}';
     }
 
-    
-    
 }

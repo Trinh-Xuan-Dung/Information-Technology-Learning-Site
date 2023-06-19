@@ -44,26 +44,27 @@ public class SubjectCourseDAOimplement implements SubjectCourseDAO {
     }
 
     @Override
-    public List<SubjectCourse> getAllSubjectCorseByCourseId(int i) {
+    public List<SubjectCourse> getAllSubjectCorseByCourseId(int courseId) {
         List<SubjectCourse> subjectCourseList = new ArrayList<>();
 
         try {
-            String sql = "SELECT CourseSubjectId, SubjectId, CourseId FROM SubjectCourse WHERE CourseId = ?";
+            String sql = "SELECT  SubjectId, CourseId FROM SubjectCourse WHERE CourseId = ?";
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, i);
+            ps.setInt(1, courseId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 SubjectCourse subjectCourse = new SubjectCourse();
-                subjectCourse.setSubjectCourseId(rs.getInt(1));
-                subjectCourse.setSubjectId(rs.getInt(2));
-                subjectCourse.setCourseId(rs.getInt(3));
+                subjectCourse.setSubjectId(rs.getInt("SubjectId"));
+                subjectCourse.setCourseId(rs.getInt("CourseId"));
                 subjectCourseList.add(subjectCourse);
             }
 
             rs.close();
             ps.close();
+            con.close(); // Close the connection
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,52 +74,104 @@ public class SubjectCourseDAOimplement implements SubjectCourseDAO {
 
     @Override
     public Course getSubjectJoinReleaseCorseByCourseId(int courseId) {
-        List<SubjectCourse> subjectCourseList = new ArrayList<>();
         Course course = new Course();
+        List<SubjectCourse> subjectCourseList = new ArrayList<>();
+
         try {
-            String sql = "select Course.CourseId,Course.CourseName, Course.Image, Course.CourseDescription,Subject.SubjectId "
-                    + ", Subject.SubjectName, Subject.SubjectDescription,SubjectCourse.CourseSubjectId "
+            String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription, "
+                    + "Subject.SubjectId, Subject.SubjectName, Subject.SubjectDescription "
                     + "FROM Course "
-                    + "JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
-                    + "JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId WHERE Course.CourseId = ?";
+                    + "left JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
+                    + "left JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId "
+                    + "WHERE Course.CourseId = ?";
+
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setInt(1, courseId);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                SubjectCourse sc = new SubjectCourse();
-                sc.setSubjectCourseId(rs.getInt("CourseSubjectId"));
-                sc.setSubjectId(rs.getInt("SubjectId"));
-                sc.setCourseId(rs.getInt("CourseId"));
-                
-                sc.setSubject(new Subject(rs.getInt("SubjectId"), rs.getString("SubjectName"), rs.getString("SubjectDescription")));
-                subjectCourseList.add(sc);
+                int currentCourseId = rs.getInt("CourseId");
 
-                if (rs.isLast()) {
-
-                    course.setCourseId(rs.getInt("CourseId"));
+                if (course.getCourseId() != currentCourseId) {
+                    course.setCourseId(currentCourseId);
                     course.setCourseName(rs.getString("CourseName"));
                     course.setImageUrlString(rs.getString("Image"));
                     course.setCourseDescription(rs.getString("CourseDescription"));
-                    course.setSubjects(subjectCourseList);
                 }
 
+                SubjectCourse subjectCourse = new SubjectCourse();
+
+                subjectCourse.setSubjectId(rs.getInt("SubjectId"));
+
+                Subject subject = new Subject();
+                subject.setSubjectId(rs.getInt("SubjectId"));
+                subject.setSubjectName(rs.getString("SubjectName"));
+                subject.setSubjectDescription(rs.getString("SubjectDescription"));
+                subjectCourse.setSubject(subject);
+
+                subjectCourseList.add(subjectCourse);
             }
 
             rs.close();
             ps.close();
+            con.close(); // Close the connection
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+        course.setSubjects(subjectCourseList);
         return course;
     }
 
-    public static void main(String[] args) {
-        SubjectCourseDAO dao = new SubjectCourseDAOimplement();
-        Course c = dao.getSubjectJoinReleaseCorseByCourseId(1);
-        System.out.println(c);
+    
+
+    @Override
+    public List<SubjectCourse> getAllOldSubjectbyCourseId(int i) {
+        CourseDAO dao = new CourseDAOimplement();
+        List<SubjectCourse> listSC = dao.getCourseJoin(i).getSubjects();
+        return listSC;
     }
 
+    @Override
+    public boolean deleteAllSubjectById(int courseId) {
+        try {
+            String sql = "DELETE FROM SubjectCourse WHERE CourseId = ?";
+            Connection con = context.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, courseId);
+            int rowsDeleted = ps.executeUpdate();
+            return rowsDeleted > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+
+    }
+
+    @Override
+    public boolean addAllNewSubjectById(int courseId, List<Subject> newSubjects) {
+        try {
+            String sql = "INSERT INTO SubjectCourse (SubjectId, CourseId) VALUES (?, ?) ";
+            Connection con = context.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+
+            for (Subject subject : newSubjects) {
+                ps.setInt(1, subject.getSubjectId());
+                ps.setInt(2, courseId);
+                ps.addBatch();
+            }
+
+            int[] rowsInserted = ps.executeBatch();
+            return rowsInserted.length == newSubjects.size();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+public static void main(String[] args) {
+        SubjectCourseDAO dao = new SubjectCourseDAOimplement();
+       
+    }
 }

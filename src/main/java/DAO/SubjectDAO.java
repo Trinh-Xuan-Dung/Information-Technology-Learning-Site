@@ -14,4 +14,5 @@ import java.util.List;
 public interface SubjectDAO {
     List<Subject> getAllSubject();
     int getKeytoInsertCOurse(String name);
+    
 }

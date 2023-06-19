@@ -4,16 +4,13 @@
  */
 package Controller;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOimplement;
-import DAO.ModuleDAO;
-import DAO.ModuleDAOimplement;
-import Entity.Course;
-import Entity.Module;
+import DAO.WeekDAO;
+import DAO.WeekDAOimplement;
+import Entity.WeekCourse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author HP
  */
-public class CourseDetailController extends HttpServlet {
+@WebServlet(name = "WeekDetailController", urlPatterns = {"/WeekDetail"})
+public class WeekDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +39,10 @@ public class CourseDetailController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CourseDetailController</title>");            
+            out.println("<title>Servlet WeekDetailController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CourseDetailController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet WeekDetailController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,28 +60,21 @@ public class CourseDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-      String stringId=  request.getParameter("id");
-      if (stringId != null) {
-            try {
-                
-                int courseId = Integer.parseInt(stringId);
-                CourseDAO dao= new CourseDAOimplement();
-                Course course= dao.getCourseJoin(courseId);
-                ModuleDAO mdao= new ModuleDAOimplement();
-                List<Module> listm = mdao.getAllModuleOfCourseByCoureid(courseId);
-                request.setAttribute("ListmoduleByCourse",listm );
-                request.setAttribute("DetailOfcourse", course);
-                request.getRequestDispatcher("CourseDetail.jsp").forward(request, response);
-                
-                
-            } catch (NumberFormatException e) {
-           // return error page
+        String stringwId=request.getParameter("wid");
+        int id =Validation.Validator.parseValidId(stringwId);
+        if(id!=0){
+            WeekDAO dao = new WeekDAOimplement();
+            WeekCourse week=dao.getWeekByWId(id);
+            if(week!=null){
+                request.setAttribute("weekToView", week);
+                request.getRequestDispatcher("WeekDetail.jsp").forward(request, response);
+            }else{
+                response.sendRedirect("WeekDetail?wid="+stringwId);
             }
-        } else {
-           //return error page
+            
         }
-                
+        
+        
     }
 
     /**

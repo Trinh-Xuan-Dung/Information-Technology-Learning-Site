@@ -68,7 +68,7 @@ public class ModuleDetailController extends HttpServlet {
         if (val.checkIdIsValid(stringId)) {
             ModuleDAO dao = new ModuleDAOimplement();
             int id = Integer.parseInt(stringId);
-            Module module = dao.getModuleOfCourseByCoureid(id);
+            Module module = dao.getModuleOfCourseByMid(id);
             WeekDAO wdao= new WeekDAOimplement();
             List<WeekCourse> listw= wdao.getAllWeekByModule(id);
            

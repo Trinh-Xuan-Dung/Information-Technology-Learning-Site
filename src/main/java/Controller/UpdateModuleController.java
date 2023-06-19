@@ -1,19 +1,20 @@
+package Controller;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
-
-import DAO.CourseDAO;
-import DAO.CourseDAOimplement;
 import DAO.ModuleDAO;
 import DAO.ModuleDAOimplement;
-import Entity.Course;
-import Entity.Module;
+import DAO.WeekDAO;
+import DAO.WeekDAOimplement;
+import Entity.WeekCourse;
+import Validation.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +23,10 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author HP
  */
-public class CourseDetailController extends HttpServlet {
+@WebServlet(urlPatterns = {"/UpdateModule"})
+
+public class UpdateModuleController extends HttpServlet  {
+
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +45,10 @@ public class CourseDetailController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CourseDetailController</title>");            
+            out.println("<title>Servlet UpdateModuleController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CourseDetailController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateModuleController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,28 +66,17 @@ public class CourseDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String stringId = request.getParameter("mid");
         
-      String stringId=  request.getParameter("id");
-      if (stringId != null) {
-            try {
-                
-                int courseId = Integer.parseInt(stringId);
-                CourseDAO dao= new CourseDAOimplement();
-                Course course= dao.getCourseJoin(courseId);
-                ModuleDAO mdao= new ModuleDAOimplement();
-                List<Module> listm = mdao.getAllModuleOfCourseByCoureid(courseId);
-                request.setAttribute("ListmoduleByCourse",listm );
-                request.setAttribute("DetailOfcourse", course);
-                request.getRequestDispatcher("CourseDetail.jsp").forward(request, response);
-                
-                
-            } catch (NumberFormatException e) {
-           // return error page
-            }
-        } else {
-           //return error page
+        Validator val = new Validator();
+        if (val.checkIdIsValid(stringId)) {
+            ModuleDAO dao = new ModuleDAOimplement();
+            int id = Integer.parseInt(stringId);
+            Entity.Module module = dao.getModuleOfCourseByMid(id);
+            request.setAttribute("oldmodule", module);
+
+            request.getRequestDispatcher("UpdateModule.jsp").forward(request, response);
         }
-                
     }
 
     /**
@@ -97,7 +90,26 @@ public class CourseDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String stringId = request.getParameter("moduleId");
+        String cstringId = request.getParameter("courseID");
+        String name = request.getParameter("moduleName");
+        String des = request.getParameter("modulecourdescription");
+        int id = 0;
+        if (stringId != null) {
+            id = Integer.parseInt(stringId);
+        }
+
+        Entity.Module newModule = new Entity.Module(id, 0, name, des);
+        ModuleDAO dao = new ModuleDAOimplement();
+
+        if (newModule != null) {
+            boolean flag = dao.updateModuleByModuleId(id, newModule);
+            if (flag) {
+                response.sendRedirect(request.getContextPath() + "/CourseDetail?id=" + cstringId);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/UpdateModule?mid="+stringId);
+            }
+        }
     }
 
     /**

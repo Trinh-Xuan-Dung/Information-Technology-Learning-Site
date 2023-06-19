@@ -12,31 +12,30 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%@include file="head.jsp" %>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/AddModule.css">
     </head>
     <body>
-        <h1>Add Module</h1>
+        <%@include file="header.jsp" %>
+        <h1 class="section-title">Add Module</h1>
+        <div class="form-module">
+            <form action="AddModule" method="post">
 
-        <form action="AddModule" method="post">
-            <input type="hidden" name="courseId" value="${courseid}"/>
-            <table border="1" style="border-collapse: collapse" >
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form5Example1">Module Name:</label>
+                    <input name="moduleName" type="type" id="form5Example1" class="form-control" />
 
-                <tbody>
-                    <tr>
-                        <td>Module Name:</td>
-                        <td><input type="type" name="moduleName"></td>
-                    </tr>
+                </div>
 
-                    <tr>
-                        <td>Module Description</td>
-                        <td><textarea id="id" name="modulecourdescription" rows="5" cols="20"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Add"/></td>
-                    </tr>
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="form5Example1">Module Description</label>
+                    <input name="modulecourdescription" type="type"  class="form-control" />
 
-                </tbody>
-            </table>
-        </form>
+                </div>
+                <input type="hidden" name="courseId" value="${courseid}"/>
+                <input class="btn btn-primary"  type="submit" value="Add"/>
+            </form>
+        </div>
+
     </body>
 </html>

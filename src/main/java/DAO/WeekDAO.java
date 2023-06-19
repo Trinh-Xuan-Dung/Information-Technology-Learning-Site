@@ -14,5 +14,8 @@ import java.util.List;
 public interface WeekDAO {
     public int AddNewWeekCOurse(int moduleId,WeekCourse week);
     public List<WeekCourse> getAllWeekByModule(int moduleId);
+    public WeekCourse getWeekByWId(int weekId);
+    public boolean  updateWeekById(int Id,WeekCourse w);
+    
     
 }

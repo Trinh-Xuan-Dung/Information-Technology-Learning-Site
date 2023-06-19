@@ -125,15 +125,16 @@ public class CourseDAOimplement implements CourseDAO {
         List<Course> courses = new ArrayList<>();
 
         try {
-            String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription,Course.DateCreate,Course.CourseTitle, "
-                    + "SubjectCourse.CourseSubjectId, SubjectCourse.SubjectId, "
+            String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription, Course.DateCreate, Course.CourseTitle, "
+                    + "SubjectCourse.SubjectId, "
                     + "Subject.SubjectName, Subject.SubjectDescription "
                     + "FROM Course "
-                    + "JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
-                    + "JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
+                    + "left JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
+                    + "left JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
 
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
+
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, Course> courseMap = new HashMap<>();
@@ -155,7 +156,6 @@ public class CourseDAOimplement implements CourseDAO {
                 }
 
                 SubjectCourse subjectCourse = new SubjectCourse();
-                subjectCourse.setSubjectCourseId(rs.getInt("CourseSubjectId"));
                 subjectCourse.setSubjectId(rs.getInt("SubjectId"));
                 subjectCourse.setSubject(new Subject(rs.getInt("SubjectId"), rs.getString("SubjectName"), rs.getString("SubjectDescription")));
 
@@ -167,6 +167,8 @@ public class CourseDAOimplement implements CourseDAO {
 
             rs.close();
             ps.close();
+            con.close(); // Close the connection
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -176,9 +178,130 @@ public class CourseDAOimplement implements CourseDAO {
 
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAOimplement();
-        List<Course> list = dao.getAllCourseJoin();
+        List<Course> list = new ArrayList<>();
+                list = dao.getAllCourseJoin();
         for (Course course : list) {
-            System.out.println("\n" + course);
+            System.out.println(course);
         }
+        
     }
+
+    @Override
+    public Course getCourseJoin(int courseId) {
+        Course course = null;
+
+        try {
+            String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription, Course.DateCreate, Course.CourseTitle, "
+                    + "SubjectCourse.SubjectId, "
+                    + "Subject.SubjectName, Subject.SubjectDescription "
+                    + "FROM Course "
+                    + "left JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
+                    + "left JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId "
+                    + "WHERE Course.CourseId = ? ";
+
+            Connection con = context.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, courseId);
+            ResultSet rs = ps.executeQuery();
+
+            Map<Integer, Course> courseMap = new HashMap<>();
+
+            while (rs.next()) {
+                int currentCourseId = rs.getInt("CourseId");
+
+                if (!courseMap.containsKey(currentCourseId)) {
+                    course = new Course();
+                    course.setCourseId(currentCourseId);
+                    course.setCourseName(rs.getString("CourseName"));
+                    course.setCourseTitle(rs.getString("CourseTitle"));
+                    course.setImageUrlString(rs.getString("Image"));
+                    course.setCourseDescription(rs.getString("CourseDescription"));
+                    course.setDateCreate(rs.getDate("DateCreate").toLocalDate());
+                    List<SubjectCourse> subjects = new ArrayList<>();
+                    course.setSubjects(subjects);
+                    courseMap.put(currentCourseId, course);
+                }
+
+                SubjectCourse subjectCourse = new SubjectCourse();
+                subjectCourse.setSubjectId(rs.getInt("SubjectId"));
+                subjectCourse.setSubject(new Subject(rs.getInt("SubjectId"), rs.getString("SubjectName"), rs.getString("SubjectDescription")));
+
+                course = courseMap.get(currentCourseId);
+                course.getSubjects().add(subjectCourse);
+            }
+
+            rs.close();
+            ps.close();
+            con.close(); // Close the connection
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return course;
+    }
+
+    private Course findCourseById(List<Course> courses, int courseId) {
+        for (Course course : courses) {
+            if (course.getCourseId() == courseId) {
+                return course;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Course> getAllCourseJoin1() {
+        List<Course> courses = new ArrayList<>();
+
+        try {
+            String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription, Course.DateCreate, Course.CourseTitle, "
+                    + "SubjectCourse.SubjectId, "
+                    + "Subject.SubjectName, Subject.SubjectDescription "
+                    + "FROM Course "
+                    + "JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
+                    + "JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
+
+            Connection con = context.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int courseId = rs.getInt("CourseId");
+
+                // Check if the course already exists in the list
+                Course existingCourse = findCourseById(courses, courseId);
+
+                if (existingCourse == null) {
+                    Course course = new Course();
+                    course.setCourseId(courseId);
+                    course.setCourseName(rs.getString("CourseName"));
+                    course.setCourseTitle(rs.getString("CourseTitle"));
+                    course.setImageUrlString(rs.getString("Image"));
+                    course.setCourseDescription(rs.getString("CourseDescription"));
+                    course.setDateCreate(rs.getDate("DateCreate").toLocalDate());
+                    List<SubjectCourse> subjects = new ArrayList<>();
+                    course.setSubjects(subjects);
+                    courses.add(course);
+                    existingCourse = course;
+                }
+
+                SubjectCourse subjectCourse = new SubjectCourse();
+                subjectCourse.setSubjectId(rs.getInt("SubjectId"));
+                subjectCourse.setSubject(new Subject(rs.getInt("SubjectId"), rs.getString("SubjectName"), rs.getString("SubjectDescription")));
+
+                existingCourse.getSubjects().add(subjectCourse);
+            }
+
+            rs.close();
+            ps.close();
+            con.close(); // Close the connection
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return courses;
+    }
+
 }

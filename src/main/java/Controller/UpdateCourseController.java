@@ -69,12 +69,11 @@ public class UpdateCourseController extends HttpServlet {
             throws ServletException, IOException {
         SubjectDAO dao = new SubjectDAOimplement();
         CourseDAO daoc = new CourseDAOimplement();
-        SubjectCourseDAO daosc=new SubjectCourseDAOimplement();
+
         String stringId = request.getParameter("id");
 
         List<Subject> listS = new ArrayList<>();
-        List<SubjectCourse> listSc = new ArrayList<>();
-       
+
         if (dao.getAllSubject() != null) {
             listS = dao.getAllSubject();
         }
@@ -82,13 +81,11 @@ public class UpdateCourseController extends HttpServlet {
         if (Validation.Validator.checkIdIsValid(stringId)) {
             id = Integer.parseInt(stringId);
         }
-        if(daosc.getAllSubjectCorseByCourseId(id)!=null){
-            listSc =daosc.getAllSubjectCorseByCourseId(id);
-        }
-                Course course = daoc.getCourseById(id);
+
+        Course course = daoc.getCourseJoin(id);
         request.setAttribute("listSubjectToView", listS);
         request.setAttribute("courseId", id);
-        request.setAttribute("listScSelected", listSc);
+
         request.setAttribute("oldCourse", course);
         request.getRequestDispatcher("UpdateCourse.jsp").forward(request, response);
     }
@@ -107,15 +104,30 @@ public class UpdateCourseController extends HttpServlet {
         String stringId = req.getParameter("courseidupdate");
         String name = req.getParameter("coursenameupdate");
         String imageUrl = req.getParameter("courseimageupdate");
-        String subject = req.getParameter("selectSubjectupdate");
+        String[] selectedSubjects = req.getParameterValues("selectedSubjects");
+        List<Subject> subjectWID = new ArrayList<>();
+
+        if (selectedSubjects != null) {
+            for (String subjectId : selectedSubjects) {
+                if (subjectId != null && !subjectId.isEmpty()) {
+                    int sid = Integer.parseInt(subjectId);
+                    subjectWID.add(new Subject(sid));
+                }
+            }
+        }
+
         String description = req.getParameter("courdescriptionupdate");
         int id = 0;
         if (Validation.Validator.checkIdIsValid(stringId)) {
             id = Integer.parseInt(stringId);
         }
         CourseDAO dao = new CourseDAOimplement();
+        SubjectCourseDAO daos = new SubjectCourseDAOimplement();
         Course course = new Course(id, name, imageUrl, description, null);
         boolean f = dao.UpdateCourseById(course);
+        f = daos.deleteAllSubjectById(id);
+        f = daos.addAllNewSubjectById(id, subjectWID);
+
         if (f) {
 
             response.sendRedirect(req.getContextPath() + "/HomeController");
