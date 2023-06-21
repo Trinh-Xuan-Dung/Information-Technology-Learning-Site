@@ -6,20 +6,31 @@ package Controller;
 
 import DAO.QuizDAO;
 import DAO.QuizDAOimplement;
+import Entity.Question;
 import Entity.Quiz;
+import ImportQuest.GetListToImportQuest;
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.file.Paths;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author HP
  */
 @WebServlet(name = "QuizDetailController", urlPatterns = {"/QuizDetail"})
+@MultipartConfig
 public class QuizDetailController extends HttpServlet {
 
     /**
@@ -82,7 +93,22 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+            int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
+            System.out.println(quizId);
+            Part part = request.getPart("file");
+            System.out.println(part);
+            GetListToImportQuest ip = new GetListToImportQuest();
+            List<Question> questions = ip.processFile(part, quizId);
+            for (Question question : questions) {
+                System.out.println(question);
+                System.out.println(quizId);
+
+            }
+            request.setAttribute("qs", questions);
+            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+
+       
     }
 
     /**

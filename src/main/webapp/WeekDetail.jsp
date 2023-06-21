@@ -15,21 +15,7 @@
         <%@include file="head.jsp" %>
 
     </head>
-    <body>
-        <%@include file="header.jsp" %>
-        <div class="container">
-            <h1 class="my-4">Details of the week in the course</h1>
-            <div class="card">
-                <div class="card-header">
-                    <h5 class="card-title">Week 1: Introduction of the course</h5>
-                </div>
-                <div class="card-body">
-                    <h6 class="card-subtitle mb-2 text-muted">Title: Course introduction and goals</h6>
-                    <p class="card-text">Description: This week will introduce the course content and the goals we want to achieve.</p>
-                    <p class="card-text">Document: <a href="#">Document week 1</a></p>
-                </div>
-            </div>
-        </div> 
+     <body>
 
         <div class="d-flex flex-row">
             <div class="col-4">
@@ -41,7 +27,9 @@
                     <a type="button" class="btn btn-sm btn-outline-secondary" href="AddQuiz?wid=${weekToView.weekId}">View All Quiz</a>
                     <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Assignment</button>
                 </div>
+
             </div>
+            <div class="col-6">content of week here:contain tile of all component in week</div>
         </div>
 
     </body>

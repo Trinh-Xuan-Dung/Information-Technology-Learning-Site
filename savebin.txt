@@ -1,0 +1,25 @@
+<div class="table-container">
+            <% int count = 0;%>
+            <c:forEach var="item" items="${qs}">
+                <%  count++;%>
+                <div class="row d-flex flex-column p-3">
+                    <div class="cell">Q.<% out.println(count);%>:</div>
+                    <div class="cell">Qest:${item.questContent}</div>
+                    <div class="d-flex flex-row">
+                        <div class="option" >${item.optionA?null:item.optionA}</div>
+                        <div class="answer ps-5">${item.optionA==null?null:item.answerA}</div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="option">${item.optionB?null:item.optionB}</div>
+                        <div class="answer ps-5">${item.optionB==null?null:item.answerB}</div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="option">${item.optionC?null:item.optionC}</div>
+                        <div class="answer ps-5">${item.optionC==null?null:item.answerC}</div>
+                    </div>
+                    <div class="d-flex flex-row">
+                        <div class="option">${item.optionD?null:item.optionD}</div>
+                        <div class="answer ps-5">${item.optionD==null?null:item.answerD}</div>                       
+                    </div>
+                </div>
+            </c:forEach>
