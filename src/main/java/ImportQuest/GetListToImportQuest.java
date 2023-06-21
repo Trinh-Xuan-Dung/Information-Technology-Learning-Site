@@ -19,7 +19,7 @@ import javax.servlet.http.Part;
  */
 public class GetListToImportQuest {
 
-    public List<Question> processFile(Part filePart,int qid) throws IOException {
+    public List<Question> processFile(Part filePart, int qid) throws IOException {
         List<Question> questions = new ArrayList<>();
 
         // Get the InputStream from the file part
@@ -31,20 +31,20 @@ public class GetListToImportQuest {
         while ((line = reader.readLine()) != null) {
             // Read the question content
             String questContent = line;
-
+            
             // Read the number of answers/options
             int numAnswers = Integer.parseInt(reader.readLine());
-
+            System.out.println("numAnswers"+numAnswers);
             // Read the answer options
             List<String> options = new ArrayList<>();
             for (int i = 0; i < numAnswers; i++) {
                 options.add(reader.readLine());
             }
-
+            
             // Read the true answer(s)
             String trueAnswerLine = reader.readLine();
             String[] trueAnswers = trueAnswerLine.split("/");
-
+            
             // Create a new Question object
             Question question = new Question();
             question.setQestId(0); // Assuming questionId is set to 0
@@ -54,6 +54,7 @@ public class GetListToImportQuest {
             // Set options and determine correct answers
             for (int i = 0; i < numAnswers; i++) {
                 String option = options.get(i);
+                System.out.println("option:"+option);
                 boolean isCorrect = false;
                 for (String trueAnswer : trueAnswers) {
                     int trueAnswerIndex = Integer.parseInt(trueAnswer) - 1;
@@ -86,7 +87,7 @@ public class GetListToImportQuest {
 
             // Add the question to the list
             questions.add(question);
-        }
+             }
 
         // Close the reader and InputStream
         reader.close();
