@@ -93,22 +93,18 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
-            System.out.println(quizId);
-            Part part = request.getPart("file");
-            System.out.println(part);
-            GetListToImportQuest ip = new GetListToImportQuest();
-            List<Question> questions = ip.processFile(part, quizId);
-            for (Question question : questions) {
-                System.out.println(question);
-                System.out.println(quizId);
 
-            }
+        int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
+
+        Part part = request.getPart("file");
+        System.out.println("part:" + part);
+        GetListToImportQuest ip = new GetListToImportQuest();
+        List<Question> questions = ip.processFile(part, quizId);
+        if (questions != null) {
             request.setAttribute("qs", questions);
             request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+        }
 
-       
     }
 
     /**
