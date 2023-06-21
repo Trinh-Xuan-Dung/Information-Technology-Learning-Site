@@ -4,18 +4,26 @@
  */
 package Controller;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOimplement;
-import Entity.Course;
+import DAO.ModuleDAO;
+import Entity.Module;
+import DAO.ModuleDAOimplement;
+import DAO.WeekDAO;
+import DAO.WeekDAOimplement;
+import Entity.WeekCourse;
+import Validation.Validator;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HomeController extends HttpServlet {
+/**
+ *
+ * @author HP
+ */
+public class ModuleDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,15 +36,19 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CourseDAO dao = new CourseDAOimplement();
-        List<Course> list = new ArrayList<>();
-        if(dao.getAllCourseJoin()!=null){
-            list=dao.getAllCourseJoin();
-          
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ModuleDetailController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ModuleDetailController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-       
-        request.setAttribute("listCToView", list);
-         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,7 +63,21 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String stringId = request.getParameter("mid");
+        Validator val = new Validator();
+        if (val.checkIdIsValid(stringId)) {
+            ModuleDAO dao = new ModuleDAOimplement();
+            int id = Integer.parseInt(stringId);
+            Module module = dao.getModuleOfCourseByMid(id);
+            WeekDAO wdao= new WeekDAOimplement();
+            List<WeekCourse> listw= wdao.getAllWeekByModule(id);
+           
+                request.setAttribute("moduleDetail", module);
+                request.setAttribute("listWeekCoursebyModuleId", listw);
+                request.getRequestDispatcher("ModuleDetail.jsp").forward(request, response);
+
+            
+        }
     }
 
     /**

@@ -4,18 +4,23 @@
  */
 package Controller;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOimplement;
-import Entity.Course;
+import DAO.QuizDAO;
+import DAO.QuizDAOimplement;
+import Entity.Quiz;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class HomeController extends HttpServlet {
+/**
+ *
+ * @author HP
+ */
+@WebServlet(name = "QuizDetailController", urlPatterns = {"/QuizDetail"})
+public class QuizDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -28,15 +33,19 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CourseDAO dao = new CourseDAOimplement();
-        List<Course> list = new ArrayList<>();
-        if(dao.getAllCourseJoin()!=null){
-            list=dao.getAllCourseJoin();
-          
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet QuizDetailController</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet QuizDetailController at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
-       
-        request.setAttribute("listCToView", list);
-         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,7 +60,15 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String qidString = request.getParameter("qid");
+        int id = Validation.Validator.parseValidId(qidString);
+        if (id != 0) {
+            QuizDAO dao = new QuizDAOimplement();
+            Quiz quiz = dao.getQuizById(id);
+            request.setAttribute("quizView", quiz);
+            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+        }
+
     }
 
     /**

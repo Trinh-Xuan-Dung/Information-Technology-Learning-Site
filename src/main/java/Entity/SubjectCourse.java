@@ -9,26 +9,32 @@ package Entity;
  * @author HP
  */
 public class SubjectCourse {
-    private int subjectCourseId;
+
     private int subjectId;
     private int courseId;
+    private Subject subject;
+    private Course course;
 
     public SubjectCourse() {
     }
 
-    public SubjectCourse(int subjectCourseId, int subjectId, int courseId) {
-        this.subjectCourseId = subjectCourseId;
+    public SubjectCourse(int subjectId, int courseId, Subject subject, Course course) {
+        this.subjectId = subjectId;
+        this.courseId = courseId;
+        this.subject = subject;
+        this.course = course;
+    }
+
+    public SubjectCourse(int subjectId, int courseId) {
         this.subjectId = subjectId;
         this.courseId = courseId;
     }
 
-    public int getSubjectCourseId() {
-        return subjectCourseId;
+    public SubjectCourse(Subject subject, Course course) {
+        this.subject = subject;
+        this.course = course;
     }
-
-    public void setSubjectCourseId(int subjectCourseId) {
-        this.subjectCourseId = subjectCourseId;
-    }
+    
 
     public int getSubjectId() {
         return subjectId;
@@ -46,9 +52,25 @@ public class SubjectCourse {
         this.courseId = courseId;
     }
 
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
     @Override
     public String toString() {
-        return "SubjectCourse{" + "subjectCourseId=" + subjectCourseId + ", subjectId=" + subjectId + ", courseId=" + courseId + '}';
+        return "SubjectCourse{" + "subjectId=" + subjectId + ", courseId=" + courseId + ", subject=" + subject + ", course=" + course + '}';
     }
-    
+
 }

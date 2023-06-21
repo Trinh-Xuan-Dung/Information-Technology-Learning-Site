@@ -16,6 +16,10 @@ public class Subject {
     public Subject() {
     }
 
+    public Subject(int subjectId) {
+        this.subjectId = subjectId;
+    }
+
     public Subject(int subjectId, String subjectName, String SubjectDescription) {
         this.subjectId = subjectId;
         this.subjectName = subjectName;

@@ -4,15 +4,17 @@
  */
 package DAO;
 
-import Entity.Subject;
+import Entity.Quiz;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-public interface SubjectDAO {
-    List<Subject> getAllSubject();
-    int getKeytoInsertCOurse(String name);
+public interface QuizDAO {
+    public int AddnewQuiz(Quiz quiz);
+    public  List<Quiz> getAllQuizbyWeekId(int id);
+
+    public Quiz getQuizById(int id);
     
 }

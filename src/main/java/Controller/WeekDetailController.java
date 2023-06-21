@@ -4,20 +4,13 @@
  */
 package Controller;
 
-import DAO.CourseDAO;
-import DAO.CourseDAOimplement;
-import DAO.SubjectCourseDAO;
-import DAO.SubjectCourseDAOimplement;
-import DAO.SubjectDAO;
-import DAO.SubjectDAOimplement;
-import Entity.Course;
-import Entity.Subject;
+import DAO.WeekDAO;
+import DAO.WeekDAOimplement;
+import Entity.WeekCourse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author HP
  */
-public class AddCourseController extends HttpServlet {
+@WebServlet(name = "WeekDetailController", urlPatterns = {"/WeekDetail"})
+public class WeekDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +39,10 @@ public class AddCourseController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddCourse</title>");
+            out.println("<title>Servlet WeekDetailController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddCourse at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet WeekDetailController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,13 +60,21 @@ public class AddCourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        SubjectDAO dao = new SubjectDAOimplement();
-        List<Subject> listS = new ArrayList<>();
-        if (dao.getAllSubject() != null) {
-            listS = dao.getAllSubject();
+        String stringwId=request.getParameter("wid");
+        int id =Validation.Validator.parseValidId(stringwId);
+        if(id!=0){
+            WeekDAO dao = new WeekDAOimplement();
+            WeekCourse week=dao.getWeekByWId(id);
+            if(week!=null){
+                request.setAttribute("weekToView", week);
+                request.getRequestDispatcher("WeekDetail.jsp").forward(request, response);
+            }else{
+                response.sendRedirect("WeekDetail?wid="+stringwId);
+            }
+            
         }
-        request.setAttribute("listSubjectToView", listS);
-        request.getRequestDispatcher("AddCourse.jsp").forward(request, response);
+        
+        
     }
 
     /**
@@ -86,41 +88,7 @@ public class AddCourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String courseName = request.getParameter("coursename");
-        String courseSubject = request.getParameter("selectSubject");
-        String couresDescription = request.getParameter("courdescription");
-        String courseImgae = request.getParameter("courseimage");
-
-        Course coureToAdd = new Course(0, courseName, courseImgae, couresDescription, LocalDate.MAX);
-        CourseDAO cdao = new CourseDAOimplement();
-        SubjectDAO sdao = new SubjectDAOimplement();
-        int addCourse = cdao.addNewCourse(coureToAdd);
-        if (addCourse != 0 && courseSubject != null) {
-            int subjectid = Integer.parseInt(courseSubject);
-
-            if (subjectid > 0) {
-                SubjectCourseDAO scdao = new SubjectCourseDAOimplement();
-
-                boolean finalresul = scdao.AddToSubjectCourse(subjectid, addCourse);
-                if (finalresul == true) {
-//                    List<Course> list = new ArrayList<>();
-//                    if (cdao.getAllCourse() != null) {
-//                        list = cdao.getAllCourse();
-//
-//                    }
-//
-//                    request.setAttribute("listCToView", list);
-//                    request.getRequestDispatcher("Home.jsp").forward(request, response);
-                    response.sendRedirect(request.getContextPath()+"/HomeController");
-                }else{
-                    response.sendRedirect(request.getContextPath()+"/AddCourse");
-                }
-            }
-
-        }else{
-            response.sendRedirect(request.getContextPath()+"/AddCourse.jsp");
-        }
-
+        processRequest(request, response);
     }
 
     /**
