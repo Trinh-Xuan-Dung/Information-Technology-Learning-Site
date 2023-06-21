@@ -12,9 +12,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%@include file="head.jsp" %>
     </head>
     <body>
-        <div class="form-module">
+        <%@include file="header.jsp" %>
+        <div class="container">
+            <h1 class="my-4">Update a Week Course</h1>
             <form action="UpdateWeek" method="POST">
                 <input name="wid" type="hidden" value="${weekToUpdate.weekId}" >
                 <div class="form-outline mb-4">
@@ -38,7 +41,10 @@
 
                 <input type="hidden" name="moduleId" value="${moduleId}"/>
                 <input class="btn btn-primary"  type="submit" value="Save"/>
-            </form>
+            </form> 
+        </div>
+        
+            
         </div>
     </body>
 </html>
