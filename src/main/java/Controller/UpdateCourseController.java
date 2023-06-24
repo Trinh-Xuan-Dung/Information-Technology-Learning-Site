@@ -69,12 +69,11 @@ public class UpdateCourseController extends HttpServlet {
             throws ServletException, IOException {
         SubjectDAO dao = new SubjectDAOimplement();
         CourseDAO daoc = new CourseDAOimplement();
-        SubjectCourseDAO daosc=new SubjectCourseDAOimplement();
+
         String stringId = request.getParameter("id");
 
         List<Subject> listS = new ArrayList<>();
-        List<SubjectCourse> listSc = new ArrayList<>();
-       
+
         if (dao.getAllSubject() != null) {
             listS = dao.getAllSubject();
         }
@@ -82,13 +81,11 @@ public class UpdateCourseController extends HttpServlet {
         if (Validation.Validator.checkIdIsValid(stringId)) {
             id = Integer.parseInt(stringId);
         }
-        if(daosc.getAllSubjectCorseByCourseId(id)!=null){
-            listSc =daosc.getAllSubjectCorseByCourseId(id);
-        }
-                Course course = daoc.getCourseById(id);
+
+        Course course = daoc.getCourseJoin(id);
         request.setAttribute("listSubjectToView", listS);
         request.setAttribute("courseId", id);
-        request.setAttribute("listScSelected", listSc);
+
         request.setAttribute("oldCourse", course);
         request.getRequestDispatcher("UpdateCourse.jsp").forward(request, response);
     }
