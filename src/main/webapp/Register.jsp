@@ -8,7 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Register to join with ús</title>
+        <title>Register to join with ï¿½s</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -26,13 +26,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <body>
         <!-- main -->
         <div class="main-w3layouts wrapper">
-            <h1>Register to join with ús</h1>
+            <h1>Register to join with ï¿½s</h1>
             <div class="main-agileinfo">
                 <div class="agileits-top">
                     <c:if test="${Message!=null}" >
                         <span id="duplicateuser" class="error text-danger co" style="color: red">${Message}</span>
                     </c:if>
                         <form class="pt-2" action="Register" method="post" onsubmit="return validateForm()">
+
                         <input class="text" type="text" name="Username" placeholder="Username" required="">
                         <input class="text email" type="email" name="email" placeholder="Email" required="">
                         <input class="text" type="password" id="password" name="password" placeholder="Password" required="">
@@ -53,7 +54,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
             <!-- copyright -->
             <div class="colorlibcopy-agile">
-                <p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
+                <p>ï¿½ 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
             </div>
             <!-- //copyright -->
             <ul class="colorlib-bubbles">
