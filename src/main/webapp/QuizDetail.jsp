@@ -42,28 +42,28 @@
                     <div class="d-flex flex-row">
                         <div class="option">${item.optionA?null:item.optionA}</div>
                         <c:if test="${item.optionA!=null}">
-                            <input type="checkbox" name="answerA" checked="${item.answerA=="false"?true:false}">${item.answerA}
+                            <input type="checkbox" name="answerA" checked="${item.optionA==null?null:item.answerA}">
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
                         <div class="option">${item.optionB?null:item.optionB}</div>
                         <c:if test="${item.optionB!=null}">
-                            <input type="checkbox" name="answerB"   checked="${item.answerB=="false"?false:true}">
+                            <input type="checkbox" name="answerB"   checked="${item.optionB==null?null:item.answerB}">
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
                         <div class="option">${item.optionC?null:item.optionC}</div>
                         <c:if test="${item.optionC!=null}">
-                            <input type="checkbox" name="answerC" checked="${item.answerC=="false"?false:true}">
+                            <input type="checkbox" name="answerC" checked="${item.optionC==null?null:item.answerC}">
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
                         <div class="option">${item.optionD?null:item.optionD}</div>
                         <c:if test="${item.optionD!=null}">
-                            <input type="checkbox" name="answerD" checked="${item.answerD=="false"?false:true}">
+                            <input type="checkbox" name="answerD" checked="${item.optionD==null?null:item.answerD}">
                         </c:if>
                     </div>
                 </div>
