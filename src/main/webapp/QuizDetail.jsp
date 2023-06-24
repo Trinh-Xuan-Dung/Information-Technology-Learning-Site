@@ -50,28 +50,44 @@
                     <div class="d-flex flex-row">
                         <div class="option"  >${item.optionA?null:item.optionA}</div>
                         <c:if test="${item.optionA!=null}">
+<<<<<<< HEAD
                             <input class="form-check-input ps-2" type="checkbox"  name="answerA"  ${item.answerA ? 'checked' : ''}  disabled="" >
+=======
+                            <input type="checkbox" name="answerA" checked="${item.optionA==null?null:item.answerA}">
+>>>>>>> 76be09f (Revert "upload file")
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
                         <div class="option">${item.optionB?null:item.optionB}</div>
                         <c:if test="${item.optionB!=null}">
+<<<<<<< HEAD
                             <input class="form-check-input ps-2" type="checkbox" name="answerB"   ${item.answerB? 'checked' : ''} disabled>
+=======
+                            <input type="checkbox" name="answerB"   checked="${item.optionB==null?null:item.answerB}">
+>>>>>>> 76be09f (Revert "upload file")
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
                         <div class="option">${item.optionC?null:item.optionC}</div>
                         <c:if test="${item.optionC!=null}">
+<<<<<<< HEAD
                             <input class="form-check-input ps-2"  type="checkbox" name="answerC"  ${item.answerC? 'checked' : ''} disabled>
+=======
+                            <input type="checkbox" name="answerC" checked="${item.optionC==null?null:item.answerC}">
+>>>>>>> 76be09f (Revert "upload file")
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
                         <div class="option">${item.optionD?null:item.optionD}</div>
                         <c:if test="${item.optionD!=null}">
+<<<<<<< HEAD
                             <input class="form-check-input ps-2" type="checkbox" name="answerD"  ${item.answerD? 'checked' : ''} disabled>
+=======
+                            <input type="checkbox" name="answerD" checked="${item.optionD==null?null:item.answerD}">
+>>>>>>> 76be09f (Revert "upload file")
                         </c:if>
                     </div>
                 </div>

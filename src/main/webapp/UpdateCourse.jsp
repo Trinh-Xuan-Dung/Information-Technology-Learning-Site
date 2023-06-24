@@ -49,7 +49,7 @@
 
                 <div class="form-outline mb-4">
                     <label class="form-label" for="form5Example1">Course Description</label>
-                    <textarea id="id" name="courdescriptionupdate" class="form-control"  rows="5" cols="20">${oldCourse.courseDescription}</textarea>
+                    <textarea id="id" name="courdescriptionupdate" class="form-control"  rows="5" cols="20"></textarea>
 
                 </div>    
                 <input class="btn btn-primary"  type="submit" value="Save"/>
