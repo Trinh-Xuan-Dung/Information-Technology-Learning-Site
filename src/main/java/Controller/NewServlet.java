@@ -2,36 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Controller;
+package controller;
 
-import DAO.QuizDAO;
-import DAO.QuizDAOimplement;
-import Entity.Question;
-import Entity.Quiz;
-import Logic.GetListToImportQuest;
-import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name = "QuizDetailController", urlPatterns = {"/QuizDetail"})
-@MultipartConfig
-public class QuizDetailController extends HttpServlet {
+@WebServlet(name = "NewServlet", urlPatterns = {"/NewServlet"})
+public class NewServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +36,10 @@ public class QuizDetailController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuizDetailController</title>");
+            out.println("<title>Servlet NewServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet QuizDetailController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,15 +57,7 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String qidString = request.getParameter("qid");
-        int id = Validation.Validator.parseValidId(qidString);
-        if (id != 0) {
-            QuizDAO dao = new QuizDAOimplement();
-            Quiz quiz = dao.getQuizById(id);
-            request.setAttribute("quizView", quiz);
-            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
-        }
-
+        processRequest(request, response);
     }
 
     /**
@@ -93,18 +71,7 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
-
-        Part part = request.getPart("file");
-        System.out.println("part:" + part);
-        GetListToImportQuest ip = new GetListToImportQuest();
-        List<Question> questions = ip.processFile(part, quizId);
-        if (questions != null) {
-            request.setAttribute("qs", questions);
-            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
-        }
-
+        processRequest(request, response);
     }
 
     /**
