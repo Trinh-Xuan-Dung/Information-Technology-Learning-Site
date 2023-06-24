@@ -9,33 +9,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+
+        <%@include file="head.jsp" %>
     </head>
     <body>
-       <h1>Edit Module</h1>
+        <%@include file="header.jsp" %>
+        <div class="container">
+            <h1 class="my-4">Cập nhật module</h1>
+            <form action="UpdateModule" method="post">
+                <input type="hidden" name="moduleId" value="${oldmodule.moduleId}">
+                <input type="hidden" name="courseID" value="${oldmodule.courseId}">
+                <div class="form-group">
+                    <label for="moduleName">Module Name:</label>
+                    <input type="text" class="form-control" id="moduleName" name="moduleName" value="${oldmodule.moduleName}">
+                </div>
+                <div class="form-group">
+                    <label for="moduleDescription">Module Description:</label>
+                    <textarea class="form-control" id="moduleDescription" name="moduleDescription" rows="5">${oldmodule.moduleDescription}</textarea>
+                </div>
+                <input type="submit" class="btn btn-primary" value="Save">
+            </form>
+        </div>
 
-        <form action="UpdateModule" method="post">
-            <input type="hidden" name="moduleId" value="${oldmodule.moduleId}"/>
-            <input type="hidden" name="courseID" value="${oldmodule.courseId}"/>
-            <table border="1" style="border-collapse: collapse" >
-
-                <tbody>
-                    <tr>
-                        <td>Module Name:</td>
-                        <td><input type="type" name="moduleName" value="${oldmodule.moduleName}"></td>
-                    </tr>
-
-                    <tr>
-                        <td>Module Description</td>
-                        <td><textarea id="id" name="modulecourdescription" rows="5" cols="20">${oldmodule.moduleDescription}</textarea></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><input type="submit" value="Save"/></td>
-                    </tr>
-
-                </tbody>
-            </table>
-        </form>
     </body>
 </html>
