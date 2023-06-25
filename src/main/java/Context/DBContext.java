@@ -26,7 +26,7 @@ public class DBContext {
             url = "jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName;
         }
         Class.forName("com.mysql.cj.jdbc.Driver");
-       // connection = DriverManager.getConnection(url, userID, password);
+        // connection = DriverManager.getConnection(url, userID, password);
         return DriverManager.getConnection(url, userID, password);
     }
     /*Insert your other code right after this comment*/
@@ -52,4 +52,3 @@ public class DBContext {
     }
 
 }
-

@@ -7,6 +7,7 @@ package Controller;
 import DAO.CourseDAO;
 import DAO.CourseDAOimplement;
 import Entity.Course;
+import Entity.Users;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class HomeController extends HttpServlet {
 
@@ -28,15 +30,18 @@ public class HomeController extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession ss =  request.getSession();
+        Users user = (Users) ss.getAttribute("User");
+        
         CourseDAO dao = new CourseDAOimplement();
         List<Course> list = new ArrayList<>();
-        if(dao.getAllCourseJoin()!=null){
-            list=dao.getAllCourseJoin();
-          
+        if (dao.getAllCourseJoin() != null) {
+            list = dao.getAllCourseJoin();
+
         }
-       
+
         request.setAttribute("listCToView", list);
-         request.getRequestDispatcher("Home.jsp").forward(request, response);
+        request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
