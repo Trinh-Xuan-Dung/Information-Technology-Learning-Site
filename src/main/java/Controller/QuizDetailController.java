@@ -8,7 +8,7 @@ import DAO.QuizDAO;
 import DAO.QuizDAOimplement;
 import Entity.Question;
 import Entity.Quiz;
-import ImportQuest.GetListToImportQuest;
+import Logic.GetListToImportQuest;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
