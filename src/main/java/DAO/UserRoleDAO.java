@@ -4,14 +4,11 @@
  */
 package DAO;
 
-import Entity.Users;
-
 /**
  *
  * @author HP
  */
-public interface UserDAO {
-    public int AddNewUser(Users user);
-    public Users getUserExsit(String userName);
-        
+public interface UserRoleDAO  {
+    public boolean addUserRoleWhenRegis(int userId,int roleId);
+    
 }

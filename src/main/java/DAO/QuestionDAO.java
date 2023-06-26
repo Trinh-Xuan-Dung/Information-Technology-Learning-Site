@@ -4,14 +4,14 @@
  */
 package DAO;
 
-import Entity.Users;
+import Entity.Question;
+import java.util.List;
 
 /**
  *
  * @author HP
  */
-public interface UserDAO {
-    public int AddNewUser(Users user);
-    public Users getUserExsit(String userName);
-        
+public interface QuestionDAO {
+   public int addListQuestTionByQuizID(int qId,List<Question> listq); 
+    
 }

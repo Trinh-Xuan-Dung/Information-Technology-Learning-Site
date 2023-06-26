@@ -8,6 +8,8 @@ import DAO.AddressDAO;
 import DAO.AddressImplement;
 import DAO.UserDAO;
 import DAO.UserDAOImplement;
+import DAO.UserRoleDAO;
+import DAO.UserRoleDAOImplement;
 import Entity.Address;
 import Entity.Users;
 import java.io.IOException;
@@ -43,7 +45,7 @@ public class RegisterCotroller extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterCotroller</title>");            
+            out.println("<title>Servlet RegisterCotroller</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet RegisterCotroller at " + request.getContextPath() + "</h1>");
@@ -64,7 +66,14 @@ public class RegisterCotroller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        Users user = (Users) request.getSession().getAttribute("user");
+        if(user==null){
+            request.removeAttribute("Message");
+        response.sendRedirect(request.getContextPath() + "/Register.jsp");
+        }else{
+             response.sendRedirect(request.getContextPath() + "/HomeController");
+        }
+        
     }
 
     /**
@@ -78,26 +87,40 @@ public class RegisterCotroller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userName =request.getParameter("Username");
-        String email =request.getParameter("email");
-        String pass =request.getParameter("password");
+        String userName = request.getParameter("Username");
+        String email = request.getParameter("email");
+        String pass = request.getParameter("password");
         Users user = new Users(0, userName, pass, email, 0);
-        AddressDAO adao=new AddressImplement();
-        int addressId = adao.AddNewAddress(new Address());
+        AddressDAO adao = new AddressImplement();
         UserDAO dao = new UserDAOImplement();
-        int userId=0;
-        if(addressId!=0){
-            user.setAddressId(addressId);
-            userId = dao.AddNewUser(user);
-        }else{
-             userId = dao.AddNewUser(user);
+        if (dao.getUserExsit(userName) == null) {
+            int addressId = adao.AddNewAddress(new Address());
+
+            int userId = 0;
+            if (addressId != 0) {
+                user.setAddressId(addressId);
+                userId = dao.AddNewUser(user);
+            } else {
+                userId = dao.AddNewUser(user);
+            }
+            if (userId != 0) {
+                UserRoleDAO role=new UserRoleDAOImplement();
+                role.addUserRoleWhenRegis(userId, 1);
+                HttpSession sess = request.getSession();
+                sess.setAttribute("user", user);
+                int min = 60;
+                sess.setMaxInactiveInterval(10 * min);
+                response.sendRedirect(request.getContextPath() + "/HomeController");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/Register.jsp");
+            }
+        } else {
+            System.out.println("heelo");
+            request.setAttribute("Message", "your username you input is exsit!");
+            request.getRequestDispatcher("/Register.jsp").forward(request, response);
+
         }
-        if(userId!=0){
-            HttpSession sess = request.getSession();
-            sess.setAttribute("user", user);
-           response.sendRedirect(request.getContextPath()+"/HomeController");
-        }
-       
+
     }
 
     /**

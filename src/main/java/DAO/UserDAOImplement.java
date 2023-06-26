@@ -19,6 +19,8 @@ import java.sql.Statement;
  */
 public class UserDAOImplement extends DBContext implements UserDAO {
 
+    Connection con;
+
     @Override
     public int AddNewUser(Users user) {
         int generatedId = 0;
@@ -48,23 +50,31 @@ public class UserDAOImplement extends DBContext implements UserDAO {
     }
 
     public static void main(String[] args) {
-        AddressDAO addressdao = new AddressImplement();
-        int addresId = addressdao.AddNewAddress(new Address(0, "Alle1", "21-ngo 156 Ton That Tung"));
-        if (addresId != 0) {
-            Users user = new Users(0, "admin", "admin#01", "abc@123.com", 7);
-            UserDAO dao = new UserDAOImplement();
-            int userId = dao.AddNewUser(user);
-            if (userId != 0) {
-                System.out.println("insert user SUccress:+\n");
-                user.setId(userId);
-                System.out.println("User:" + user);
-            }else{
-                System.out.println("insert failed:");
-            }
-            
-        } else {
-            System.out.println("Insert");
-        }
+        UserDAO dao = new UserDAOImplement();
+        Users u = dao.getUserExsit("duannv");
+        System.out.println(u);
 
     }
+
+    @Override
+    public Users getUserExsit(String userName) {
+        
+
+        try {
+            con = getConnection();
+            String sql = "SELECT  Username, Password FROM learning_site.users Where Username=?";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, userName);
+          
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Users user = new Users();
+                user.setUsername(rs.getString(1));         
+                return user;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
 }
