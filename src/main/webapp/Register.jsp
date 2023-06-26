@@ -32,13 +32,13 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <c:if test="${Message!=null}" >
                         <span id="duplicateuser" class="error text-danger co" style="color: red">${Message}</span>
                     </c:if>
-                        <form class="pt-2" action="Register" method="post" onsubmit="return validateForm()">
+                        <form class="pt-2" action="Registernull" method="post" onsubmit="return validateForm()">
                         <input class="text" type="text" name="Username" placeholder="Username" required="">
                         <input class="text email" type="email" name="email" placeholder="Email" required="">
                         <input class="text" type="password" id="password" name="password" placeholder="Password" required="">
                         <span style="color: red" id="passwordError" class="error"></span>
                         <input class="text w3lpass" type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required="">
-                        <span id="confirmPasswordError" class="error"></span>
+                        <span style="color: red" id="confirmPasswordError" class="error"></span>
                         <div class="wthree-text">
                             <label class="anim">
                                 <input type="checkbox" class="checkbox" required="">
@@ -69,7 +69,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <li></li>
             </ul>
         </div>
-<!--        <script>
+        <script>
             function validateForm() {
                 var password = document.getElementById("password").value;
                 var confirmPassword = document.getElementById("confirmPassword").value;
@@ -91,7 +91,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 confirmPasswordError.innerHTML = ""; // Clear the confirm password error message if validation succeeds
                 return true;
             }
-        </script>-->
+        </script>
         <!-- //main -->
     </body>
 </html>
