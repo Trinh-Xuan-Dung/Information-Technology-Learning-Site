@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!--
 Author: Colorlib
 Author URL: https://colorlib.com
@@ -28,7 +29,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <h1>Register to join with ús</h1>
             <div class="main-agileinfo">
                 <div class="agileits-top">
-                    <form action="Register" method="post" onsubmit="return validateForm()">
+                    <c:if test="${Message!=null}" >
+                        <span id="duplicateuser" class="error text-danger co" style="color: red">${Message}</span>
+                    </c:if>
+                        <form class="pt-2" action="Register" method="post" onsubmit="return validateForm()">
                         <input class="text" type="text" name="Username" placeholder="Username" required="">
                         <input class="text email" type="email" name="email" placeholder="Email" required="">
                         <input class="text" type="password" id="password" name="password" placeholder="Password" required="">
