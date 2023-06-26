@@ -877,11 +877,15 @@ CREATE TABLE `address` (
   PRIMARY KEY (`ID`),
   KEY `Residential_GroupsID` (`Residential_GroupsID`),
   CONSTRAINT `address_ibfk_1` FOREIGN KEY (`Residential_GroupsID`) REFERENCES `residential_groups` (`ID`)
+<<<<<<< HEAD:dump-learning_site-202306262057.sql
 <<<<<<< HEAD:dump-learning_site-202306121640.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 =======
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 >>>>>>> a728cbb (26/6 code run prepare to push+reDumpDb):dump-learning_site-202306262057.sql
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e1959 (dump update database for user userrole and role):dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -890,10 +894,14 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306262057.sql
 <<<<<<< HEAD:dump-learning_site-202306121640.sql
 =======
 INSERT INTO `address` VALUES (7,'Alle1','21-ngo 156 Ton That Tung',NULL),(8,'Alle1','21-ngo 156 Ton That Tung',NULL),(10,NULL,NULL,NULL);
 >>>>>>> a728cbb (26/6 code run prepare to push+reDumpDb):dump-learning_site-202306262057.sql
+=======
+INSERT INTO `address` VALUES (7,'Alle1','21-ngo 156 Ton That Tung',NULL),(8,'Alle1','21-ngo 156 Ton That Tung',NULL),(10,NULL,NULL,NULL),(11,NULL,NULL,NULL);
+>>>>>>> 35e1959 (dump update database for user userrole and role):dumpdb_26_06.sql
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1653,6 +1661,7 @@ CREATE TABLE `userrole` (
 
 LOCK TABLES `userrole` WRITE;
 /*!40000 ALTER TABLE `userrole` DISABLE KEYS */;
+INSERT INTO `userrole` VALUES (1,1),(3,1),(4,1),(5,1);
 /*!40000 ALTER TABLE `userrole` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1682,8 +1691,12 @@ CREATE TABLE `users` (
 =======
   UNIQUE KEY `AddressId` (`AddressId`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`AddressId`) REFERENCES `address` (`ID`)
+<<<<<<< HEAD:dump-learning_site-202306262057.sql
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 >>>>>>> a728cbb (26/6 code run prepare to push+reDumpDb):dump-learning_site-202306262057.sql
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e1959 (dump update database for user userrole and role):dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1692,10 +1705,14 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306262057.sql
 <<<<<<< HEAD:dump-learning_site-202306121640.sql
 =======
 INSERT INTO `users` VALUES (1,'duannv','MTIz',NULL,NULL,'abc@123.com',NULL,7,NULL,NULL),(3,'admin','YWRtaW4jMDE=',NULL,NULL,'abc@123.com',NULL,8,NULL,NULL),(4,'duannv1011','RHVhbjEwMTFA',NULL,NULL,'duan101120@gmail.com',NULL,10,NULL,NULL);
 >>>>>>> a728cbb (26/6 code run prepare to push+reDumpDb):dump-learning_site-202306262057.sql
+=======
+INSERT INTO `users` VALUES (1,'duannv','MTIz',NULL,NULL,'abc@123.com',NULL,7,NULL,NULL),(3,'admin','YWRtaW4jMDE=',NULL,NULL,'abc@123.com',NULL,8,NULL,NULL),(4,'duannv1011','RHVhbjEwMTFA',NULL,NULL,'duan101120@gmail.com',NULL,10,NULL,NULL),(5,'admin100','QWRtaW4xMDBA',NULL,NULL,'admin100@gmail.com',NULL,11,NULL,NULL);
+>>>>>>> 35e1959 (dump update database for user userrole and role):dumpdb_26_06.sql
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1774,9 +1791,13 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD:dump-learning_site-202306262057.sql
 <<<<<<< HEAD:dump-learning_site-202306121640.sql
 -- Dump completed on 2023-06-12 16:40:17
 >>>>>>> 4619437 (git cache cleared)
 =======
 -- Dump completed on 2023-06-26 20:57:35
 >>>>>>> a728cbb (26/6 code run prepare to push+reDumpDb):dump-learning_site-202306262057.sql
+=======
+-- Dump completed on 2023-06-26 21:40:50
+>>>>>>> 35e1959 (dump update database for user userrole and role):dumpdb_26_06.sql
