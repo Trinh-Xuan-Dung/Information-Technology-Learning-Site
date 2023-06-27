@@ -18,5 +18,6 @@ public interface SubjectCourseDAO {
     public List<SubjectCourse> getAllSubjectCorseByCourseId(int courseId);
     public Course getSubjectJoinReleaseCorseByCourseId(int courseId);
     public List<SubjectCourse> getAllOldSubjectbyCourseId(int i);
-    public boolean deleteAllSubjectById(int courseId); 
+    public boolean deleteAllSubjectById(int courseId);
+    public boolean addAllNewSubjectById(int courseId, List<Subject> newSubjects);
 }
