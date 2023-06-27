@@ -4,34 +4,29 @@
  */
 package Controller;
 
-import DAO.QuizDAO;
-import DAO.QuizDAOimplement;
-import Entity.Question;
-import Entity.Quiz;
-import Logic.GetListToImportQuest;
-import java.io.BufferedReader;
-import java.io.File;
+import DAO.AddressDAO;
+import DAO.AddressImplement;
+import DAO.UserDAO;
+import DAO.UserDAOImplement;
+import DAO.UserRoleDAO;
+import DAO.UserRoleDAOImplement;
+import Entity.Address;
+import Entity.Users;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.nio.file.Paths;
-import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name = "QuizDetailController", urlPatterns = {"/QuizDetail"})
-@MultipartConfig
-public class QuizDetailController extends HttpServlet {
+@WebServlet(name = "RegisterCotroller", urlPatterns = {"/Register"})
+public class RegisterCotroller extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -50,10 +45,10 @@ public class QuizDetailController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet QuizDetailController</title>");
+            out.println("<title>Servlet RegisterCotroller</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet QuizDetailController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RegisterCotroller at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -71,15 +66,14 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String qidString = request.getParameter("qid");
-        int id = Validation.Validator.parseValidId(qidString);
-        if (id != 0) {
-            QuizDAO dao = new QuizDAOimplement();
-            Quiz quiz = dao.getQuizById(id);
-            request.setAttribute("quizView", quiz);
-            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+        Users user = (Users) request.getSession().getAttribute("user");
+        if(user==null){
+            request.removeAttribute("Message");
+        response.sendRedirect(request.getContextPath() + "/Register.jsp");
+        }else{
+             response.sendRedirect(request.getContextPath() + "/HomeController");
         }
-
+        
     }
 
     /**
@@ -93,22 +87,40 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
-            System.out.println(quizId);
-            Part part = request.getPart("file");
-            System.out.println(part);
-            GetListToImportQuest ip = new GetListToImportQuest();
-            List<Question> questions = ip.processFile(part, quizId);
-            for (Question question : questions) {
-                System.out.println(question);
-                System.out.println(quizId);
+        String userName = request.getParameter("Username");
+        String email = request.getParameter("email");
+        String pass = request.getParameter("password");
+        Users user = new Users(0, userName, pass, email, 0);
+        AddressDAO adao = new AddressImplement();
+        UserDAO dao = new UserDAOImplement();
+        if (dao.getUserExsit(userName) == null) {
+            int addressId = adao.AddNewAddress(new Address());
 
+            int userId = 0;
+            if (addressId != 0) {
+                user.setAddressId(addressId);
+                userId = dao.AddNewUser(user);
+            } else {
+                userId = dao.AddNewUser(user);
             }
-            request.setAttribute("qs", questions);
-            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+            if (userId != 0) {
+                UserRoleDAO role=new UserRoleDAOImplement();
+                role.addUserRoleWhenRegis(userId, 1);
+                HttpSession sess = request.getSession();
+                sess.setAttribute("user", user);
+                int min = 60;
+                sess.setMaxInactiveInterval(10 * min);
+                response.sendRedirect(request.getContextPath() + "/HomeController");
+            } else {
+                response.sendRedirect(request.getContextPath() + "/Register.jsp");
+            }
+        } else {
+            System.out.println("heelo");
+            request.setAttribute("Message", "your username you input is exsit!");
+            request.getRequestDispatcher("/Register.jsp").forward(request, response);
 
-       
+        }
+
     }
 
     /**

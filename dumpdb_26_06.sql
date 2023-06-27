@@ -30,7 +30,11 @@ CREATE TABLE `address` (
   PRIMARY KEY (`ID`),
   KEY `Residential_GroupsID` (`Residential_GroupsID`),
   CONSTRAINT `address_ibfk_1` FOREIGN KEY (`Residential_GroupsID`) REFERENCES `residential_groups` (`ID`)
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +43,10 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+INSERT INTO `address` VALUES (7,'Alle1','21-ngo 156 Ton That Tung',NULL),(8,'Alle1','21-ngo 156 Ton That Tung',NULL),(10,NULL,NULL,NULL),(11,NULL,NULL,NULL);
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -272,7 +280,11 @@ CREATE TABLE `course` (
   `DateCreate` datetime DEFAULT CURRENT_TIMESTAMP,
   `CourseTitle` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`CourseId`)
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
 ) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -281,7 +293,11 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
 INSERT INTO `course` VALUES (1,'Java Course 1','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Introduction to Programming'),(2,'Java Course 2','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Data Structures'),(3,'Java Course 3','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Web Development'),(4,'Java Course 4','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Database Management'),(5,'Java Course 5','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Object-Oriented Programming'),(6,'Java Course 6','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Network Security'),(7,'Java Course 7','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Software Engineering'),(8,'Java Course 8','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Artificial Intelligence'),(9,'Java Course 9','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Mobile App Development'),(10,'Java Course 10','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Cloud Computing'),(11,'Java Course 11','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Operating Systems'),(12,'Java Course 12','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Data Science'),(13,'Java Course 13','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Cybersecurity'),(14,'Java Course 14','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Computer Graphics'),(15,'Java Course 15','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Machine Learning'),(16,'Java Course 16','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Computer Networks'),(17,'Java Course 17','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Human-Computer Interaction'),(18,'Java Course 18','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Algorithms'),(19,'Java Course 19','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Software Testing'),(20,'Java Course 20','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Computer Architecture');
+=======
+INSERT INTO `course` VALUES (1,'Java Course 1','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, youâll be able to develop large systems, software, and mobile applications â and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Introduction to Programming'),(2,'Java Course 2','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Data Structures'),(3,'Java Course 3','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Web Development'),(4,'Java Course 4','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','','2023-06-11 02:35:48','Database Management'),(5,'Java Course 5','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Object-Oriented Programming'),(6,'Java Course 6','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Network Security'),(7,'Java Course 7','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Software Engineering'),(8,'Java Course 8','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Artificial Intelligence'),(9,'Java Course 9','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Mobile App Development'),(10,'Java Course 10','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Cloud Computing'),(11,'Java Course 11','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Operating Systems'),(12,'Java Course 12','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Data Science'),(13,'Java Course 13','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Cybersecurity'),(14,'Java Course 14','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Computer Graphics'),(15,'Java Course 15','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Machine Learning'),(16,'Java Course 16','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Computer Networks'),(17,'Java Course 17','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Human-Computer Interaction'),(18,'Java Course 18','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Algorithms'),(19,'Java Course 19','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, youâll be able to develop large systems, software, and mobile applications â and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Software Testing'),(20,'Java Course 20','https://contentstatic.techgig.com/photo/93000110/What-makes-Java-still-popular-among-developers.jpg','Popular for its versatility and ability to create a wide variety of applications, learning Java opens up your possibilities when coding. With it, you’ll be able to develop large systems, software, and mobile applications — and even create mobile apps for Android. Learn important Java coding fundamentals and practice your new skills with real-world projects.','2023-06-11 02:35:48','Computer Architecture'),(21,'course 21','https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg','haha','2023-06-12 23:56:57',NULL),(22,'course 22','https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg','aasdafsafas','2023-06-13 12:24:34',NULL);
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -408,7 +424,11 @@ CREATE TABLE `module` (
   PRIMARY KEY (`ModuleId`),
   KEY `CourseId` (`CourseId`),
   CONSTRAINT `module_ibfk_1` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`)
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -417,6 +437,10 @@ CREATE TABLE `module` (
 
 LOCK TABLES `module` WRITE;
 /*!40000 ALTER TABLE `module` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+INSERT INTO `module` VALUES (1,1,'modul1 for course1','in this module we will learn about Java basic '),(2,1,'module 2','Google Cloud has the tools Java developers need to be successful building cloud-native applications. Leverage deep integrations with familiar tools like Spring, Maven, Kubernetes, and IntelliJ to get started quickly.'),(3,1,'module 3','Google Cloud has the tools Java developers need to be successful building cloud-native applications. Leverage deep integrations with familiar tools like Spring, Maven, Kubernetes, and IntelliJ to get started quickly.'),(4,1,'module 4 ','Google Cloud has the tools Java developers need to be successful building cloud-native applications. Leverage deep integrations with familiar tools like Spring, Maven, Kubernetes, and IntelliJ to get started quickly.'),(5,19,'module 1','abcdef'),(6,2,'module 1','This module help you learn java basic ');
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `module` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,6 +471,43 @@ LOCK TABLES `provinces` WRITE;
 UNLOCK TABLES;
 
 --
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+-- Table structure for table `questions`
+--
+
+DROP TABLE IF EXISTS `questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `questions` (
+  `Id` int NOT NULL AUTO_INCREMENT,
+  `QuizId` int NOT NULL,
+  `QContent` varchar(1000) DEFAULT NULL,
+  `OptionA` varchar(1000) DEFAULT NULL,
+  `AnswerA` bit(1) DEFAULT b'0',
+  `OptionB` varchar(1000) DEFAULT NULL,
+  `AnswerB` bit(1) DEFAULT b'0',
+  `OptionC` varchar(1000) DEFAULT NULL,
+  `AnswerC` bit(1) DEFAULT b'0',
+  `OptionD` varchar(1000) DEFAULT NULL,
+  `AnswerD` bit(1) DEFAULT b'0',
+  PRIMARY KEY (`Id`),
+  KEY `QuizId` (`QuizId`),
+  CONSTRAINT `questions_ibfk_1` FOREIGN KEY (`QuizId`) REFERENCES `quiz` (`QuizId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `questions`
+--
+
+LOCK TABLES `questions` WRITE;
+/*!40000 ALTER TABLE `questions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `questions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 -- Table structure for table `quiz`
 --
 
@@ -455,12 +516,23 @@ DROP TABLE IF EXISTS `quiz`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `quiz` (
   `QuizId` int NOT NULL AUTO_INCREMENT,
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
   `WeekId` int DEFAULT NULL,
   `QuestionSet` text,
   PRIMARY KEY (`QuizId`),
   KEY `WeekId` (`WeekId`),
   CONSTRAINT `quiz_ibfk_1` FOREIGN KEY (`WeekId`) REFERENCES `weekcourse` (`WeekId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+  `QuizTopic` varchar(255) DEFAULT NULL,
+  `WeekId` int DEFAULT NULL,
+  `QTime` int DEFAULT NULL,
+  `QuizName` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`QuizId`),
+  KEY `WeekId` (`WeekId`),
+  CONSTRAINT `quiz_ibfk_1` FOREIGN KEY (`WeekId`) REFERENCES `weekcourse` (`WeekId`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -469,10 +541,59 @@ CREATE TABLE `quiz` (
 
 LOCK TABLES `quiz` WRITE;
 /*!40000 ALTER TABLE `quiz` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+INSERT INTO `quiz` VALUES (1,'java',1,15,'java basic quiz'),(8,'topic1',1,30,'Name'),(12,'javacourse',1,15,'Quiz test1'),(13,'15',1,30,'15'),(14,'15',1,30,'15'),(15,'15',1,30,'15'),(16,'javacourse 1',5,30,'Quiz test1'),(17,'151',1,30,'151');
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `quiz` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+-- Table structure for table `quizhistory`
+--
+
+DROP TABLE IF EXISTS `quizhistory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `quizhistory` (
+  `QuizHistoryId` int NOT NULL AUTO_INCREMENT,
+  `QuestionId` int DEFAULT NULL,
+  `QContent` varchar(1000) DEFAULT NULL,
+  `OptionA` varchar(1000) DEFAULT NULL,
+  `AnswerA` bit(1) DEFAULT b'0',
+  `UserAnswerA` bit(1) DEFAULT b'0',
+  `OptionB` varchar(1000) DEFAULT NULL,
+  `AnswerB` bit(1) DEFAULT b'0',
+  `UserAnswerB` bit(1) DEFAULT b'0',
+  `OptionC` varchar(1000) DEFAULT NULL,
+  `AnswerC` bit(1) DEFAULT b'0',
+  `UserAnswerC` bit(1) DEFAULT b'0',
+  `OptionD` varchar(1000) DEFAULT NULL,
+  `AnswerD` bit(1) DEFAULT b'0',
+  `UserAnswerD` bit(1) DEFAULT b'0',
+  `UserID` int DEFAULT NULL,
+  `QuizId` int DEFAULT NULL,
+  PRIMARY KEY (`QuizHistoryId`),
+  KEY `UserID` (`UserID`),
+  KEY `QuizId` (`QuizId`),
+  CONSTRAINT `quizhistory_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`ID`),
+  CONSTRAINT `quizhistory_ibfk_2` FOREIGN KEY (`QuizId`) REFERENCES `quiz` (`QuizId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `quizhistory`
+--
+
+LOCK TABLES `quizhistory` WRITE;
+/*!40000 ALTER TABLE `quizhistory` DISABLE KEYS */;
+/*!40000 ALTER TABLE `quizhistory` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 -- Table structure for table `quizprogress`
 --
 
@@ -566,7 +687,11 @@ CREATE TABLE `roles` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `Name` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`ID`)
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -575,6 +700,10 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+INSERT INTO `roles` VALUES (1,'User'),(2,'Suporter'),(3,'Teacher'),(4,'Admin');
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -611,6 +740,7 @@ DROP TABLE IF EXISTS `subjectcourse`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `subjectcourse` (
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
   `CourseSubjectId` int NOT NULL AUTO_INCREMENT,
   `SubjectId` int DEFAULT NULL,
   `CourseId` int DEFAULT NULL,
@@ -620,6 +750,15 @@ CREATE TABLE `subjectcourse` (
   CONSTRAINT `subjectcourse_ibfk_1` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`),
   CONSTRAINT `subjectcourse_ibfk_2` FOREIGN KEY (`SubjectId`) REFERENCES `subject` (`SubjectId`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+  `SubjectId` int NOT NULL,
+  `CourseId` int NOT NULL,
+  PRIMARY KEY (`SubjectId`,`CourseId`),
+  KEY `CourseId` (`CourseId`),
+  CONSTRAINT `subjectcourse_ibfk_1` FOREIGN KEY (`CourseId`) REFERENCES `course` (`CourseId`),
+  CONSTRAINT `subjectcourse_ibfk_2` FOREIGN KEY (`SubjectId`) REFERENCES `subject` (`SubjectId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -628,7 +767,11 @@ CREATE TABLE `subjectcourse` (
 
 LOCK TABLES `subjectcourse` WRITE;
 /*!40000 ALTER TABLE `subjectcourse` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
 INSERT INTO `subjectcourse` VALUES (1,3,1),(2,2,1),(3,1,1),(4,3,2),(5,2,2),(6,1,2),(7,3,3),(8,2,3),(9,1,3),(10,3,4),(11,2,4),(12,1,4),(13,3,5),(14,2,5),(15,1,5),(16,3,6),(17,2,6),(18,1,6),(19,3,7),(20,2,7),(21,1,7),(22,3,8),(23,2,8),(24,1,8),(25,3,9),(26,2,9),(27,1,9),(28,3,10),(29,2,10),(30,1,10),(31,3,11),(32,2,11),(33,1,11),(34,3,12),(35,2,12),(36,1,12),(37,3,13),(38,2,13),(39,1,13),(40,3,14),(41,2,14),(42,1,14),(43,3,15),(44,2,15),(45,1,15),(46,3,16),(47,2,16),(48,1,16),(49,3,17),(50,2,17),(51,1,17),(52,3,18),(53,2,18),(54,1,18),(55,3,19),(56,2,19),(57,1,19),(58,3,20),(59,2,20),(60,1,20);
+=======
+INSERT INTO `subjectcourse` VALUES (1,1),(2,1),(3,1),(1,2),(2,2),(3,2),(1,3),(2,3),(3,3),(1,4),(2,4),(3,4),(1,5),(2,5),(3,5),(1,6),(2,6),(3,6),(1,7),(2,7),(3,7),(1,8),(2,8),(3,8),(1,9),(2,9),(3,9),(1,10),(2,10),(3,10),(1,11),(2,11),(3,11),(1,12),(2,12),(3,12),(1,13),(2,13),(3,13),(1,14),(3,14),(1,15),(2,15),(3,15),(1,16),(2,16),(3,16),(1,17),(2,17),(3,17),(1,18),(2,18),(1,19),(3,19),(1,20),(3,20),(2,21),(1,22),(2,22),(3,22);
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `subjectcourse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -640,11 +783,17 @@ DROP TABLE IF EXISTS `userrole`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `userrole` (
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
   `ID` int NOT NULL AUTO_INCREMENT,
   `UserId` int DEFAULT NULL,
   `RoleId` int DEFAULT NULL,
   PRIMARY KEY (`ID`),
   KEY `UserId` (`UserId`),
+=======
+  `UserId` int NOT NULL,
+  `RoleId` int NOT NULL,
+  PRIMARY KEY (`UserId`,`RoleId`),
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
   KEY `RoleId` (`RoleId`),
   CONSTRAINT `userrole_ibfk_1` FOREIGN KEY (`UserId`) REFERENCES `users` (`ID`),
   CONSTRAINT `userrole_ibfk_2` FOREIGN KEY (`RoleId`) REFERENCES `roles` (`ID`)
@@ -657,6 +806,10 @@ CREATE TABLE `userrole` (
 
 LOCK TABLES `userrole` WRITE;
 /*!40000 ALTER TABLE `userrole` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+INSERT INTO `userrole` VALUES (1,1),(3,1),(4,1),(5,1);
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `userrole` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -679,9 +832,15 @@ CREATE TABLE `users` (
   `Image` blob,
   `DOB` date DEFAULT NULL,
   PRIMARY KEY (`ID`),
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
   KEY `AddressId` (`AddressId`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`AddressId`) REFERENCES `address` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+  UNIQUE KEY `AddressId` (`AddressId`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`AddressId`) REFERENCES `address` (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -690,6 +849,10 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+INSERT INTO `users` VALUES (1,'duannv','MTIz',NULL,NULL,'abc@123.com',NULL,7,NULL,NULL),(3,'admin','YWRtaW4jMDE=',NULL,NULL,'abc@123.com',NULL,8,NULL,NULL),(4,'duannv1011','RHVhbjEwMTFA',NULL,NULL,'duan101120@gmail.com',NULL,10,NULL,NULL),(5,'admin100','QWRtaW4xMDBA',NULL,NULL,'admin100@gmail.com',NULL,11,NULL,NULL);
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -735,7 +898,11 @@ CREATE TABLE `weekcourse` (
   PRIMARY KEY (`WeekId`),
   KEY `ModuleId` (`ModuleId`),
   CONSTRAINT `weekcourse_ibfk_1` FOREIGN KEY (`ModuleId`) REFERENCES `module` (`ModuleId`)
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -744,6 +911,10 @@ CREATE TABLE `weekcourse` (
 
 LOCK TABLES `weekcourse` WRITE;
 /*!40000 ALTER TABLE `weekcourse` DISABLE KEYS */;
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
+=======
+INSERT INTO `weekcourse` VALUES (1,1,1,'week 1','this week will learn about operator in java'),(2,5,1,'week1','1111'),(3,5,2,'week2','Æ°eeeeee2'),(4,1,2,'week2','wwwwwwwwwwwwwwwwwwa'),(5,6,1,'week1',' learn operator and conditon ');
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
 /*!40000 ALTER TABLE `weekcourse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -760,4 +931,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD:dump-learning_site-202306121640.sql
 -- Dump completed on 2023-06-12 16:40:17
+=======
+-- Dump completed on 2023-06-26 21:40:50
+>>>>>>> 35e19594929a185362d107cca1166dc4aecf2c1a:dumpdb_26_06.sql
