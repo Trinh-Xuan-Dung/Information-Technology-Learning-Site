@@ -131,14 +131,14 @@ public class CourseDAOimplement implements CourseDAO {
                     + "FROM Course "
                     + "left JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
                     + "left JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
-
+            System.out.println(sql);
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, Course> courseMap = new HashMap<>();
-
+            
             while (rs.next()) {
                 int courseId = rs.getInt("CourseId");
 
@@ -179,11 +179,11 @@ public class CourseDAOimplement implements CourseDAO {
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAOimplement();
         List<Course> list = new ArrayList<>();
-                list = dao.getAllCourseJoin();
+        list = dao.getPagingCourse(1);
         for (Course course : list) {
             System.out.println(course);
         }
-        
+
     }
 
     @Override
@@ -263,6 +263,63 @@ public class CourseDAOimplement implements CourseDAO {
                     + "JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
 
             Connection con = context.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int courseId = rs.getInt("CourseId");
+
+                // Check if the course already exists in the list
+                Course existingCourse = findCourseById(courses, courseId);
+
+                if (existingCourse == null) {
+                    Course course = new Course();
+                    course.setCourseId(courseId);
+                    course.setCourseName(rs.getString("CourseName"));
+                    course.setCourseTitle(rs.getString("CourseTitle"));
+                    course.setImageUrlString(rs.getString("Image"));
+                    course.setCourseDescription(rs.getString("CourseDescription"));
+                    course.setDateCreate(rs.getDate("DateCreate").toLocalDate());
+                    List<SubjectCourse> subjects = new ArrayList<>();
+                    course.setSubjects(subjects);
+                    courses.add(course);
+                    existingCourse = course;
+                }
+
+                SubjectCourse subjectCourse = new SubjectCourse();
+                subjectCourse.setSubjectId(rs.getInt("SubjectId"));
+                subjectCourse.setSubject(new Subject(rs.getInt("SubjectId"), rs.getString("SubjectName"), rs.getString("SubjectDescription")));
+
+                existingCourse.getSubjects().add(subjectCourse);
+            }
+
+            rs.close();
+            ps.close();
+            con.close(); // Close the connection
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return courses;
+    }
+
+    @Override
+    public List<Course> getPagingCourse(int index) {
+        List<Course> courses = new ArrayList<>();
+        int limitCourse = 6;
+        int from = (index-1)* limitCourse ;
+        int to = index* limitCourse;  
+        try {
+            
+            String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription, Course.DateCreate, Course.CourseTitle, "
+                    + "SubjectCourse.SubjectId, "
+                    + "Subject.SubjectName, Subject.SubjectDescription "
+                    + "FROM ( select * from Course limit "+ from +", "+ to +") as Course "
+                    + "left JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
+                    + "left JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
+            
+           Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 

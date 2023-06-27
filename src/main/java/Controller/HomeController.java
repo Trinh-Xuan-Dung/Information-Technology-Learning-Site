@@ -34,12 +34,11 @@ public class HomeController extends HttpServlet {
         Users user = (Users) ss.getAttribute("User");
         
         CourseDAO dao = new CourseDAOimplement();
+        int defaultPage = 1; 
         List<Course> list = new ArrayList<>();
-        if (dao.getAllCourseJoin() != null) {
-            list = dao.getAllCourseJoin();
-
-        }
-
+        list=dao.getPagingCourse(defaultPage);
+          
+       
         request.setAttribute("listCToView", list);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
