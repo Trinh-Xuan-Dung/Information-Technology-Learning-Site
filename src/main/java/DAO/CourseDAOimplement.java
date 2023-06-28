@@ -138,7 +138,7 @@ public class CourseDAOimplement implements CourseDAO {
             ResultSet rs = ps.executeQuery();
 
             Map<Integer, Course> courseMap = new HashMap<>();
-            
+
             while (rs.next()) {
                 int courseId = rs.getInt("CourseId");
 
@@ -179,11 +179,11 @@ public class CourseDAOimplement implements CourseDAO {
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAOimplement();
         List<Course> list = new ArrayList<>();
-        list = dao.getPagingCourse(1);
-        for (Course course : list) {
-            System.out.println(course);
-        }
-
+//        list = dao.getPagingCourse(1);
+////        for (Course course : list) {
+////            System.out.println(course);
+////        }    
+        System.out.println(dao.getTotalCourse());
     }
 
     @Override
@@ -308,18 +308,18 @@ public class CourseDAOimplement implements CourseDAO {
     public List<Course> getPagingCourse(int index) {
         List<Course> courses = new ArrayList<>();
         int limitCourse = 6;
-        int from = (index-1)* limitCourse ;
-        int to = index* limitCourse;  
+        int from = (index - 1) * limitCourse;
+        int to = index * limitCourse;
         try {
-            
+
             String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription, Course.DateCreate, Course.CourseTitle, "
                     + "SubjectCourse.SubjectId, "
                     + "Subject.SubjectName, Subject.SubjectDescription "
-                    + "FROM ( select * from Course limit "+ from +", "+ to +") as Course "
+                    + "FROM ( select * from Course limit " + from + ", " + to + ") as Course "
                     + "left JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
                     + "left JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
-            
-           Connection con = context.getConnection();
+
+            Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
@@ -361,4 +361,21 @@ public class CourseDAOimplement implements CourseDAO {
         return courses;
     }
 
+    public int getTotalCourse() {
+        int total = 0;
+
+        try {
+            Connection conn = context.getConnection();
+            String sql = "SELECT count(*) FROM learning_site.course";
+            // ResultSet rs =  context.getDataByRawSQL(sql);
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+        }
+        return total;
+    }
+;
 }

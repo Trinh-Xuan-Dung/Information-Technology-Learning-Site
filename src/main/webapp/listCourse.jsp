@@ -71,12 +71,19 @@
                         </div>
                     </div>
                 </c:forEach>
-
-            </div>
-            <div class="text-center mt-4">
-                <button type="button" class="btn btn-primary" id="xemThemBtn">Xem thêm</button>
             </div>
         </div>
+
+        <nav aria-label="Page navigation" class="mt-4">
+
+            <ul class="pagination justify-content-center">
+                <c:forEach begin="1" end="${ViewTotalPage}" var="i">
+                    <li class="${index == i ? "page-item active":""}"><a class="page-link" href="listCourse?index=${i}"> ${i}</a></li>
+                    </c:forEach>
+
+
+            </ul>
+        </nav>
 
 
 
