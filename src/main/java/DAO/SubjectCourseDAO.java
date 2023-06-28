@@ -4,9 +4,7 @@
  */
 package DAO;
 
-import Entity.Course;
-import Entity.Subject;
-import Entity.SubjectCourse;
+import Entity.*;
 import java.util.List;
 
 /**
@@ -14,13 +12,11 @@ import java.util.List;
  * @author HP
  */
 public interface SubjectCourseDAO {
-    public boolean  AddToSubjectCourse(SubjectCourse sjc);
-    
+    //public boolean  AddToSubjectCourse(int subjectId,int courseId);
+    public boolean AddToSubjectCourse(SubjectCourse sc);
     public List<SubjectCourse> getAllSubjectCorseByCourseId(int courseId);
     public Course getSubjectJoinReleaseCorseByCourseId(int courseId);
-    public List<SubjectCourse> getAllOldSubjectbyCourseId(int CourseId);
+    public List<SubjectCourse> getAllOldSubjectbyCourseId(int i);
     public boolean deleteAllSubjectById(int courseId);
-    public boolean addAllNewSubjectById(int courseId,List<Subject> s);
-    
-    
+    public boolean addAllNewSubjectById(int courseId, List<Subject> newSubjects);
 }
