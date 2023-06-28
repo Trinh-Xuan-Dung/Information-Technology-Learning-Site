@@ -12,7 +12,6 @@ import java.util.List;
  * @author HP
  */
 public interface SubjectCourseDAO {
-    public boolean  AddToSubjectCourse(int subjectId,int courseId);
     //public boolean  AddToSubjectCourse(int subjectId,int courseId);
     public boolean AddToSubjectCourse(SubjectCourse sc);
     public List<SubjectCourse> getAllSubjectCorseByCourseId(int courseId);

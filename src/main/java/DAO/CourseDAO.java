@@ -19,5 +19,6 @@ public interface CourseDAO {
     public List<Course> getAllCourseJoin();
     public List<Course> getAllCourseJoin1();
     public Course getCourseJoin(int courseId);
-        public List<Course> getPagingCourse(int index);
+    public List<Course> getPagingCourse(int index);
+    public int getTotalCourse();
 }
