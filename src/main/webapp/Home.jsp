@@ -74,7 +74,7 @@
 
             </div>
             <div class="text-center mt-4">
-                <button type="button" class="btn btn-primary" id="xemThemBtn">Xem thêm</button>
+                <a class="btn btn-primary" href="listCourse?index=1">Xem thêm</a>
             </div>
         </div>
 
