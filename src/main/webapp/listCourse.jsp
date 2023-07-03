@@ -93,8 +93,8 @@
                         }
                         if (showEllipsisStart) {
                     %>
-                 <li class="page-item "><a class="page-link" href="listCourse?index=1">1</a></li>
-                 <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                <li class="page-item "><a class="page-link" href="listCourse?index=1">1</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
                     <%
                         }
                         for (int i = startPage; i <= endPage; i++) {
@@ -107,13 +107,14 @@
                         if (showEllipsisEnd) {
                     %>
                 <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                <li class="page-item "><a class="page-link" href="listCourse?index=<%=TotalPage%>"><%=TotalPage%></a></li>
                     <%
                         }
                         if (currentPage < TotalPage) {
 
 
                     %>
-                <li class="page-item "><a class="page-link" href="listCourse?index=<%=TotalPage%>"><%=TotalPage%></a></li>
+
                 <li class="page-item"><a class="page-link" href="listCourse?index=<%=currentPage + 1%>">Next</a></li>  
                     <%
                         }
