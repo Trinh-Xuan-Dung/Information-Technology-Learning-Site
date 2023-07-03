@@ -77,9 +77,47 @@
         <nav aria-label="Page navigation" class="mt-4">
 
             <ul class="pagination justify-content-center">
-                <c:forEach begin="1" end="${ViewTotalPage}" var="i">
-                    <li class="${index == i ? "page-item active":""}"><a class="page-link" href="listCourse?index=${i}"> ${i}</a></li>
-                    </c:forEach>
+                <%
+                    int currentPage = (Integer) request.getAttribute("index");
+                    int TotalPage = (Integer) request.getAttribute("ViewTotalPage");
+                    int visibleRange = 6;
+                    int startPage = Math.max(currentPage - visibleRange / 2, 1);
+                    int endPage = Math.min(startPage + visibleRange - 1, TotalPage);
+                    boolean showEllipsisStart = (startPage > 2);
+                    boolean showEllipsisEnd = (endPage < TotalPage - 1);
+
+                    if (currentPage > 1) {
+                %>
+                <li class="page-item"><a class="page-link" href="listCourse?index=<%=currentPage - 1%>">Previous</a></li>
+                    <%
+                        }
+                        if (showEllipsisStart) {
+                    %>
+                 <li class="page-item "><a class="page-link" href="listCourse?index=1">1</a></li>
+                 <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                    <%
+                        }
+                        for (int i = startPage; i <= endPage; i++) {
+
+                    %>
+
+                <li class="<%= i == currentPage ? "page-item active" : "page-item"%>"><a class="page-link" href="listCourse?index=<%=i%>"> <%=i%></a></li>
+                    <%
+                        }
+                        if (showEllipsisEnd) {
+                    %>
+                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                    <%
+                        }
+                        if (currentPage < TotalPage) {
+
+
+                    %>
+                <li class="page-item "><a class="page-link" href="listCourse?index=<%=TotalPage%>"><%=TotalPage%></a></li>
+                <li class="page-item"><a class="page-link" href="listCourse?index=<%=currentPage + 1%>">Next</a></li>  
+                    <%
+                        }
+                    %>    
 
 
             </ul>
