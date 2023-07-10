@@ -30,7 +30,7 @@ CREATE TABLE `address` (
   PRIMARY KEY (`ID`),
   KEY `Residential_GroupsID` (`Residential_GroupsID`),
   CONSTRAINT `address_ibfk_1` FOREIGN KEY (`Residential_GroupsID`) REFERENCES `residential_groups` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,7 +39,7 @@ CREATE TABLE `address` (
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (7,'Alle1','21-ngo 156 Ton That Tung',NULL),(8,'Alle1','21-ngo 156 Ton That Tung',NULL),(10,NULL,NULL,NULL),(11,NULL,NULL,NULL);
+INSERT INTO `address` VALUES (7,'Alle1','21-ngo 156 Ton That Tung',NULL),(8,'Alle1','21-ngo 156 Ton That Tung',NULL),(10,NULL,NULL,NULL),(11,NULL,NULL,NULL),(12,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -735,7 +735,7 @@ CREATE TABLE `userrole` (
 
 LOCK TABLES `userrole` WRITE;
 /*!40000 ALTER TABLE `userrole` DISABLE KEYS */;
-INSERT INTO `userrole` VALUES (1,1),(3,1),(4,1),(5,1);
+INSERT INTO `userrole` VALUES (1,1),(3,1),(4,1),(5,1),(6,1);
 /*!40000 ALTER TABLE `userrole` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -760,7 +760,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`ID`),
   UNIQUE KEY `AddressId` (`AddressId`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`AddressId`) REFERENCES `address` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -769,7 +769,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'duannv','MTIz',NULL,NULL,'abc@123.com',NULL,7,NULL,NULL),(3,'admin','YWRtaW4jMDE=',NULL,NULL,'abc@123.com',NULL,8,NULL,NULL),(4,'duannv1011','RHVhbjEwMTFA',NULL,NULL,'duan101120@gmail.com',NULL,10,NULL,NULL),(5,'admin100','QWRtaW4xMDBA',NULL,NULL,'admin100@gmail.com',NULL,11,NULL,NULL);
+INSERT INTO `users` VALUES (1,'duannv','MTIz',NULL,NULL,'abc@123.com',NULL,7,NULL,NULL),(3,'admin','YWRtaW4jMDE=',NULL,NULL,'abc@123.com',NULL,8,NULL,NULL),(4,'duannv1011','RHVhbjEwMTFA',NULL,NULL,'duan101120@gmail.com',NULL,10,NULL,NULL),(5,'admin100','QWRtaW4xMDBA',NULL,NULL,'admin100@gmail.com',NULL,11,NULL,NULL),(6,'duannv10000','S2FrYWthQDEyMw==',NULL,NULL,'duan101120@gmail.com',NULL,12,NULL,NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -841,4 +841,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-06-26 21:40:50
+-- Dump completed on 2023-07-10 20:43:21
