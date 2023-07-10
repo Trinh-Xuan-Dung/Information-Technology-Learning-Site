@@ -40,30 +40,30 @@
                     <div class="cell">Q.<% out.println(count);%>:</div>
                     <div class="cell">Qest:${item.questContent}</div>
                     <div class="d-flex flex-row">
-                        <div class="option">${item.optionA?null:item.optionA}</div>
+                        <div class="option">${item.optionA?null:item.optionA} root:${item.answerA}</div>
                         <c:if test="${item.optionA!=null}">
-                            <input type="checkbox" name="answerA" checked="${item.optionA==null?null:item.answerA}">
+                            <input type="checkbox" name="answerA"  ${item.answerA ? 'checked' : ''}  >
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="option">${item.optionB?null:item.optionB}</div>
+                        <div class="option">${item.optionB?null:item.optionB} root:${item.answerB}</div>
                         <c:if test="${item.optionB!=null}">
-                            <input type="checkbox" name="answerB"   checked="${item.optionB==null?null:item.answerB}">
+                            <input type="checkbox" name="answerB"   ${item.answerB? 'checked' : ''}>
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="option">${item.optionC?null:item.optionC}</div>
+                        <div class="option">${item.optionC?null:item.optionC} root:${item.answerC}</div>
                         <c:if test="${item.optionC!=null}">
-                            <input type="checkbox" name="answerC" checked="${item.optionC==null?null:item.answerC}">
+                            <input type="checkbox" name="answerC" ${item.answerC? 'checked' : ''}>
                         </c:if>
 
                     </div>
                     <div class="d-flex flex-row">
-                        <div class="option">${item.optionD?null:item.optionD}</div>
+                        <div class="option">${item.optionD?null:item.optionD} root:${item.answerD}</div>
                         <c:if test="${item.optionD!=null}">
-                            <input type="checkbox" name="answerD" checked="${item.optionD==null?null:item.answerD}">
+                            <input type="checkbox" name="answerD" ${item.answerD? 'checked' : ''}>
                         </c:if>
                     </div>
                 </div>
