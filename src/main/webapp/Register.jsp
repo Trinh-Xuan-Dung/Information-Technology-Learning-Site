@@ -33,6 +33,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <span id="duplicateuser" class="error text-danger co" style="color: red">${Message}</span>
                     </c:if>
                         <form class="pt-2" action="Register" method="post" onsubmit="return validateForm()">
+
                         <input class="text" type="text" name="Username" placeholder="Username" required="">
                         <input class="text email" type="email" name="email" placeholder="Email" required="">
                         <input class="text" type="password" id="password" name="password" placeholder="Password" required="">
