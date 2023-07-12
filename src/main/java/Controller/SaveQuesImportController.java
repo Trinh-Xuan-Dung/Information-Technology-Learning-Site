@@ -65,7 +65,7 @@ public class SaveQuesImportController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        response.sendRedirect(request.getContextPath()+"/QuizDetail");
     }
 
     /**
@@ -93,8 +93,7 @@ public class SaveQuesImportController extends HttpServlet {
             if(numid>0){
                 sesson.removeAttribute("quizlist");
             }
-                    
-            System.out.println("numid"+numid);
+            
             QuizDAO qdao = new QuizDAOimplement();
             Quiz quiz = qdao.getQuizById(id);
             request.setAttribute("quizView", quiz);
