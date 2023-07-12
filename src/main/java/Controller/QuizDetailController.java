@@ -74,6 +74,8 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.removeAttribute("quizlist");
         String qidString = request.getParameter("qid");
         int id = Validation.Validator.parseValidId(qidString);
         if (id != 0) {
@@ -106,10 +108,12 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        HttpSession session = request.getSession();
+        session.removeAttribute("quizlist");
         int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
         System.out.println(quizId);
-        Part part = request.getPart("file");
+        Part part = null;
+        part=request.getPart("file");
         //  System.out.println(part);
         GetListToImportQuest ip = new GetListToImportQuest();
         List<Question> questions = ip.processFile(part, quizId);
@@ -119,7 +123,7 @@ public class QuizDetailController extends HttpServlet {
 //
 //            }
         if (questions != null) {
-            HttpSession session = request.getSession();
+
             session.setAttribute("quizlist", questions);
         }
         QuizDAO dao = new QuizDAOimplement();
