@@ -13,5 +13,6 @@ import java.util.List;
  */
 public interface QuestionDAO {
    public int addListQuestTionByQuizID(int qId,List<Question> listq); 
+   public  List<Question> getAllQuestInQuizbyQizID(int id);
     
 }
