@@ -110,12 +110,17 @@
             </c:forEach>
         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             
             <c:if test="${not empty sessionScope.quizlist&&not emptyqs}">
 =======
        
             <c:if test="${requestScope.quizlist!=null}">
 >>>>>>> 2822ce2 (add quiz by import  filr and view quiz by admin role)
+=======
+            
+            <c:if test="${qs!=null}">
+>>>>>>> 3e07018 (update quizdetail)
                 <form method="POST" action="SaveQuesImport">
                     <input type="hidden" name="quizId" value="${quizView.quizId}">              
                     <input type="submit" value="Save">
