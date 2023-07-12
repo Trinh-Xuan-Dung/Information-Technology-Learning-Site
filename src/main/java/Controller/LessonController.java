@@ -6,8 +6,14 @@ package Controller;
 
 import DAO.CourseDAO;
 import DAO.CourseDAOimplement;
-import Entity.Course;
+import DAO.LessonDAOimplement;
+import DAO.lessonDAO;
+import DAO.WeekDAO;
+import DAO.WeekDAOimplement;
+import Entity.Lesson;
 import Entity.Users;
+import Entity.WeekCourse;
+import Validation.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,8 +29,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author AAdmin
  */
-@WebServlet(name = "CourseController", urlPatterns = {"/listCourse"})
-public class CourseController extends HttpServlet {
+@WebServlet(name = "LessonController", urlPatterns = {"/listLesson", "/createLesson", "/postLesson"})
+/*@WebServlet(name = "LessonController", urlPatterns = {"/createLesson"})*/
+public class LessonController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +50,10 @@ public class CourseController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CourseController</title>");            
+            out.println("<title>Servlet LessonController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CourseController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet LessonController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,18 +71,19 @@ public class CourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession ss =  request.getSession();
+        HttpSession ss = request.getSession();
         Users user = (Users) ss.getAttribute("User");
         String action = request.getServletPath();
-        
+
         switch (action) {
-            case "/listCourse":
-                ListCourse(request, response);
+            case "/listLesson":
+                ListLesson(request, response);
+                break;
+            case "/createLesson":
+                createLesson(request, response);
                 break;
         }
-        
-        
-       
+
     }
 
     /**
@@ -89,7 +97,13 @@ public class CourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getServletPath();
+        switch (action) {
+            case "/postLesson":
+                postLesson(request, response);
+                break;
+        }
+
     }
 
     /**
@@ -101,30 +115,50 @@ public class CourseController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    private void ListCourse(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        String rawIndex = request.getParameter("index");
-        int index = 0;
-        if(rawIndex == null){
-            index = 1;
-        }else{
-            index = Integer.parseInt(rawIndex);
+
+    private void ListLesson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String stringwId = request.getParameter("wid");
+        int id = Validation.Validator.parseValidId(stringwId);
+        List<Lesson> listLesson = new ArrayList<>();
+
+        if (id != 0) {
+            WeekDAO dao = new WeekDAOimplement();
+            lessonDAO daoL = new LessonDAOimplement();
+            WeekCourse week = dao.getWeekByWId(id);
+            listLesson = daoL.getLessonOfCourseByWeek(id);
+
+            request.setAttribute("weekToView", week);
+            request.setAttribute("listL", listLesson);
+            request.getRequestDispatcher("/lesson/lesson.jsp").forward(request, response);
         }
-        CourseDAO dao = new CourseDAOimplement();
-//        int defaultPage = 1; 
-        List<Course> list = new ArrayList<>();
-        list=dao.getPagingCourse(index);
-        int count = dao.getTotalCourse();
-        int TotalNumPage = count / 6;
-        if(count % 6 != 0 ){
-            TotalNumPage++;
+    }
+
+    private void createLesson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String stringwId = request.getParameter("wid");
+        int id = Validation.Validator.parseValidId(stringwId);
+        if (id != 0) {
+            request.setAttribute("weekid", id);
         }
-        
-        request.setAttribute("listCToView", list);
-        request.setAttribute("ViewTotalPage", TotalNumPage);
-        request.setAttribute("index", index);
-        request.getRequestDispatcher("listCourse.jsp").forward(request, response);
+        request.getRequestDispatcher("/lesson/formLesson.jsp").forward(request, response);
+    }
+
+    private void postLesson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String weekId = request.getParameter("weekId");
+        String title = request.getParameter("title");
+        String videoPath = request.getParameter("videoPath");
+        String script = request.getParameter("script");
+
+        lessonDAO daoL = new LessonDAOimplement();
+
+        if (Validator.checkIdIsValid(weekId)) {
+            int wid = Integer.parseInt(weekId);
+            String idY = Validator.getIdYoutube(videoPath);
+            Lesson newLesson = new Lesson(wid, title, idY, script);
+            int generatedId = daoL.addNewLesson(newLesson);
+            if (generatedId > 0) {
+                response.sendRedirect(request.getContextPath() + "/createLesson?wid=" + weekId);
+            }
+        }
     }
 
 }

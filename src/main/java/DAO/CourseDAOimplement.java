@@ -179,10 +179,10 @@ public class CourseDAOimplement implements CourseDAO {
     public static void main(String[] args) {
         CourseDAO dao = new CourseDAOimplement();
         List<Course> list = new ArrayList<>();
-//        list = dao.getPagingCourse(1);
-////        for (Course course : list) {
-////            System.out.println(course);
-////        }    
+//        list = dao.getPagingCourse(2);
+//        for (Course course : list) {
+//            System.out.println(course);
+//        }    
         System.out.println(dao.getTotalCourse());
     }
 
@@ -308,14 +308,14 @@ public class CourseDAOimplement implements CourseDAO {
     public List<Course> getPagingCourse(int index) {
         List<Course> courses = new ArrayList<>();
         int limitCourse = 6;
-        int from = (index - 1) * limitCourse;
-        int to = index * limitCourse;
+        int offset = ( (index-1) * limitCourse);
+       
         try {
 
             String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription, Course.DateCreate, Course.CourseTitle, "
                     + "SubjectCourse.SubjectId, "
                     + "Subject.SubjectName, Subject.SubjectDescription "
-                    + "FROM ( select * from Course limit " + from + ", " + to + ") as Course "
+                    + "FROM ( select * from Course limit " + offset + ", " + limitCourse + ") as Course "
                     + "left JOIN SubjectCourse ON Course.CourseId = SubjectCourse.CourseId "
                     + "left JOIN Subject ON SubjectCourse.SubjectId = Subject.SubjectId";
 
