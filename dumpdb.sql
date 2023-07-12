@@ -351,6 +351,7 @@ DROP TABLE IF EXISTS `lesson`;
 CREATE TABLE `lesson` (
   `LessonId` int NOT NULL AUTO_INCREMENT,
   `WeekId` int DEFAULT NULL,
+  `Title` varchar(255) DEFAULT NULL,
   `VideoPath` varchar(255) DEFAULT NULL,
   `Script` text,
   PRIMARY KEY (`LessonId`),

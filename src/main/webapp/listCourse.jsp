@@ -98,7 +98,6 @@
                     <%
                         }
                         for (int i = startPage; i <= endPage; i++) {
-
                     %>
 
                 <li class="<%= i == currentPage ? "page-item active" : "page-item"%>"><a class="page-link" href="listCourse?index=<%=i%>"> <%=i%></a></li>
