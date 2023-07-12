@@ -119,8 +119,12 @@
 >>>>>>> 2822ce2 (add quiz by import  filr and view quiz by admin role)
 =======
             
+<<<<<<< HEAD
             <c:if test="${qs!=null}">
 >>>>>>> 3e07018 (update quizdetail)
+=======
+            <c:if test="${not empty sessionScope.quizlist&&not emptyqs}">
+>>>>>>> 01aee8e (update save import file)
                 <form method="POST" action="SaveQuesImport">
                     <input type="hidden" name="quizId" value="${quizView.quizId}">              
                     <input type="submit" value="Save">
