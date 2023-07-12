@@ -77,8 +77,8 @@
                 </div>
             </c:forEach>
         </div>
-       
-            <c:if test="${requestScope.quizlist!=null}">
+            
+            <c:if test="${qs!=null}">
                 <form method="POST" action="SaveQuesImport">
                     <input type="hidden" name="quizId" value="${quizView.quizId}">              
                     <input type="submit" value="Save">
