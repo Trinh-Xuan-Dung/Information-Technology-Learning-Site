@@ -38,6 +38,9 @@
               
             </form>
         </c:if>
+            <form action="addQuestion" method="post">
+                <input type="submit" name="upload" value="Add new Question">
+            </form>
         <!--        <button>Add Question</button>-->
         <div class="table-container">
             <% int count = 0;%>    

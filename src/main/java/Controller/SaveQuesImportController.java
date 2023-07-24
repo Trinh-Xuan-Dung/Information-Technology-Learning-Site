@@ -44,7 +44,7 @@ public class SaveQuesImportController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SaveQuesImportController</title>");            
+            out.println("<title>Servlet SaveQuesImportController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet SaveQuesImportController at " + request.getContextPath() + "</h1>");
@@ -65,7 +65,9 @@ public class SaveQuesImportController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.sendRedirect(request.getContextPath()+"/QuizDetail");
+        HttpSession session = request.getSession();
+        session.removeAttribute("quizlist");
+        response.sendRedirect(request.getContextPath() + "/QuizDetail");
     }
 
     /**
@@ -79,30 +81,31 @@ public class SaveQuesImportController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
+        HttpSession session = request.getSession();
+        session.removeAttribute("quizlist");
         int id = Validation.Validator.parseStringToInt(request.getParameter("quizId"));
-          System.out.println("id"+id);
+        System.out.println("id" + id);
         HttpSession sesson = request.getSession();
         List<Question> listq = (List<Question>) sesson.getAttribute("quizlist");
-        System.out.println("lít"+listq);
-        if(id!=0){
-          
-            if(listq!=null){
-            QuestionDAO dao= new QuestionDAOImplement();
-            int numid=dao.addListQuestTionByQuizID(id, listq);
-            if(numid>0){
-                sesson.removeAttribute("quizlist");
+        System.out.println("lít" + listq);
+        if (id != 0) {
+
+            if (listq != null) {
+                QuestionDAO dao = new QuestionDAOImplement();
+                int numid = dao.addListQuestTionByQuizID(id, listq);
+                if (numid > 0) {
+                    sesson.removeAttribute("quizlist");
+                }
+
+                QuizDAO qdao = new QuizDAOimplement();
+                Quiz quiz = qdao.getQuizById(id);
+                request.setAttribute("quizView", quiz);
+                request.setAttribute("qs", listq);
+                request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+
             }
-            
-            QuizDAO qdao = new QuizDAOimplement();
-            Quiz quiz = qdao.getQuizById(id);
-            request.setAttribute("quizView", quiz);
-            request.setAttribute("qs", listq);
-            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
-            
         }
-        }
-        
+
     }
 
     /**

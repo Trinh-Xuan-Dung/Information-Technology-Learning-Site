@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author HP
  */
-@WebServlet(name = "QuizDetailController", urlPatterns = {"/QuizDetail"})
+@WebServlet(name = "QuizDetailController", urlPatterns = {"/QuizDetail", "/addQuestion"})
 @MultipartConfig
 public class QuizDetailController extends HttpServlet {
 
@@ -110,6 +110,7 @@ public class QuizDetailController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("quizlist");
+        
         int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
         System.out.println(quizId);
         Part part = null;
@@ -143,5 +144,8 @@ public class QuizDetailController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+ private void addQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String stringwId = request.getParameter("wid");
+        
+    }
 }
