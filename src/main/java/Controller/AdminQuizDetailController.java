@@ -32,9 +32,9 @@ import javax.servlet.http.HttpSession;
  *
  * @author HP
  */
-@WebServlet(name = "QuizDetailController", urlPatterns = {"/QuizDetail", "/addQuestion"})
+@WebServlet(name = "QuizDetailController", urlPatterns = {"/QuizDetail", "/addQuestion", "/postQuizdetail"})
 @MultipartConfig
-public class QuizDetailController extends HttpServlet {
+public class AdminQuizDetailController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -92,7 +92,7 @@ public class QuizDetailController extends HttpServlet {
             }
 
             request.setAttribute("quizView", quiz);
-            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+            request.getRequestDispatcher("/AdminQuizDetail.jsp").forward(request, response);
         }
 
     }
@@ -108,13 +108,65 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String action = request.getServletPath();
+
+        switch (action) {
+            case "/addQuestion":
+                addQuestion(request, response);
+                break;
+            case "/postQuizdetail":
+                postQuizdetail(request, response);
+                break;
+        }
+
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    private void addQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        int stringwId = Validation.Validator.parseValidId(request.getParameter("quizId"));
+        if (stringwId != 0) {
+            String questContent = request.getParameter("QName");
+            String optionA = request.getParameter("OptionA");
+            boolean answerA = request.getParameter("AnswerA") != null; // Checkbox value is either null or "on" (when checked)
+            String optionB = request.getParameter("OptionB");
+            boolean answerB = request.getParameter("AnswerB") != null;
+            String optionC = request.getParameter("OptionC");
+            boolean answerC = request.getParameter("AnswerC") != null;
+            String optionD = request.getParameter("OptionD");
+            boolean answerD = request.getParameter("AnswerD") != null;
+            Question newQuestion = new Question(0, stringwId, questContent, optionA, answerA, optionB, answerB, optionC, answerC, optionD, answerD);
+            QuestionDAO dao = new QuestionDAOImplement();
+            int keygen=dao.addQuestionById(stringwId, newQuestion);
+            if(keygen!=0){
+              // return this pasge  
+              response.sendRedirect(request.getContextPath()+"/QuizDetail?qid="+stringwId);
+            }else{
+                
+            }
+        } else {
+
+        }
+
+    }
+
+    private void postQuizdetail(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         session.removeAttribute("quizlist");
-        
+
         int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
         System.out.println(quizId);
         Part part = null;
-        part=request.getPart("file");
+        part = request.getPart("file");
         //  System.out.println(part);
         GetListToImportQuest ip = new GetListToImportQuest();
         List<Question> questions = ip.processFile(part, quizId);
@@ -131,21 +183,7 @@ public class QuizDetailController extends HttpServlet {
         Quiz quiz = dao.getQuizById(quizId);
         request.setAttribute("quizView", quiz);
         request.setAttribute("qs", questions);
-        request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+        request.getRequestDispatcher("/AdminQuizDetail.jsp").forward(request, response);
 
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
- private void addQuestion(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String stringwId = request.getParameter("wid");
-        
     }
 }

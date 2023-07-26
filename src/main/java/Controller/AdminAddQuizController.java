@@ -4,22 +4,24 @@
  */
 package Controller;
 
-import DAO.ModuleDAO;
-import DAO.ModuleDAOimplement;
-import Validation.Validator;
+import DAO.QuizDAO;
+import DAO.QuizDAOimplement;
+import Entity.Quiz;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import  Entity.Module;
 
 /**
  *
  * @author HP
  */
-public class AddModuleController extends HttpServlet {
+@WebServlet(name = "AddQuizController", urlPatterns = {"/AddQuiz"})
+public class AdminAddQuizController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +40,10 @@ public class AddModuleController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddModuleController</title>");
+            out.println("<title>Servlet AddQuizController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddModuleController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddQuizController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,12 +61,13 @@ public class AddModuleController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String stringId = request.getParameter("cid");
-        Validator validator = new Validator();
-        if (validator.checkIdIsValid(stringId) == true) {
-            request.setAttribute("courseid", stringId);
-            request.getRequestDispatcher("AddModule.jsp").forward(request, response);
-        }
+        String stringId = request.getParameter("wid");
+        QuizDAO dao = new QuizDAOimplement();
+        int id = Validation.Validator.parseValidId(stringId);
+        List<Quiz> quizs = dao.getAllQuizbyWeekId(id);
+        request.setAttribute("quizs", quizs);
+        request.setAttribute("wid", stringId);
+        request.getRequestDispatcher("AdminAddQuiz.jsp").forward(request, response);
 
     }
 
@@ -77,27 +80,29 @@ public class AddModuleController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        String stringId = request.getParameter("courseId");
-        String name=request.getParameter("moduleName");
-        String des=request.getParameter("modulecourdescription");
-        int id = 0;
-        Validator validator = new Validator();
-        if (validator.checkIdIsValid(stringId) == true) {
-            id = Integer.parseInt(stringId);
-            ModuleDAO dao= new ModuleDAOimplement();
-            Module module= new Module(0, id, name, des);
-            
-            int  newId=0;
-                  newId=  dao.addNewModule(id, module);
-            if(newId>0){
+        String widString = req.getParameter("weekid");
+        String qNameString = req.getParameter("QName");
+        String qTimeString = req.getParameter("Qtime");
+        String qTopicString = req.getParameter("Qtopic");
+        int qTime = Validation.Validator.parseValidId(qTimeString);
+        int wId = Validation.Validator.parseValidId(widString);
+        Quiz quiz = new Quiz(0, qNameString, qTopicString, qTime, wId);
+        System.out.println("quiz:"+quiz);  
+        if (quiz != null) {
+            QuizDAO dao = new QuizDAOimplement();
+            int idgen = dao.AddnewQuiz(quiz);
+            if (idgen > 0) {
+                resp.sendRedirect(req.getContextPath() + "/AddQuiz?wid=" + wId);
                 
-            response.sendRedirect(request.getContextPath()+"/CourseDetail?id="+stringId);
+                System.out.println("quiz:"+idgen); 
+            }else{
+                System.out.println("quiz:"+quiz);   
+                System.out.println("quiz:"+idgen); 
             }
-
         }
-        
+
     }
 
     /**

@@ -4,29 +4,22 @@
  */
 package Controller;
 
-import DAO.AddressDAO;
-import DAO.AddressDAOimplement;
-import DAO.UserDAO;
-import DAO.UserDAOImplement;
-import DAO.UserRoleDAO;
-import DAO.UserRoleDAOImplement;
-import Entity.Address;
-import Entity.Users;
+import DAO.WeekDAO;
+import DAO.WeekDAOimplement;
+import Entity.WeekCourse;
+import Validation.Validator;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name = "RegisterCotroller", urlPatterns = {"/Register"})
-public class RegisterCotroller extends HttpServlet {
+public class AdminAddWeekController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +38,10 @@ public class RegisterCotroller extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet RegisterCotroller</title>");
+            out.println("<title>Servlet AddWeekController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet RegisterCotroller at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet AddWeekController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,14 +59,12 @@ public class RegisterCotroller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Users user = (Users) request.getSession().getAttribute("user");
-        if(user==null){
-            request.removeAttribute("Message");
-        response.sendRedirect(request.getContextPath() + "/Register.jsp");
-        }else{
-             response.sendRedirect(request.getContextPath() + "/HomeController");
+        String stringID = request.getParameter("moid");
+        if (Validator.checkIdIsValid(stringID) == true) {
+            request.setAttribute("moduleId", stringID);
+            request.getRequestDispatcher("AdminAddWeek.jsp").forward(request, response);
         }
-        
+
     }
 
     /**
@@ -87,40 +78,24 @@ public class RegisterCotroller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userName = request.getParameter("Username");
-        String email = request.getParameter("email");
-        String pass = request.getParameter("password");
-        Users user = new Users(0, userName, pass, email, 0);
-        AddressDAO adao = new AddressDAOimplement();
-        UserDAO dao = new UserDAOImplement();
-        if (dao.getUserExsit(userName) == null) {
-            int addressId = adao.AddNewAddress(new Address());
-
-            int userId = 0;
-            if (addressId != 0) {
-                user.setAddressId(addressId);
-                userId = dao.AddNewUser(user);
-            } else {
-                userId = dao.AddNewUser(user);
+        String stringID = request.getParameter("moduleId");
+        String weeknum = request.getParameter("weeknum");
+        String weektitle = request.getParameter("weektitle");
+        String weekDes = request.getParameter("weekdescription");
+        int moduleId = 0;
+        int weeknumInsert = 0;
+        if (Validator.checkIdIsValid(stringID) == true) {
+            moduleId = Integer.parseInt(stringID);
+            if (Validator.checkIdIsValid(weeknum)) {
+                weeknumInsert = Integer.parseInt(weeknum);
             }
-            if (userId != 0) {
-                UserRoleDAO role=new UserRoleDAOImplement();
-                role.addUserRoleWhenRegis(userId, 1);
-                HttpSession sess = request.getSession();
-                sess.setAttribute("user", user);
-                int min = 60;
-                sess.setMaxInactiveInterval(10 * min);
-                response.sendRedirect(request.getContextPath() + "/HomeController");
-            } else {
-                response.sendRedirect(request.getContextPath() + "/Register.jsp");
+            WeekDAO dao = new WeekDAOimplement();
+            int newId = dao.AddNewWeekCOurse(moduleId, new WeekCourse(0, moduleId, weeknumInsert, weektitle, weekDes));
+            if(newId>0){
+                response.sendRedirect(request.getContextPath()+"/ModuleDetail?mid="+stringID);
             }
-        } else {
-            System.out.println("heelo");
-            request.setAttribute("Message", "your username you input is exsit!");
-            request.getRequestDispatcher("/Register.jsp").forward(request, response);
 
         }
-
     }
 
     /**

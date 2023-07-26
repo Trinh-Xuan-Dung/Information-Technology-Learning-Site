@@ -4,8 +4,11 @@
  */
 package Controller;
 
+import DAO.QuestionDAO;
+import DAO.QuestionDAOImplement;
 import DAO.QuizDAO;
 import DAO.QuizDAOimplement;
+import Entity.Question;
 import Entity.Quiz;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,13 +18,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name = "AddQuizController", urlPatterns = {"/AddQuiz"})
-public class AddQuizController extends HttpServlet {
+@WebServlet(name = "SaveQuesImportController", urlPatterns = {"/SaveQuesImport"})
+public class AdminSaveQuesImportController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +44,10 @@ public class AddQuizController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AddQuizController</title>");
+            out.println("<title>Servlet SaveQuesImportController</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet AddQuizController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SaveQuesImportController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,14 +65,9 @@ public class AddQuizController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String stringId = request.getParameter("wid");
-        QuizDAO dao = new QuizDAOimplement();
-        int id = Validation.Validator.parseValidId(stringId);
-        List<Quiz> quizs = dao.getAllQuizbyWeekId(id);
-        request.setAttribute("quizs", quizs);
-        request.setAttribute("wid", stringId);
-        request.getRequestDispatcher("AddQuiz.jsp").forward(request, response);
-
+        HttpSession session = request.getSession();
+        session.removeAttribute("quizlist");
+        response.sendRedirect(request.getContextPath() + "/QuizDetail");
     }
 
     /**
@@ -80,26 +79,30 @@ public class AddQuizController extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String widString = req.getParameter("weekid");
-        String qNameString = req.getParameter("QName");
-        String qTimeString = req.getParameter("Qtime");
-        String qTopicString = req.getParameter("Qtopic");
-        int qTime = Validation.Validator.parseValidId(qTimeString);
-        int wId = Validation.Validator.parseValidId(widString);
-        Quiz quiz = new Quiz(0, qNameString, qTopicString, qTime, wId);
-        System.out.println("quiz:"+quiz);  
-        if (quiz != null) {
-            QuizDAO dao = new QuizDAOimplement();
-            int idgen = dao.AddnewQuiz(quiz);
-            if (idgen > 0) {
-                resp.sendRedirect(req.getContextPath() + "/AddQuiz?wid=" + wId);
-                
-                System.out.println("quiz:"+idgen); 
-            }else{
-                System.out.println("quiz:"+quiz);   
-                System.out.println("quiz:"+idgen); 
+        HttpSession session = request.getSession();
+        session.removeAttribute("quizlist");
+        int id = Validation.Validator.parseStringToInt(request.getParameter("quizId"));
+        System.out.println("id" + id);
+        HttpSession sesson = request.getSession();
+        List<Question> listq = (List<Question>) sesson.getAttribute("quizlist");
+        System.out.println("lít" + listq);
+        if (id != 0) {
+
+            if (listq != null) {
+                QuestionDAO dao = new QuestionDAOImplement();
+                int numid = dao.addListQuestTionByQuizID(id, listq);
+                if (numid > 0) {
+                    sesson.removeAttribute("quizlist");
+                }
+
+                QuizDAO qdao = new QuizDAOimplement();
+                Quiz quiz = qdao.getQuizById(id);
+                request.setAttribute("quizView", quiz);
+                request.setAttribute("qs", listq);
+                request.getRequestDispatcher("/AdminQuizDetail.jsp").forward(request, response);
+
             }
         }
 

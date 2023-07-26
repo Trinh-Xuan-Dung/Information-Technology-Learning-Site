@@ -75,17 +75,53 @@ public class QuestionDAOImplement extends DBContext implements QuestionDAO {
                 q.setOptionA(rs.getString(4));
                 q.setAnswerA(rs.getBoolean(5));
                 q.setOptionB(rs.getString(6));
-                q.setAnswerB(rs.getBoolean(7)); 
+                q.setAnswerB(rs.getBoolean(7));
                 q.setOptionC(rs.getString(8));
                 q.setAnswerC(rs.getBoolean(9));
                 q.setOptionD(rs.getString(10));
                 q.setAnswerD(rs.getBoolean(11));
                 listq.add(q);
             }
-
+            con.close();
         } catch (Exception e) {
+             e.printStackTrace();
         }
         return listq;
+    }
+
+    @Override
+    public int addQuestionById(int i, Question qstn) {
+            int keyGenerated = 0;
+    try {
+            Connection con = getConnection();
+            String sql = "INSERT INTO learning_site.questions (QuizId, QContent, OptionA, AnswerA, OptionB, AnswerB, OptionC, AnswerC, OptionD, AnswerD) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            ps.setInt(1, i);
+            ps.setString(2, qstn.getQuestContent());
+            ps.setString(3, qstn.getOptionA());
+            ps.setBoolean(4, qstn.isAnswerA());
+            ps.setString(5, qstn.getOptionB());
+            ps.setBoolean(6, qstn.isAnswerB());
+            ps.setString(7, qstn.getOptionC());
+            ps.setBoolean(8, qstn.isAnswerC());
+            ps.setString(9, qstn.getOptionD());
+            ps.setBoolean(10, qstn.isAnswerD());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    keyGenerated = generatedKeys.getInt(1);
+                }
+            }
+
+            con.close(); // Don't forget to close the connection after usage.
+
+        } catch (Exception e) {
+            e.printStackTrace(); // It's essential to handle exceptions properly, at least print the stack trace.
+        }
+        return keyGenerated;
     }
 
 }

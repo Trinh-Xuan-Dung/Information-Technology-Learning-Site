@@ -6,7 +6,7 @@
     </servlet>
     <servlet>
         <servlet-name>AddCourse</servlet-name>
-        <servlet-class>Controller.AddCourseController</servlet-class>
+        <servlet-class>Controller.AdminAddCourseController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CourseDetailController</servlet-name>
@@ -14,7 +14,7 @@
     </servlet>
     <servlet>
         <servlet-name>AddModuleController</servlet-name>
-        <servlet-class>Controller.AddModuleController</servlet-class>
+        <servlet-class>Controller.AdminAddModuleController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AddWeekController</servlet-name>
@@ -26,7 +26,7 @@
     </servlet>
     <servlet>
         <servlet-name>UpdateCourseController</servlet-name>
-        <servlet-class>Controller.UpdateCourseController</servlet-class>
+        <servlet-class>Controller.AdminUpdateCourseController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LoginController</servlet-name>
