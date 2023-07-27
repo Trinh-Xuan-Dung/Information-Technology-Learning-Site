@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -30,9 +31,17 @@
                 </div>
 
                 <div class="button-enroll">
-                    <a href="#">
-                        <button class="style-button">Enroll</button>
-                    </a>
+                    <c:if test="${user == null}">
+                        <a href="Login.jsp">
+                            <button class="style-button">Enroll</button>
+                        </a>
+                    </c:if>
+                    <c:if test="${user != null}">
+                        <a href="enrollCourse?userid=${user.getID()}&courseid=${DetailOfcourse.getCourseId()}">
+                            <button class="style-button">Enroll</button>
+                        </a>
+                    </c:if>
+
                     <a href="AddModule?cid=${DetailOfcourse.courseId}">
                         <button class="style-button">Add Module</button>
                     </a>

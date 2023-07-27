@@ -10,6 +10,8 @@ import DAO.ModuleDAO;
 import DAO.ModuleDAOimplement;
 import Entity.Course;
 import Entity.Module;
+import Entity.User;
+import Utils.SessionUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -62,16 +64,17 @@ public class CourseDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+      
       String stringId=  request.getParameter("id");
       if (stringId != null) {
             try {
-                
+                User user = (User) SessionUtils.getInstance().getValue(request, "user");
                 int courseId = Integer.parseInt(stringId);
                 CourseDAO dao= new CourseDAOimplement();
                 Course course= dao.getCourseJoin(courseId);
                 ModuleDAO mdao= new ModuleDAOimplement();
                 List<Module> listm = mdao.getAllModuleOfCourseByCoureid(courseId);
+                request.setAttribute("user",user );
                 request.setAttribute("ListmoduleByCourse",listm );
                 request.setAttribute("DetailOfcourse", course);
                 request.getRequestDispatcher("CourseDetail.jsp").forward(request, response);
