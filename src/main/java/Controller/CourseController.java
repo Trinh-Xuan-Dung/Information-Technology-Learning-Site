@@ -8,6 +8,7 @@ import DAO.CourseDAO;
 import DAO.CourseDAOimplement;
 import Entity.Course;
 import Entity.Users;
+import Entity.CourseEnrollment;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -18,12 +19,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  *
  * @author AAdmin
  */
-@WebServlet(name = "CourseController", urlPatterns = {"/listCourse"})
+@WebServlet(name = "CourseController", urlPatterns = {"/listCourse", "/enrollCourse"})
 public class CourseController extends HttpServlet {
 
     /**
@@ -43,7 +46,7 @@ public class CourseController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CourseController</title>");            
+            out.println("<title>Servlet CourseController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet CourseController at " + request.getContextPath() + "</h1>");
@@ -64,18 +67,20 @@ public class CourseController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession ss =  request.getSession();
+        HttpSession ss = request.getSession();
         Users user = (Users) ss.getAttribute("User");
         String action = request.getServletPath();
-        
+
         switch (action) {
             case "/listCourse":
                 ListCourse(request, response);
                 break;
+                
+            case "/enrollCourse":
+                enrollCourse(request, response);
+                break;    
         }
-        
-        
-       
+
     }
 
     /**
@@ -89,7 +94,9 @@ public class CourseController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getServletPath();
+
+       
     }
 
     /**
@@ -101,30 +108,51 @@ public class CourseController extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
     private void ListCourse(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         String rawIndex = request.getParameter("index");
         int index = 0;
-        if(rawIndex == null){
+        if (rawIndex == null) {
             index = 1;
-        }else{
+        } else {
             index = Integer.parseInt(rawIndex);
         }
         CourseDAO dao = new CourseDAOimplement();
 //        int defaultPage = 1; 
         List<Course> list = new ArrayList<>();
-        list=dao.getPagingCourse(index);
+        list = dao.getPagingCourse(index);
         int count = dao.getTotalCourse();
         int TotalNumPage = count / 6;
-        if(count % 6 != 0 ){
+        if (count % 6 != 0) {
             TotalNumPage++;
         }
-        
+
         request.setAttribute("listCToView", list);
         request.setAttribute("ViewTotalPage", TotalNumPage);
         request.setAttribute("index", index);
         request.getRequestDispatcher("listCourse.jsp").forward(request, response);
+    }
+
+    private void enrollCourse(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String raw_userid = request.getParameter("userid");
+        String raw_courseid = request.getParameter("courseid");
+
+        int userid = Validation.Validator.parseValidId(raw_userid);
+        int courseid = Validation.Validator.parseValidId(raw_courseid);
+        CourseDAO dao = new CourseDAOimplement();
+
+        if (userid != 0 && courseid != 0) {
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            String formattedDateTime = currentDateTime.format(formatter);
+            int StatusEnroll = dao.enrollCourse(userid, courseid, formattedDateTime);
+            if (StatusEnroll > 0 ){
+                response.sendRedirect(request.getContextPath() + "/CourseDetail?id=" + raw_userid);
+            }
+        }else{
+            response.sendRedirect(request.getContextPath() + "/CourseDetail?id=" + raw_userid);
+        }
     }
 
 }

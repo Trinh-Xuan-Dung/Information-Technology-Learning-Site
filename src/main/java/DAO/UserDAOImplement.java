@@ -82,11 +82,12 @@ public class UserDAOImplement extends DBContext implements UserDAO {
     @Override
     public User SignIn(String username, String password) {
         try {
+            PasswordLogic enc = new PasswordLogic();
             String sql = "SELECT * FROM learning_site.users Where Username = ? and Password = ?";
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, enc.encodePassByBase64(password));
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User user = new User();

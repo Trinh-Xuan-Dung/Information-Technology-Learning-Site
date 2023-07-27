@@ -5,7 +5,7 @@
 package Controller;
 
 import DAO.AddressDAO;
-import DAO.AddressImplement;
+import DAO.AddressDAOimplement;
 import DAO.UserDAO;
 import DAO.UserDAOImplement;
 import DAO.UserRoleDAO;
@@ -91,7 +91,7 @@ public class RegisterCotroller extends HttpServlet {
         String email = request.getParameter("email");
         String pass = request.getParameter("password");
         Users user = new Users(0, userName, pass, email, 0);
-        AddressDAO adao = new AddressImplement();
+        AddressDAO adao = new AddressDAOimplement();
         UserDAO dao = new UserDAOImplement();
         if (dao.getUserExsit(userName) == null) {
             int addressId = adao.AddNewAddress(new Address());

@@ -4,10 +4,12 @@
  */
 package DAO;
 import Entity.Assignment;
+import java.util.List;
 /**
  *
  * @author AAdmin
  */
 public interface AssignmentDAO {
     public int addNewAssignment(Assignment assigment);
+    public List<Assignment> getAllAssignmentsbyWeek(int weekId);
 }
