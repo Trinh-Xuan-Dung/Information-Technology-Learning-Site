@@ -10,6 +10,8 @@ import Entity.Assignment;
 import Entity.Users;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author AAdmin
  */
-@WebServlet(name = "AssignmentController", urlPatterns = {"/getAssignment", "/formAssignment", "/postAssignment"})
+@WebServlet(name = "AssignmentController", urlPatterns = {"/getAssignment", "/formAssignment", "/postAssignment", "/listAssignment"})
 public class AssignmentController extends HttpServlet {
 
     /**
@@ -62,11 +64,13 @@ public class AssignmentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession ss = request.getSession();
-        Users user = (Users) ss.getAttribute("User");
         String action = request.getServletPath();
 
         switch (action) {
+            case "/listAssignment":
+                listAssignment(request, response);
+                break;
+
             case "/formAssignment":
                 formAssignment(request, response);
                 break;
@@ -117,7 +121,7 @@ public class AssignmentController extends HttpServlet {
     }
 
     private void postAssignment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String weekId = request.getParameter("weekId");;
+        String weekId = request.getParameter("weekId");
         String assignmentTitle = request.getParameter("assignmentTitle");
         String description = request.getParameter("description");
         int id = Validation.Validator.parseValidId(weekId);
@@ -125,7 +129,7 @@ public class AssignmentController extends HttpServlet {
         // Tạo đối tượng Assignment với dữ liệu từ form
         if (id != 0) {
             Assignment assignment = new Assignment(id, assignmentTitle, description);
-            
+
             int generatedId = dao.addNewAssignment(assignment);
             if (generatedId > 0) {
                 // Chuyển hướng hoặc trả về kết quả thành công tùy theo yêu cầu của ứng dụng
@@ -144,6 +148,24 @@ public class AssignmentController extends HttpServlet {
             request.getRequestDispatcher("formAssignment.jsp").forward(request, response);
         }
 
+    }
+
+    private void listAssignment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String raw_weekId = request.getParameter("wid");
+
+        int weekId = Validation.Validator.parseValidId(raw_weekId);
+        AssignmentDAO dao = new AssignmentDAOimplement();
+        if (weekId != 0) {
+            List<Assignment> assignmentList = new ArrayList<>();
+            assignmentList = dao.getAllAssignmentsbyWeek(weekId);
+            request.setAttribute("assignments", assignmentList);
+            
+            request.getRequestDispatcher("ListAssigment.jsp").forward(request, response);
+        } else {
+            String errorMessage = "An error occurred Assignment.";
+            request.setAttribute("errorMessage", errorMessage);
+            request.getRequestDispatcher("ListAssigment.jsp").forward(request, response);
+        }
     }
 
 }

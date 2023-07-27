@@ -27,15 +27,21 @@
                     <p class="card-text">Description: This week will introduce the course content and the goals we want to achieve.</p>
                     <p class="card-text">Document: <a href="#">Document week 1</a></p>
                 </div>
-                <div class="d-flex flex-row">
+                <div class="d-flex flex-row" style="max-width: 600px;">
                     <div class="col-4 m-2">
-                        <div class="col d-flex flex-row ">
-                            <a class="btn btn-primary stretched-link btn-spacing text-wrap"  type="button" aria-expanded="false" aria-controls="multiCollapseExample1" href="listLesson?wid=${weekToView.weekId}">Lesson</a>
-                            <a class="btn btn-primary stretched-link btn-spacing text-wrap"  type="button" aria-expanded="false" aria-controls="multiCollapseExample1" href="createLesson?wid=${weekToView.weekId}">Create a Lesson</a>
-                            <a type="button" class="btn btn-sm btn-outline-secondary stretched-link btn-spacing text-wrap" href="AddQuiz?wid=${weekToView.weekId}">View All Quiz</a>
-                            <a class="btn btn-primary stretched-link btn-spacing text-wrap"  type="button" aria-expanded="false" aria-controls="multiCollapseExample1" href="createLesson?wid=${weekToView.weekId}">Assignment</a>
-                            <a class="btn btn-primary stretched-link btn-spacing text-wrap"  type="button" aria-expanded="false" aria-controls="multiCollapseExample1" href="formAssignment?wid=${weekToView.weekId}">Create a Assignment</a>
-                        </div>
+                        <a class="btn btn-primary stretched-link btn-spacing text-wrap" href="listLesson?wid=${weekToView.weekId}">Lesson</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary stretched-link btn-spacing text-wrap" href="createLesson?wid=${weekToView.weekId}">Create a Lesson</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-sm btn-outline-secondary stretched-link btn-spacing text-wrap" href="AddQuiz?wid=${weekToView.weekId}">View All Quiz</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary stretched-link btn-spacing text-wrap" href="listAssignment?wid=${weekToView.weekId}">Assignment</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary stretched-link btn-spacing text-wrap" href="formAssignment?wid=${weekToView.weekId}">Create an Assignment</a>
                     </div>
                 </div>
             </div>

@@ -6,6 +6,7 @@ package DAO;
 
 import Context.DBContext;
 import Entity.Course;
+import Entity.CourseEnrollment;
 import Entity.Subject;
 import Entity.SubjectCourse;
 import com.mysql.cj.xdevapi.Result;
@@ -308,8 +309,8 @@ public class CourseDAOimplement implements CourseDAO {
     public List<Course> getPagingCourse(int index) {
         List<Course> courses = new ArrayList<>();
         int limitCourse = 6;
-        int offset = ( (index-1) * limitCourse);
-       
+        int offset = ((index - 1) * limitCourse);
+
         try {
 
             String sql = "SELECT Course.CourseId, Course.CourseName, Course.Image, Course.CourseDescription, Course.DateCreate, Course.CourseTitle, "
@@ -370,12 +371,40 @@ public class CourseDAOimplement implements CourseDAO {
             // ResultSet rs =  context.getDataByRawSQL(sql);
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            while(rs.next()){
+            while (rs.next()) {
                 return rs.getInt(1);
             }
         } catch (Exception e) {
         }
         return total;
     }
-;
+
+    ;
+
+    @Override
+    public int enrollCourse(int userId, int courseId, String enrollmentDate) {
+        int generatedId = 0;
+        try {
+            String sql = "INSERT INTO CourseEnrollment (UserId, CourseId, EnrollmentDate) VALUES (?, ?, ?)";
+            Connection conn = context.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, userId);
+            ps.setInt(2, courseId);
+            ps.setString(3, enrollmentDate);
+
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                ResultSet generatedKeys = ps.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    generatedId = generatedKeys.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return generatedId;
+    }
+
+    
+
 }
