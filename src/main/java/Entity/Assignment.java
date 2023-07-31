@@ -25,6 +25,18 @@ public class Assignment {
         this.description = description;
     }
     
+    public Assignment(int weekId, String assignmentTitle, String description, int assignmentId) {
+        this.assignmentId = assignmentId;
+        this.weekId = weekId;
+        this.assignmentTitle = assignmentTitle;
+        this.description = description;
+    }
+    
+    public Assignment(String assignmentTitle, String description) {
+        this.assignmentTitle = assignmentTitle;
+        this.description = description;
+    }
+    
     public Assignment(int weekId, String assignmentTitle, String description) {
         this.weekId = weekId;
         this.assignmentTitle = assignmentTitle;

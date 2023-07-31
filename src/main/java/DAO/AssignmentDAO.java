@@ -12,4 +12,6 @@ import java.util.List;
 public interface AssignmentDAO {
     public int addNewAssignment(Assignment assigment);
     public List<Assignment> getAllAssignmentsbyWeek(int weekId);
+    public int updateAssignment(Assignment assigment);
+    public Assignment getAssignment(int weekId,int assigmentId);
 }

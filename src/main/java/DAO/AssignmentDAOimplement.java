@@ -86,5 +86,51 @@ public class AssignmentDAOimplement implements AssignmentDAO {
         }
 
         return assignmentList;
+        Assignment a = new Assignment(1, "java", "object",1);
+        //System.out.println("reuslt: " + dao.addNewAssignment(a)); 
+        System.out.println("reuslt1: " + dao.getAssignment(1,1)); 
+    }
+
+    @Override
+    public int updateAssignment(Assignment ass) {
+        
+        try {
+            Connection con = context.getConnection();
+            String sql = "UPDATE learning_site.assignment set  WeekId=?, AssignmentTitle=?, Description=? WHERE AssignmentId=?";
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, ass.getWeekId());
+            ps.setString(2, ass.getAssignmentTitle());
+            ps.setString(3, ass.getDescription());
+            ps.setInt(4, ass.getAssignmentId());
+            int affectedRows = ps.executeUpdate();
+            if (affectedRows > 0) {
+                return 1;
+            }else{
+                return 0;
+            }
+
+        } catch (Exception e) {
+            // Xử lý ngoại lệ
+        }
+        return 0;
+    }
+
+    @Override
+    public Assignment getAssignment(int i, int i1) {
+         try {
+            Connection conn = context.getConnection();
+            String sql = "SELECT AssignmentId, WeekId, AssignmentTitle, Description FROM learning_site.assignment where WeekId="+i+" and AssignmentId="+i1+"";
+            // ResultSet rs =  context.getDataByRawSQL(sql);
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                Assignment ass = new Assignment(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4));
+                return ass;
+            }
+
+        } catch (Exception e) {
+        }
+        return null;
     }
 }
