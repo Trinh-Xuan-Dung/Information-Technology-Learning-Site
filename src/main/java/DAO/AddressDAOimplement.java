@@ -15,7 +15,7 @@ import java.sql.Statement;
  *
  * @author HP
  */
-public class AddressImplement  implements AddressDAO {
+public class AddressDAOimplement  implements AddressDAO {
     DBContext context =new DBContext();
 
     @Override

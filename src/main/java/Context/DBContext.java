@@ -50,5 +50,8 @@ public class DBContext {
         }
         return rs;
     }
+    public static void main(String[] args) throws Exception {
+        System.out.println(new DBContext().getConnection());
+    }
 
 }

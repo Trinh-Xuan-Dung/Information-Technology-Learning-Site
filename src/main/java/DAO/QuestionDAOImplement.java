@@ -6,28 +6,86 @@ package DAO;
 
 import Context.DBContext;
 import Entity.Question;
+import com.mysql.cj.protocol.Resultset;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author HP
  */
-public class QuestionDAOImplement extends DBContext implements QuestionDAO{
+public class QuestionDAOImplement extends DBContext implements QuestionDAO {
 
     @Override
     public int addListQuestTionByQuizID(int qId, List<Question> listq) {
-        int Count=0;
+        int count = 0;
         try {
             Connection con = getConnection();
-            String sql="";
-            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            
+            String sql = "INSERT INTO learning_site.questions (QuizId, QContent, OptionA, AnswerA, OptionB, AnswerB, OptionC, AnswerC, OptionD, AnswerD) VALUES"
+                    + "(?,?,?,?,?,?,?,?,?,?);";
+            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            int size = listq.size();
+            if (size > 0) {
+                for (int i = 0; i < sql.charAt(i); i++) {
+                    ps.setInt(1, qId);
+                    ps.setString(2, listq.get(i).getQuestContent());
+                    ps.setString(3, listq.get(i).getOptionA());
+                    ps.setBoolean(4, listq.get(i).isAnswerA());
+                    ps.setString(5, listq.get(i).getOptionB());
+                    ps.setBoolean(6, listq.get(i).isAnswerB());
+                    ps.setString(7, listq.get(i).getOptionC());
+                    ps.setBoolean(8, listq.get(i).isAnswerC());
+                    ps.setString(9, listq.get(i).getOptionD());
+                    ps.setBoolean(10, listq.get(i).isAnswerD());
+                    int id = ps.executeUpdate();
+                    if (id > 0) {
+                        count++;
+                    }
+                }
+
+            }
+
         } catch (Exception e) {
         }
-        return Count;
+        return count;
     }
-    
+
+    @Override
+    public List<Question> getAllQuestInQuizbyQizID(int i) {
+        List<Question> listq = new ArrayList<>();
+        try {
+            Connection con = getConnection();
+            String sql = "SELECT Id, QuizId, QContent,"
+                    + " OptionA, AnswerA, OptionB, AnswerB, OptionC, AnswerC, OptionD, AnswerD FROM learning_site.questions Where QuizId =? ";
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, i);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Question q = new Question();
+                q.setQestId(rs.getInt(1));
+                q.setQuizId(rs.getInt(2));
+                q.setQuestContent(rs.getString(3));
+                q.setOptionA(rs.getString(4));
+                q.setAnswerA(rs.getBoolean(5));
+                q.setOptionB(rs.getString(6));
+                q.setAnswerB(rs.getBoolean(7)); 
+                q.setOptionC(rs.getString(8));
+                q.setAnswerC(rs.getBoolean(9));
+                q.setOptionD(rs.getString(10));
+                q.setAnswerD(rs.getBoolean(11));
+                listq.add(q);
+            }
+
+        } catch (Exception e) {
+        }
+        return listq;
+    }
+
 }

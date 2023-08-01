@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import Entity.User;
+//import Entity.User;
 import Entity.Users;
 
 /**
@@ -19,7 +19,7 @@ public interface UserDAO {
 
     public boolean checkUserExist(String username);
 
-    public User SignIn(String username, String password);
+    public Users SignIn(String username, String password);
 
     public String checkEmailWithUsername(String username);
 

@@ -4,9 +4,17 @@
  */
 package Controller;
 
+import DAO.QuestionDAO;
+import DAO.QuestionDAOImplement;
+import DAO.QuizDAO;
+import DAO.QuizDAOimplement;
+import Entity.Question;
+import Entity.Quiz;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,9 +22,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author hoanglong2310
+ * @author HP
  */
-public class ProfileController extends HttpServlet {
+@WebServlet(name = "SaveQuesImportController", urlPatterns = {"/SaveQuesImport"})
+public class SaveQuesImportController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,10 +44,10 @@ public class ProfileController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ProfileController</title>");
+            out.println("<title>Servlet SaveQuesImportController</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ProfileController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SaveQuesImportController at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,17 +65,7 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-
-        HttpSession session = request.getSession();
-
-        if (session.getAttribute("user") == null) {
-            response.sendRedirect(request.getContextPath() + "/HomeController");
-        } else {
-            request.getRequestDispatcher("Profile.jsp").forward(request, response);
-        }
-
+        response.sendRedirect(request.getContextPath()+"/QuizDetail");
     }
 
     /**
@@ -80,7 +79,30 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        doGet(request, response);
+       
+        int id = Validation.Validator.parseStringToInt(request.getParameter("quizId"));
+          System.out.println("id"+id);
+        HttpSession sesson = request.getSession();
+        List<Question> listq = (List<Question>) sesson.getAttribute("quizlist");
+        System.out.println("lít"+listq);
+        if(id!=0){
+          
+            if(listq!=null){
+            QuestionDAO dao= new QuestionDAOImplement();
+            int numid=dao.addListQuestTionByQuizID(id, listq);
+            if(numid>0){
+                sesson.removeAttribute("quizlist");
+            }
+            
+            QuizDAO qdao = new QuizDAOimplement();
+            Quiz quiz = qdao.getQuizById(id);
+            request.setAttribute("quizView", quiz);
+            request.setAttribute("qs", listq);
+            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+            
+        }
+        }
+        
     }
 
     /**

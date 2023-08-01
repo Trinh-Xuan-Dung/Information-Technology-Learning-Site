@@ -6,10 +6,10 @@ package DAO;
 
 import Context.DBContext;
 import Entity.Address;
-import Entity.User;
 import Entity.Users;
 import Logic.PasswordLogic;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -24,37 +24,39 @@ public class UserDAOImplement extends DBContext implements UserDAO {
 
     Connection con;
     private DBContext context = new DBContext();
+
     @Override
     public int AddNewUser(Users user) {
         int generatedId = 0;
         PasswordLogic enc = new PasswordLogic();
-        user.setPassword(enc.encodePassByBase64(user.getPassword()));
         try {
             Connection con = getConnection();
-            String sql = "INSERT INTO learning_site.users (Username, Password,Email,AddressId)"
-                    + "VALUES(?,?,?,?)";
+            String sql = "INSERT INTO users (Username,Password,FirstName,LastName,Email,Phone,AddressId)"
+                    + "VALUES(?,?,?,?,?,?,?)";
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getEmail());
-            ps.setInt(4, user.getAddressId());
-            int affectedRows = ps.executeUpdate();
+            ps.setString(2, enc.encodePassByBase64(user.getPassword()));
+            ps.setString(3, user.getFirstName());
+            ps.setString(4, user.getLastName());
+            ps.setString(5, user.getEmail());
+            ps.setString(6, user.getPhone());
+            ps.setInt(7, user.getAddressId());
 
-            if (affectedRows > 0) {
-                ResultSet generatedKeys = ps.getGeneratedKeys();
-                if (generatedKeys.next()) {
-                    generatedId = generatedKeys.getInt(1);
-                }
-            }
+            generatedId = ps.executeUpdate();
 
         } catch (Exception e) {
+            Logger.getLogger(UserDAOImplement.class.getName()).log(Level.SEVERE, null, e);
         }
         return generatedId;
     }
 
     public static void main(String[] args) {
         UserDAO dao = new UserDAOImplement();
-        Users u = dao.getUserExsit("duannv");
+//////        
+//        int i = dao.AddNewUser(new Users("longdhhe", "12345678", "Dao", "Long", "daohoanglong20002310@gmail.com", "0705846251",
+//                14));
+        Users u = dao.SignIn("longdhhe", "12345678");
+
         System.out.println(u);
 
     }
@@ -80,17 +82,20 @@ public class UserDAOImplement extends DBContext implements UserDAO {
     }
 
     @Override
-    public User SignIn(String username, String password) {
+    public Users SignIn(String username, String password) {
+        PasswordLogic enc = new PasswordLogic();
+        String password2 = enc.encodePassByBase64(password);
         try {
-            String sql = "SELECT * FROM learning_site.users Where Username = ? and Password = ?";
+            
+            String sql = "SELECT * FROM itls.users where Username = ? and Password = ?";
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
-            ps.setString(2, password);
+            ps.setString(2, password2);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User();
-                user.setID(rs.getInt(1));
+                Users user = new Users();
+                user.setId(rs.getInt(1));
                 user.setUsername(rs.getString(2));
                 user.setPassword(rs.getString(3));
                 user.setFirstName(rs.getString(4));
@@ -98,8 +103,6 @@ public class UserDAOImplement extends DBContext implements UserDAO {
                 user.setEmail(rs.getString(6));
                 user.setPhone(rs.getString(7));
                 user.setAddressId(rs.getInt(8));
-                user.setBase64Image(rs.getString(9));
-                user.setDOB(rs.getDate(10));
                 return user;
             }
 
@@ -112,14 +115,14 @@ public class UserDAOImplement extends DBContext implements UserDAO {
     @Override
     public boolean checkUserExist(String username) {
         try {
-            String sql = "SELECT * FROM learning_site.users Where Username = ?";
+            String sql = "SELECT * FROM users Where Username = ?";
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User();
-                user.setID(rs.getInt(1));
+                Users user = new Users();
+                user.setId(rs.getInt(1));
                 user.setUsername(rs.getString(2));
                 user.setPassword(rs.getString(3));
                 user.setFirstName(rs.getString(4));
@@ -127,8 +130,8 @@ public class UserDAOImplement extends DBContext implements UserDAO {
                 user.setEmail(rs.getString(6));
                 user.setPhone(rs.getString(7));
                 user.setAddressId(rs.getInt(8));
-                user.setBase64Image(rs.getString(9));
-                user.setDOB(rs.getDate(10));
+                user.setImage(rs.getBlob(9));
+                user.setDob(rs.getDate(10));
                 return true;
             }
 
@@ -143,14 +146,14 @@ public class UserDAOImplement extends DBContext implements UserDAO {
     @Override
     public String checkEmailWithUsername(String username) {
         try {
-            String sql = "SELECT * FROM learning_site.users Where Username = ?";
+            String sql = "SELECT * FROM users Where Username = ?";
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User();
-                user.setID(rs.getInt(1));
+                Users user = new Users();
+                user.setId(rs.getInt(1));
                 user.setUsername(rs.getString(2));
                 user.setPassword(rs.getString(3));
                 user.setFirstName(rs.getString(4));
@@ -158,8 +161,8 @@ public class UserDAOImplement extends DBContext implements UserDAO {
                 user.setEmail(rs.getString(6));
                 user.setPhone(rs.getString(7));
                 user.setAddressId(rs.getInt(8));
-                user.setBase64Image(rs.getString(9));
-                user.setDOB(rs.getDate(10));
+                user.setImage(rs.getBlob(9));
+                user.setDob(rs.getDate(10));
                 return user.getEmail();
             }
 
@@ -174,11 +177,12 @@ public class UserDAOImplement extends DBContext implements UserDAO {
     @Override
     public int updatePasswordByEmail(String email, String password) {
         int n = 0;
+        PasswordLogic enc = new PasswordLogic();
         try {
             String sql = "update users set password = ? where email = ?";
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, password);
+            ps.setString(1, enc.encodePassByBase64(password));
             ps.setString(2, email);
             n = ps.executeUpdate();
             return n;

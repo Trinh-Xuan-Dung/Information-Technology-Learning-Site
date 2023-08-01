@@ -4,6 +4,8 @@
  */
 package Entity;
 
+import java.sql.Blob;
+import java.sql.Date;
 import java.time.LocalDate;
 
 /**
@@ -20,13 +22,37 @@ public class Users {
     private String email;
     private String phone;
     private int addressId;
-    private byte[] image;
-    private LocalDate dob;
+    private Blob image;
+    private Date dob;
 
     public Users() {
     }
 
-    public Users(int id, String username, String password, String firstName, String lastName, String email, String phone, int addressId, byte[] image, LocalDate dob) {
+    public Users(String username, String password, String firstName, String lastName, String email, String phone, int addressId) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.addressId = addressId;
+    }
+
+    public Users(String username, String password, String firstName, String lastName, String email, String phone, int addressId, Blob image, Date dob) {
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.addressId = addressId;
+        this.image = image;
+        this.dob = dob;
+    }
+    
+    
+
+    public Users(int id, String username, String password, String firstName, String lastName, String email, String phone, int addressId, Blob image, Date dob) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -115,19 +141,19 @@ public class Users {
         this.addressId = addressId;
     }
 
-    public byte[] getImage() {
+    public Blob getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(Blob image) {
         this.image = image;
     }
 
-    public LocalDate getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 

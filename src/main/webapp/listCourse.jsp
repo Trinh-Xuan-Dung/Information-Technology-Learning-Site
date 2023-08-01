@@ -74,53 +74,8 @@
             </div>
         </div>
 
-        <nav aria-label="Page navigation" class="mt-4">
+        <nav aria-label="Page navigation" id="paginationContainer" class="mt-4">
 
-            <ul class="pagination justify-content-center">
-                <%
-                    int currentPage = (Integer) request.getAttribute("index");
-                    int TotalPage = (Integer) request.getAttribute("ViewTotalPage");
-                    int visibleRange = 6;
-                    int startPage = Math.max(currentPage - visibleRange / 2, 1);
-                    int endPage = Math.min(startPage + visibleRange - 1, TotalPage);
-                    boolean showEllipsisStart = (startPage > 2);
-                    boolean showEllipsisEnd = (endPage < TotalPage - 1);
-
-                    if (currentPage > 1) {
-                %>
-                <li class="page-item"><a class="page-link" href="listCourse?index=<%=currentPage - 1%>">Previous</a></li>
-                    <%
-                        }
-                        if (showEllipsisStart) {
-                    %>
-                <li class="page-item "><a class="page-link" href="listCourse?index=1">1</a></li>
-                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                    <%
-                        }
-                        for (int i = startPage; i <= endPage; i++) {
-                    %>
-
-                <li class="<%= i == currentPage ? "page-item active" : "page-item"%>"><a class="page-link" href="listCourse?index=<%=i%>"> <%=i%></a></li>
-                    <%
-                        }
-                        if (showEllipsisEnd) {
-                    %>
-                <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
-                <li class="page-item "><a class="page-link" href="listCourse?index=<%=TotalPage%>"><%=TotalPage%></a></li>
-                    <%
-                        }
-                        if (currentPage < TotalPage) {
-
-
-                    %>
-
-                <li class="page-item"><a class="page-link" href="listCourse?index=<%=currentPage + 1%>">Next</a></li>  
-                    <%
-                        }
-                    %>    
-
-
-            </ul>
         </nav>
 
 
@@ -128,8 +83,53 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>  
         <br>
         <div class="grid-container">
+            <script type="text/javascript">
+                let visibleRange = 6;
+                let totalPage = ${ViewTotalPage > 0 ? ViewTotalPage: null };
+                let currentPage = ${index > 0 ? index : null};
+                let startPage = Math.max(currentPage - visibleRange, 1);
+                let endPage = Math.min(startPage + visibleRange - 1, totalPage);
+
+                let showEllipsisStart = (startPage > 2);
+                let showEllipsisEnd = (endPage < totalPage - 1);
+
+                console.log(totalPage);
+                console.log(currentPage);
+                console.log(startPage + " + " + endPage + " + " + showEllipsisStart + " + " + showEllipsisEnd);
+
+                let paginationHTML = '<ul class="pagination justify-content-center">';
+
+                if (currentPage > 1) {
+                    paginationHTML += '<li class="page-item"><a class="page-link" href="listCourse?index=' + (currentPage - 1) + '">Previous</a></li>';
+                }
+
+                if (showEllipsisStart) {
+                    paginationHTML += '<li class="page-item"><a class="page-link" href="listCourse?index=1">1</a></li>';
+                    paginationHTML += '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+                }
+
+                for (var i = startPage; i <= endPage; i++) {
+                    paginationHTML += '<li class="' + (i === currentPage ? "page-item active" : "page-item") + '"><a class="page-link" href="listCourse?index=' + i + '">' + i + '</a></li>';
+                }
+
+                if (showEllipsisEnd) {
+                    paginationHTML += '<li class="page-item disabled"><a class="page-link" href="#">...</a></li>';
+                    paginationHTML += '<li class="page-item"><a class="page-link" href="listCourse?index=' + TotalPage + '">' + TotalPage + '</a></li>';
+                }
+
+                if (currentPage < totalPage) {
+                    paginationHTML += '<li class="page-item"><a class="page-link" href="listCourse?index=' + (currentPage + 1) + '">Next</a></li>';
+                }
+
+                paginationHTML += '</ul>';
 
 
+                var paginationContainer = document.getElementById("paginationContainer");
+                paginationContainer.innerHTML = paginationHTML;
+
+
+                console.log("tested finsh variable");
+            </script>    
         </div>
         <!--        <a type="button" class="btn btn-sm btn-outline-secondary" href="AddCourse">Add New Course</a>-->
         <%@include file="footer.jsp" %>
