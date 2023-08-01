@@ -170,7 +170,7 @@ public class SubjectCourseDAOimplement implements SubjectCourseDAO {
         }
         return false;
     }
-public static void main(String[] args) {
+    public static void main(String[] args) {
         SubjectCourseDAO dao = new SubjectCourseDAOimplement();
        
     }

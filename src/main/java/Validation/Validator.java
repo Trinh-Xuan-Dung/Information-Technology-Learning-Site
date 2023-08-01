@@ -35,6 +35,20 @@ public class Validator {
         return 0;
     }
 
+    public static String getIdYoutube(String youtubeLink) {
+        String idY = "";
+        if (youtubeLink.contains("youtube.com/watch?v=")) {
+            int startIndex = youtubeLink.indexOf("v=") + 2;
+            int endIndex = youtubeLink.indexOf("&");
+            if (endIndex == -1) {
+                endIndex = youtubeLink.length();
+            }
+            idY = youtubeLink.substring(startIndex, endIndex);
+        }
+
+        return idY;
+    }
+
     public static boolean checkIdIsValid(String id) {
         if (id != null) {
             id = id.trim();

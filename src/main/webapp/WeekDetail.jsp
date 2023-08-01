@@ -11,26 +11,44 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@include file="head.jsp" %>
-
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/weekDetail.css">
     </head>
-     <body>
-
-        <div class="d-flex flex-row">
-            <div class="col-4">
-                <div>
-                    <h4>${weekToView.weekTilte}</h4>
+    <body>
+        <%@include file="header.jsp" %>
+        <div class="container">
+            <h1 class="my-4">Details of the week in the course</h1>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">${weekToView.weekTilte}</h5>
                 </div>
-                <div class="col d-flex flex-row ">
-                    <a class="btn btn-primary" data-bs-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Lesson</a>
-                    <a type="button" class="btn btn-sm btn-outline-secondary" href="AddQuiz?wid=${weekToView.weekId}">View All Quiz</a>
-                    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target=".multi-collapse" aria-expanded="false" aria-controls="multiCollapseExample1 multiCollapseExample2">Assignment</button>
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Title: Course introduction and goals</h6>
+                    <p class="card-text">Description: This week will introduce the course content and the goals we want to achieve.</p>
+                    <p class="card-text">Document: <a href="#">Document week 1</a></p>
                 </div>
-
+                <div class="d-flex flex-row" style="max-width: 450px;">
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary btn-block btn-spacing text-wrap" href="listLesson?wid=${weekToView.weekId}">Lesson</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary btn-block btn-spacing text-wrap" href="createLesson?wid=${weekToView.weekId}">Create a Lesson</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary btn-block btn-spacing text-wrap" href="AddQuiz?wid=${weekToView.weekId}">View All Quiz</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary btn-block btn-spacing text-wrap" href="listAssignment?wid=${weekToView.weekId}">Assignment</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary btn-block btn-spacing text-wrap" href="formAssignment?wid=${weekToView.weekId}">Create an Assignment</a>
+                    </div>
+                </div>
             </div>
-            <div class="col-6">content of week here:contain tile of all component in week</div>
-        </div>
+
+        </div> 
+
+
 
     </body>
 </html>

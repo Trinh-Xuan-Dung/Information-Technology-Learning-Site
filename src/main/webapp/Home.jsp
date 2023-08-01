@@ -15,16 +15,20 @@
         <title>JSP Page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="css/header.css"/>
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/listCourse.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     </head>
     <body>
         
-    <%@include file="header.jsp" %>
+        <%@include file="header.jsp" %>
 
 
-        <div class="container">
+        <div class="container mt-4">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 <c:forEach var="course" items="${listCToView}">
                     <div class="col">
@@ -71,6 +75,10 @@
                         </div>
                     </div>
                 </c:forEach>
+
+            </div>
+            <div class="text-center mt-4">
+                <a class="btn btn-primary" href="listCourse?index=1">Xem thêm</a>
             </div>
         </div>
 
@@ -82,7 +90,7 @@
 
 
         </div>
-        <a type="button" class="btn btn-sm btn-outline-secondary" href="AddCourse">Add New Course</a>
-
+        <!--        <a type="button" class="btn btn-sm btn-outline-secondary" href="AddCourse">Add New Course</a>-->
+        <%@include file="footer.jsp" %>
     </body>
 </html>

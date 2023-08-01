@@ -1,0 +1,58 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Jul 3, 2023, 4:25:30 PM
+    Author     : hoanglong2310
+*/
+
+.container-fluid {
+    padding-right: 100px;
+    padding-left: 100px;
+}
+
+#navbarSupportedContent li {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#navBar {
+    background-color: #9A616D;
+}
+
+.navbar-light .navbar-brand {
+    padding-right: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar-light .navbar-brand:hover {
+    color: rgba(228, 228, 228, 0.9);
+}
+
+.nav-item.active {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.nav-item:hover {
+    color: rgba(228, 228, 228, 0.9);
+}
+
+.sign {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.sign:hover {
+    color: rgba(228, 228, 228, 0.9);
+}
+
+#seacrh {
+    border-color: white;
+    color: white;
+}
+
+#seacrh:hover {
+    color: black;
+    background-color: rgb(255, 255, 255);
+}

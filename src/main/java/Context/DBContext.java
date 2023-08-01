@@ -26,17 +26,17 @@ public class DBContext {
             url = "jdbc:mysql://" + serverName + ":" + portNumber + "/" + dbName;
         }
         Class.forName("com.mysql.cj.jdbc.Driver");
-       // connection = DriverManager.getConnection(url, userID, password);
+        // connection = DriverManager.getConnection(url, userID, password);
         return DriverManager.getConnection(url, userID, password);
     }
     /*Insert your other code right after this comment*/
  /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
     private final String serverName = "localhost";
-    private final String dbName = "learning_site";
+    private final String dbName = "itls";
     private final String portNumber = "3306";
     private final String instance = "";//LEAVE THIS ONE EMPTY IF YOUR SQL IS A SINGLE INSTANCE
     private final String userID = "root";
-    private final String password = "12345678";
+    private final String password = "Long123@long";
 
     public ResultSet getDataByRawSQL(String sql) {
         ResultSet rs = null;
@@ -50,6 +50,8 @@ public class DBContext {
         }
         return rs;
     }
+    public static void main(String[] args) throws Exception {
+        System.out.println(new DBContext().getConnection());
+    }
 
 }
-

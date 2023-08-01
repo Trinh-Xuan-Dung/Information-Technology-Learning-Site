@@ -28,9 +28,34 @@
         <servlet-name>UpdateCourseController</servlet-name>
         <servlet-class>Controller.UpdateCourseController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>Controller.LoginController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogOutController</servlet-name>
+        <servlet-class>Controller.LogOutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>forgotPasswordController</servlet-name>
+        <servlet-class>Controller.forgotPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ValidateOtpController</servlet-name>
+        <servlet-class>Controller.ValidateOtpController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewPasswordController</servlet-name>
+        <servlet-class>Controller.NewPasswordController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileController</servlet-name>
+        <servlet-class>Controller.ProfileController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/HomeController</url-pattern>
+        <url-pattern/>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AddCourse</servlet-name>
@@ -55,6 +80,30 @@
     <servlet-mapping>
         <servlet-name>UpdateCourseController</servlet-name>
         <url-pattern>/UpdateCourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/LoginController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOutController</servlet-name>
+        <url-pattern>/LogOutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>forgotPasswordController</servlet-name>
+        <url-pattern>/forgotPasswordController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidateOtpController</servlet-name>
+        <url-pattern>/ValidateOtpController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewPasswordController</servlet-name>
+        <url-pattern>/NewPasswordController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileController</servlet-name>
+        <url-pattern>/ProfileController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

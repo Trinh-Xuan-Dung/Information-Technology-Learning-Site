@@ -4,11 +4,13 @@
  */
 package Controller;
 
+import DAO.QuestionDAO;
+import DAO.QuestionDAOImplement;
 import DAO.QuizDAO;
 import DAO.QuizDAOimplement;
 import Entity.Question;
 import Entity.Quiz;
-import ImportQuest.GetListToImportQuest;
+import Logic.GetListToImportQuest;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +26,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -71,11 +74,23 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.removeAttribute("quizlist");
         String qidString = request.getParameter("qid");
         int id = Validation.Validator.parseValidId(qidString);
         if (id != 0) {
             QuizDAO dao = new QuizDAOimplement();
+            QuestionDAO qdao = new QuestionDAOImplement();
+            List<Question> listq = qdao.getAllQuestInQuizbyQizID(id);
             Quiz quiz = dao.getQuizById(id);
+
+            if (listq.size() == 0) {
+
+                request.removeAttribute("qs");
+            } else {
+                request.setAttribute("qs", listq);
+            }
+
             request.setAttribute("quizView", quiz);
             request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
         }
@@ -93,22 +108,30 @@ public class QuizDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-            int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
-            System.out.println(quizId);
-            Part part = request.getPart("file");
-            System.out.println(part);
-            GetListToImportQuest ip = new GetListToImportQuest();
-            List<Question> questions = ip.processFile(part, quizId);
-            for (Question question : questions) {
-                System.out.println(question);
-                System.out.println(quizId);
+        HttpSession session = request.getSession();
+        session.removeAttribute("quizlist");
+        int quizId = Validation.Validator.parseValidId(request.getParameter("quizId"));
+        System.out.println(quizId);
+        Part part = null;
+        part=request.getPart("file");
+        //  System.out.println(part);
+        GetListToImportQuest ip = new GetListToImportQuest();
+        List<Question> questions = ip.processFile(part, quizId);
+//            for (Question question : questions) {
+//                System.out.println(question);
+//                System.out.println(quizId);
+//
+//            }
+        if (questions != null) {
 
-            }
-            request.setAttribute("qs", questions);
-            request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
+            session.setAttribute("quizlist", questions);
+        }
+        QuizDAO dao = new QuizDAOimplement();
+        Quiz quiz = dao.getQuizById(quizId);
+        request.setAttribute("quizView", quiz);
+        request.setAttribute("qs", questions);
+        request.getRequestDispatcher("/QuizDetail.jsp").forward(request, response);
 
-       
     }
 
     /**

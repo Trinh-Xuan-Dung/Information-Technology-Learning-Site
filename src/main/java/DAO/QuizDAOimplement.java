@@ -50,7 +50,7 @@ public class QuizDAOimplement implements QuizDAO {
     }
     public static void main(String[] args) {
         QuizDAO dao = new QuizDAOimplement();
-        int id = dao.AddnewQuiz(new Quiz(0,"15", "15",30,1));
+        int id = dao.AddnewQuiz(new Quiz(0,"151", "151",30,1));
         Quiz q = dao.getQuizById(1);
         System.out.println(q);
     }

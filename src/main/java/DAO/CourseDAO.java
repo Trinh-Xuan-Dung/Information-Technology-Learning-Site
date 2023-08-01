@@ -5,6 +5,7 @@
 package DAO;
 
 import Entity.Course;
+//import Entity.CourseEnrollment;
 import java.util.List;
 
 /**
@@ -18,6 +19,9 @@ public interface CourseDAO {
     public boolean UpdateCourseById(Course course);
     public List<Course> getAllCourseJoin();
     public List<Course> getAllCourseJoin1();
-     public Course getCourseJoin(int courseId);
-    
+    public Course getCourseJoin(int courseId);
+    public List<Course> getPagingCourse(int index);
+    public int getTotalCourse();
+    public int enrollCourse(int user, int courseId, String enrollmentDate);
+//    public CourseEnrollment checkenroll(int user, int courseId);
 }
