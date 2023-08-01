@@ -177,11 +177,12 @@ public class UserDAOImplement extends DBContext implements UserDAO {
     @Override
     public int updatePasswordByEmail(String email, String password) {
         int n = 0;
+        PasswordLogic enc = new PasswordLogic();
         try {
             String sql = "update users set password = ? where email = ?";
             Connection con = context.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, password);
+            ps.setString(1, enc.encodePassByBase64(password));
             ps.setString(2, email);
             n = ps.executeUpdate();
             return n;
