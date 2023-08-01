@@ -6,8 +6,12 @@ package Controller;
 
 import DAO.AssignmentDAO;
 import DAO.AssignmentDAOimplement;
+
 import Entity.Assignment;
 import Entity.Users;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -152,14 +156,25 @@ public class AssignmentController extends HttpServlet {
 
     private void listAssignment(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String raw_weekId = request.getParameter("wid");
-
+        String jsonString;
+        ObjectMapper objectMapper = new ObjectMapper();
+        
         int weekId = Validation.Validator.parseValidId(raw_weekId);
         AssignmentDAO dao = new AssignmentDAOimplement();
         if (weekId != 0) {
-            List<Assignment> assignmentList = new ArrayList<>();
+             List<Assignment> assignmentList = new ArrayList<>();
             assignmentList = dao.getAllAssignmentsbyWeek(weekId);
-            request.setAttribute("assignments", assignmentList);
             
+            try {
+                jsonString = objectMapper.writeValueAsString(assignmentList);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+                jsonString = "[]"; // Or a default value in case of error.
+            }
+
+           
+            request.setAttribute("assignments", jsonString);
+
             request.getRequestDispatcher("ListAssigment.jsp").forward(request, response);
         } else {
             String errorMessage = "An error occurred Assignment.";
