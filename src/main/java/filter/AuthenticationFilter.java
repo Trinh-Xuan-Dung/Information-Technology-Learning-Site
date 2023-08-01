@@ -1,6 +1,6 @@
 package filter;
 
-import Entity.User;
+import Entity.Users;
 import Utils.SessionUtils;
 
 import javax.servlet.*;
@@ -27,7 +27,7 @@ public class AuthenticationFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
         String url = request.getRequestURI();
         if (url.startsWith(request.getContextPath() + "/Profile")) {
-            User user = (User) SessionUtils.getInstance().getValue(request, "user");
+            Users user = (Users) SessionUtils.getInstance().getValue(request, "user");
             if (user != null) {
                 filterChain.doFilter(servletRequest, servletResponse);
             } else {

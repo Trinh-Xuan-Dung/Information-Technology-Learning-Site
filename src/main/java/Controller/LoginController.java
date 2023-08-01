@@ -6,7 +6,7 @@ package Controller;
 
 import DAO.UserDAO;
 import DAO.UserDAOImplement;
-import Entity.User;
+import Entity.Users;
 import Utils.SessionUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -103,7 +103,7 @@ public class LoginController extends HttpServlet {
         String remember = request.getParameter("remember");
         UserDAO userDao = new UserDAOImplement();
         if (userDao.checkUserExist(username) == true) {
-            User user = userDao.SignIn(username, password);
+            Users user = userDao.SignIn(username, password);
             if (user != null) {
                 SessionUtils.getInstance().putValue(request, "user", user);
                 Cookie cUsername = new Cookie("username", username);

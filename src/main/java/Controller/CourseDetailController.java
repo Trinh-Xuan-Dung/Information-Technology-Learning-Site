@@ -10,7 +10,7 @@ import DAO.ModuleDAO;
 import DAO.ModuleDAOimplement;
 import Entity.Course;
 import Entity.Module;
-import Entity.User;
+import Entity.Users;
 import Utils.SessionUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -68,7 +68,7 @@ public class CourseDetailController extends HttpServlet {
       String stringId=  request.getParameter("id");
       if (stringId != null) {
             try {
-                User user = (User) SessionUtils.getInstance().getValue(request, "user");
+                Users user = (Users) SessionUtils.getInstance().getValue(request, "user");
                 int courseId = Integer.parseInt(stringId);
                 CourseDAO dao= new CourseDAOimplement();
                 Course course= dao.getCourseJoin(courseId);

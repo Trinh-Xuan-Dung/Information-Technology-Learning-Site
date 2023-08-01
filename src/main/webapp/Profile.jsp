@@ -54,8 +54,8 @@
                                 <li style="list-style: none;padding-bottom: 10px;  "><span class="pr">${sessionScope.user.firstName} ${sessionScope.user.lastName}</span></li>
                                 <li style="list-style: none;padding-bottom: 10px;  "><span class="pr">${sessionScope.user.email}</span></li>
                                 <li style="list-style: none;padding-bottom: 10px;  "><span class="pr">${sessionScope.user.phone}</span></li>
-                                <li style="list-style: none; padding-bottom: 10px; "><span class="pr">${sessionScope.user.DOB}</span></li>
-                                <li style="list-style: none; padding-bottom: 10px; "><span class="pr">${sessionScope.user.DOB}</span></li>
+                                <li style="list-style: none; padding-bottom: 10px; "><span class="pr">${sessionScope.user.dob}</span></li>
+                                <li style="list-style: none; padding-bottom: 10px; "><span class="pr">${sessionScope.user.dob}</span></li>
 
                             </div>
                         </div>
@@ -67,5 +67,6 @@
                 </div>
             </div>
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>  
     </body>
 </html>
