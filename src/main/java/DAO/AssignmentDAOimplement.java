@@ -86,9 +86,7 @@ public class AssignmentDAOimplement implements AssignmentDAO {
         }
 
         return assignmentList;
-        Assignment a = new Assignment(1, "java", "object",1);
         //System.out.println("reuslt: " + dao.addNewAssignment(a)); 
-        System.out.println("reuslt1: " + dao.getAssignment(1,1)); 
     }
 
     @Override

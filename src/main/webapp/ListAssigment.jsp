@@ -41,21 +41,41 @@
 
 
 
-            
+
             function generateAssignmentList() {
                 const assignmentList = document.getElementById("assignmentList");
-
+                const wid = ${wid != null ? wid : 0 };
                 raw_assignments.forEach((assignment) => {
                     const listItem = document.createElement("li");
                     listItem.classList.add("list-group-item");
-                    console.log(assignment.assignmentTitle, assignment.description);
+
+
+                    // Create the button for assignment title
                     const button = document.createElement("button");
                     button.classList.add("font-weight-bold");
                     button.innerText = assignment.assignmentTitle;
                     button.addEventListener("click", () => showDescription(assignment.assignmentTitle, assignment.description));
 
+                    // Append the button to the list item
                     listItem.appendChild(button);
+
+                    // Append the list item to the assignmentList
                     assignmentList.appendChild(listItem);
+                    
+                    
+                    // Create the anchor element for the icon
+                    const iconLink = document.createElement("a");
+                    iconLink.href = "${pageContext.request.contextPath}/UpdateAssignment?weekId="+ wid +"&assignmentId="+assignment.assignmentId; // Replace "#" with the appropriate link for the "update" action
+
+                    // Create the icon element and add necessary classes
+                    const icon = document.createElement("i");
+                    icon.classList.add("fas", "fa-pencil-alt", "mr-2"); // Assuming "fa-pencil-alt" is the class for the "update" icon in Font Awesome
+
+                    // Append the icon to the anchor element
+                    iconLink.appendChild(icon);
+
+                    // Append the anchor element to the list item
+                    listItem.appendChild(iconLink);
                 });
             }
 

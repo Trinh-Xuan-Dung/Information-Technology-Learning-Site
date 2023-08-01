@@ -172,7 +172,7 @@ public class AssignmentController extends HttpServlet {
                 jsonString = "[]"; // Or a default value in case of error.
             }
 
-           
+            request.setAttribute("wid", weekId);
             request.setAttribute("assignments", jsonString);
 
             request.getRequestDispatcher("ListAssigment.jsp").forward(request, response);
