@@ -4,8 +4,15 @@
  */
 package Controller;
 
+import DAO.QuestionDAO;
+import DAO.QuestionDAOImplement;
+import DAO.QuizDAO;
+import DAO.QuizDAOimplement;
+import Entity.Question;
+import Entity.Quiz;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,7 +43,7 @@ public class AdminUpdateQestController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet AdminUpdateQestController</title>");            
+            out.println("<title>Servlet AdminUpdateQestController</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet AdminUpdateQestController at " + request.getContextPath() + "</h1>");
@@ -57,7 +64,14 @@ public class AdminUpdateQestController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String stringId = request.getParameter("wid");
+        QuizDAO dao = new QuizDAOimplement();
+        int id = Validation.Validator.parseValidId(stringId);
+        List<Quiz> quizs = dao.getAllQuizbyWeekId(id);
+        request.setAttribute("quizs", quizs);
+        request.setAttribute("wid", stringId);
+        request.getRequestDispatcher("AdminAddQuiz.jsp").forward(request, response);
+
     }
 
     /**
@@ -72,12 +86,12 @@ public class AdminUpdateQestController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String action = request.getServletPath();
-         switch (action) {
+        switch (action) {
             case "/addQuestion":
-                
+
                 break;
             case "/postQuizdetail":
-              
+
                 break;
         }
     }
