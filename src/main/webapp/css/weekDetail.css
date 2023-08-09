@@ -8,6 +8,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 .stretched-link {
+<<<<<<< HEAD
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.btn-spacing {
+  margin-right: 10px;
+}
+
+.text-wrap {
+  white-space: normal;
+=======
     display: block;
     width: 100%;
     height: 100%;
@@ -23,10 +36,19 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .text-wrap {
     white-space: normal;
 
+>>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
 }
 
 .card-body {
     max-width: 400px; /* Adjust the value as per your desired width */
+<<<<<<< HEAD
+    margin: 0 auto; /* To center the card-body within its container */
+}
+
+.card {
+    max-width: 400px; /* Adjust the value as per your desired width for the card */
+    margin: 0 auto; /* To center the card within its container */
+=======
     margin-left: 0; /* To center the card-body within its container */
 }
 
@@ -37,4 +59,5 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .col-4.m-2 {
     margin-right: 53px!important; /* Adjust the spacing as needed */
+>>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
 }

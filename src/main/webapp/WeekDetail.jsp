@@ -27,6 +27,23 @@
                     <p class="card-text">Description: This week will introduce the course content and the goals we want to achieve.</p>
                     <p class="card-text">Document: <a href="#">Document week 1</a></p>
                 </div>
+<<<<<<< HEAD
+                <div class="d-flex flex-row" style="max-width: 600px;">
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary stretched-link btn-spacing text-wrap" href="listLesson?wid=${weekToView.weekId}">Lesson</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary stretched-link btn-spacing text-wrap" href="createLesson?wid=${weekToView.weekId}">Create a Lesson</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-sm btn-outline-secondary stretched-link btn-spacing text-wrap" href="AddQuiz?wid=${weekToView.weekId}">View All Quiz</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary stretched-link btn-spacing text-wrap" href="listAssignment?wid=${weekToView.weekId}">Assignment</a>
+                    </div>
+                    <div class="col-4 m-2">
+                        <a class="btn btn-primary stretched-link btn-spacing text-wrap" href="formAssignment?wid=${weekToView.weekId}">Create an Assignment</a>
+=======
                 <div class="d-flex flex-row" style="max-width: 450px;">
                     <div class="col-4 m-2">
                         <a class="btn btn-primary btn-block btn-spacing text-wrap" href="listLesson?wid=${weekToView.weekId}">Lesson</a>
@@ -42,6 +59,7 @@
                     </div>
                     <div class="col-4 m-2">
                         <a class="btn btn-primary btn-block btn-spacing text-wrap" href="formAssignment?wid=${weekToView.weekId}">Create an Assignment</a>
+>>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
                     </div>
                 </div>
             </div>
