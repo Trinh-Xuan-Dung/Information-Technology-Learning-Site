@@ -19,7 +19,7 @@
                 <!-- Left column to display Assignment Titles -->
                 <div class="col-md-4">
                     <h1 class="mb-4">Assignments</h1>
-<<<<<<< HEAD
+
                     <ul class="list-group">
                         <c:forEach var="assignment" items="${assignments}">
                             <li class="list-group-item">
@@ -29,10 +29,9 @@
                                 </button>
                             </li>
                         </c:forEach>
-=======
+
                     <ul class="list-group" id="assignmentList">
 
->>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
                     </ul>
                 </div>
 
@@ -47,11 +46,10 @@
 
 
         <script>
-<<<<<<< HEAD
             function showDescription(title, description) {
                 document.getElementById("description").innerText = description;
             }
-=======
+
             var raw_assignments = ${assignments};
 
             // Iterate over the "assignments" collection on the server-side
@@ -84,7 +82,6 @@
 
             // Call the function to generate the assignment list on page load
             generateAssignmentList();
->>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
         </script>
 
         <%@include file="footer.jsp" %>
