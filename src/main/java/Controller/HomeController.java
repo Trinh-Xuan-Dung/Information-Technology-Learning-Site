@@ -39,6 +39,7 @@ public class HomeController extends HttpServlet {
         list=dao.getPagingCourse(defaultPage);
           
        
+
         request.setAttribute("listCToView", list);
         request.getRequestDispatcher("Home.jsp").forward(request, response);
     }
