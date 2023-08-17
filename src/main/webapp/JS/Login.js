@@ -13,8 +13,6 @@ function validateForm() {
     var passwordError = document.getElementById("passwordError");
     
     var passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,}$/;
-    
-    
     if (!passwordRegex.test(password)) {
         passwordBorder.style.borderBottom = "1px solid red";
         passwordError.innerHTML = "Password: At least 8 characters long</br>At least 1 special character</br>At least 1 uppercase character.";

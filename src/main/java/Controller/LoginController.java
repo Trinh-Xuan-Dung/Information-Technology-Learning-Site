@@ -10,6 +10,7 @@ import Entity.Users;
 import Utils.SessionUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -102,34 +103,46 @@ public class LoginController extends HttpServlet {
         String password = request.getParameter("password");
         String remember = request.getParameter("remember");
         UserDAO userDao = new UserDAOImplement();
-        if (userDao.checkUserExist(username) == true) {
-            Users user = userDao.SignIn(username, password);
-            if (user != null) {
-                SessionUtils.getInstance().putValue(request, "user", user);
-                Cookie cUsername = new Cookie("username", username);
-                Cookie cPassword = new Cookie("password", password);
-                Cookie cRemember = new Cookie("remember", remember);
-                if (remember != null) {
-                    cUsername.setMaxAge(60 * 60);
-                    cPassword.setMaxAge(60 * 60);
-                    cRemember.setMaxAge(60 * 60);
+//        if(username.matches("^(?=.{8,255}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$") == false){
+//            request.setAttribute("MESSAGE", "Username 8-255 characters and no special characters!");
+//            request.getRequestDispatcher("Login.jsp").forward(request, response);
+//        }
+        if (username == null || username.equals("")) {
+            request.setAttribute("MESSAGE", "Please enter a username!");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        } else if (password == null || password.equals("")) {
+            request.setAttribute("MESSAGE", "Please enter a password!");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        } else {
+            if (userDao.checkUserExist(username) == true) {
+                Users user = userDao.SignIn(username, password);
+                if (user != null) {
+                    SessionUtils.getInstance().putValue(request, "user", user);
+                    Cookie cUsername = new Cookie("username", username);
+                    Cookie cPassword = new Cookie("password", password);
+                    Cookie cRemember = new Cookie("remember", remember);
+                    if (remember != null) {
+                        cUsername.setMaxAge(60 * 60);
+                        cPassword.setMaxAge(60 * 60);
+                        cRemember.setMaxAge(60 * 60);
+                    } else {
+                        cUsername.setMaxAge(0);
+                        cPassword.setMaxAge(0);
+                        cRemember.setMaxAge(0);
+                    }
+                    response.addCookie(cUsername);
+                    response.addCookie(cPassword);
+                    response.addCookie(cRemember);
+                    response.sendRedirect(request.getContextPath() + "/HomeController");
+                    //check roles
                 } else {
-                    cUsername.setMaxAge(0);
-                    cPassword.setMaxAge(0);
-                    cRemember.setMaxAge(0);
+                    request.setAttribute("MESSAGE", "Username or password is incorrect!");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
                 }
-                response.addCookie(cUsername);
-                response.addCookie(cPassword);
-                response.addCookie(cRemember);
-                response.sendRedirect(request.getContextPath() + "/HomeController");
-                //check roles
             } else {
-                request.setAttribute("MESSAGE", "Username or password is incorrect!");
+                request.setAttribute("MESSAGE", "Username is not registered!");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
-        } else {
-            request.setAttribute("MESSAGE", "Username is not registered!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
         }
 
     }
