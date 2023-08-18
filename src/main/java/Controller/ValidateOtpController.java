@@ -75,19 +75,24 @@ public class ValidateOtpController extends HttpServlet {
             request.setAttribute("message", "OTP cannot be left blank!");
             request.getRequestDispatcher("EnterOtp.jsp").forward(request, response);
         } else {
-            int pasreValueInt = Integer.parseInt(getValue);
-            HttpSession session = request.getSession();
-            int otp = (int) session.getAttribute("otp");
-            if (pasreValueInt == otp) {
-                request.setAttribute("email", request.getParameter("email"));
-                request.setAttribute("status", "success");
-                request.getRequestDispatcher("NewPassword.jsp").forward(request, response);
+            if (getValue.matches("[0-9]*") == true) {
+                int pasreValueInt = Integer.parseInt(getValue);
+                HttpSession session = request.getSession();
+                int otp = (int) session.getAttribute("otp");
+                if (pasreValueInt == otp) {
+                    request.setAttribute("email", request.getParameter("email"));
+                    request.setAttribute("status", "success");
+                    request.getRequestDispatcher("NewPassword.jsp").forward(request, response);
 
+                } else {
+                    request.setAttribute("message", "Wrong otp");
+                    request.getRequestDispatcher("EnterOtp.jsp").forward(request, response);
+                }
             } else {
-                request.setAttribute("message", "Wrong otp");
+                request.setAttribute("message", "OTP code in numeric form!");
                 request.getRequestDispatcher("EnterOtp.jsp").forward(request, response);
-
             }
+
         }
 
     }
