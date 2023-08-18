@@ -70,18 +70,24 @@ public class ValidateOtpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int value = Integer.parseInt(request.getParameter("otp"));
-        HttpSession session = request.getSession();
-        int otp = (int) session.getAttribute("otp");
-        if (value == otp) {
-            request.setAttribute("email", request.getParameter("email"));
-            request.setAttribute("status", "success");
-            request.getRequestDispatcher("NewPassword.jsp").forward(request, response);
-
-        } else {
-            request.setAttribute("message", "wrong otp");
+        String getValue = request.getParameter("otp");
+        if (getValue == null || getValue.equals("")) {
+            request.setAttribute("message", "OTP cannot be left blank!");
             request.getRequestDispatcher("EnterOtp.jsp").forward(request, response);
+        } else {
+            int pasreValueInt = Integer.parseInt(getValue);
+            HttpSession session = request.getSession();
+            int otp = (int) session.getAttribute("otp");
+            if (pasreValueInt == otp) {
+                request.setAttribute("email", request.getParameter("email"));
+                request.setAttribute("status", "success");
+                request.getRequestDispatcher("NewPassword.jsp").forward(request, response);
 
+            } else {
+                request.setAttribute("message", "Wrong otp");
+                request.getRequestDispatcher("EnterOtp.jsp").forward(request, response);
+
+            }
         }
 
     }
