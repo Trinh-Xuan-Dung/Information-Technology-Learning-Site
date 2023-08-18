@@ -20,9 +20,12 @@
         <script type='text/javascript'
         src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
         <style>
-            .placeicon {
-                font-family: fontawesome
+            body{
+                background-color: #9A616D;
             }
+/*            .placeicon {
+                font-family: fontawesome
+            }*/
 
             .custom-control-label::before {
                 background-color: #dee2e6;
@@ -30,7 +33,7 @@
             }
         </style>
     </head>
-    <body oncontextmenu='return false' class='snippet-body bg-info'>
+    <body>
         <link rel="stylesheet"
               href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.css">
         <div>
@@ -51,7 +54,7 @@
                                     <!-- User Name Input -->
                                     <div class="form-group row justify-content-center px-3">
                                         <div class="col-9 px-0">
-                                            <input type="password" name="password" placeholder="&#xf084; &nbsp; New Password"
+                                            <input type="password" name="password" placeholder=" &nbsp; New Password"
                                                    class="form-control border-info placeicon">
                                         </div>
                                     </div>
@@ -59,7 +62,7 @@
                                     <div class="form-group row justify-content-center px-3">
                                         <div class="col-9 px-0">
                                             <input type="password" name="confPassword"
-                                                   placeholder="&#xf084; &nbsp; Confirm New Password"
+                                                   placeholder=" &nbsp; Confirm New Password"
                                                    class="form-control border-info placeicon">
                                         </div>
                                     </div>
@@ -67,7 +70,7 @@
                                     <!-- Log in Button -->
                                     <div class="form-group row justify-content-center">
                                         <div class="col-3 px-3 mt-3">
-                                            <input type="submit" value="Reset"
+                                            <input style="background-color: #9A616D" type="submit" value="Save change"
                                                    class="btn btn-block btn-info">
                                         </div>
                                     </div>
@@ -77,7 +80,7 @@
                             <div class="mx-0 px-0 bg-light">
 
                                 <!-- Horizontal Line -->
-                                <div class="px-4 pt-5">
+                                <div class="px-4">
                                     <hr>
                                 </div>
                                 <!-- Register Now -->
@@ -89,7 +92,7 @@
                                         </h5>
                                     </div>
                                     <div
-                                        class="row justify-content-center align-items-center pt-4 pb-5">
+                                        class="row justify-content-center align-items-center pt-4 pb-2">
                                         <div class="col-4">
 
                                         </div>
