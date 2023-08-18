@@ -191,8 +191,5 @@ public class UserDAOImplement extends DBContext implements UserDAO {
         }
         return n;
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
+

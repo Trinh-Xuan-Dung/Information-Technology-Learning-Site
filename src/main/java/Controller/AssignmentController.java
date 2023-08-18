@@ -163,16 +163,15 @@ public class AssignmentController extends HttpServlet {
         AssignmentDAO dao = new AssignmentDAOimplement();
         if (weekId != 0) {
             List<Assignment> assignmentList = new ArrayList<>();
-            assignmentList = dao.getAllAssignmentsbyWeek(weekId);
+            
             request.setAttribute("assignments", assignmentList);
 
             String jsonString;
             ObjectMapper objectMapper = new ObjectMapper();
 
-            int weekId = Validation.Validator.parseValidId(raw_weekId);
-            AssignmentDAO dao = new AssignmentDAOimplement();
+//            int weekId = Validation.Validator.parseValidId(raw_weekId);
+//            AssignmentDAO dao = new AssignmentDAOimplement();
             if (weekId != 0) {
-                List<Assignment> assignmentList = new ArrayList<>();
                 assignmentList = dao.getAllAssignmentsbyWeek(weekId);
 
                 try {
@@ -192,4 +191,4 @@ public class AssignmentController extends HttpServlet {
             }
         }
 
-    }
+    }}
