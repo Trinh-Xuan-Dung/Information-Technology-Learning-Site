@@ -42,7 +42,7 @@
                             <form method="post" action="LoginController" class="register-form"
                                   id="login-form">
                                 <div class="form-group">
-                                    <span style="color: red" id="message">${MESSAGE}</span>
+                                    <span style="color: red">${MESSAGE}</span>
                                     <!--<span style="color: red; font-size: 11px; margin-top: 50px" id="passwordError" class="error"></span>-->
                                 </div>
                                 <div class="form-group">
