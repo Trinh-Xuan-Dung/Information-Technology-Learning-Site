@@ -8,11 +8,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!DOCTYPE html>
 <html>
     <head>
-<<<<<<< HEAD
-        <title>Register to join with ús</title>
-=======
         <title>Register to join with ï¿½s</title>
->>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
@@ -30,11 +26,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <body>
         <!-- main -->
         <div class="main-w3layouts wrapper">
-<<<<<<< HEAD
-            <h1>Register to join with ús</h1>
-=======
             <h1>Register to join with ï¿½s</h1>
->>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
             <div class="main-agileinfo">
                 <div class="agileits-top">
                     <c:if test="${Message!=null}" >
@@ -62,11 +54,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </div>
             <!-- copyright -->
             <div class="colorlibcopy-agile">
-<<<<<<< HEAD
-                <p>© 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
-=======
                 <p>ï¿½ 2018 Colorlib Signup Form. All rights reserved | Design by <a href="https://colorlib.com/" target="_blank">Colorlib</a></p>
->>>>>>> 9c32c3b3c6ded14ecfb5cf10e9db4dab998e9424
             </div>
             <!-- //copyright -->
             <ul class="colorlib-bubbles">
