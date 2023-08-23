@@ -20,9 +20,9 @@
         <script type='text/javascript'
         src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
         <style>
-/*            .placeicon {
+            .placeicon {
                 font-family: fontawesome
-            }*/
+            }
 
             .custom-control-label::before {
                 background-color: #dee2e6;
@@ -67,7 +67,7 @@
                                     <!-- Log in Button -->
                                     <div class="form-group row justify-content-center">
                                         <div class="col-3 px-3 mt-3">
-                                            <input type="submit" value="Save change"
+                                            <input type="submit" value="Reset"
                                                    class="btn btn-block btn-info">
                                         </div>
                                     </div>
